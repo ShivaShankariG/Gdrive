@@ -26,8 +26,12 @@
 .App-intro {
   font-size: large;
 }
-
-
+.newbutton {
+  color: #fff  !important;
+}
+.dropbutton{
+  color: #212121  !important;
+}
 .navbar{
   background-color: #fff !important;
   height: 100px;
@@ -39,6 +43,7 @@
 }
 .navbarleftdiv ul{
   list-style-type: none !important;
+  display: flex;
   margin-top: -10px ;
   margin-left: 10px;
   font-size: 14px !important;
