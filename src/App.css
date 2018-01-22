@@ -32,6 +32,7 @@
 .dropbutton{
   color: #212121  !important;
  
+ 
 
 }
 .navbar{
@@ -45,7 +46,7 @@
 .navbarleftdiv {
  
   display: flex;
-  justify-content: flex-start;
+ 
 
   
 }
@@ -102,4 +103,7 @@
   width: 175px;
   margin-left: 20px;
   margin-top: 10px;
+}
+.menu{
+text-align: start;
 }

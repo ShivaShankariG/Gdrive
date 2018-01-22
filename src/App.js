@@ -5,6 +5,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import TopMenu from './TopMenu.js';
 
 
+import MenuExampleNested from './MenuExampleNested';
+
 class App extends Component {
   render() {
     return (
