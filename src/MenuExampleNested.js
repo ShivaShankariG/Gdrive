@@ -24,71 +24,46 @@ const MenuExampleNested = () => (
       <Menu desktop={true} width={320} className="menu">
         <MenuItem primaryText="New Folder.."  leftIcon={<CFolderIcon/>}/>
         <Divider />
+
         <MenuItem primaryText="Upliad Files.." leftIcon={<UFileIcon/>} />
         <MenuItem primaryText="Upload Folder" leftIcon={<FolderIcon/>} />
         <Divider />
+
         <MenuItem
           primaryText="Google Docs"
           leftIcon={<img src={GdocsIcon} alt="googleDocs" />}
           rightIcon={<ArrowDropRight />}
           menuItems={[
-            <MenuItem
-              primaryText="Show"
-              rightIcon={<ArrowDropRight />}
-              menuItems={[
-                <MenuItem primaryText="Show Level 2" />,
-                <MenuItem primaryText="Grid lines" checked={true} />,
-                <MenuItem primaryText="Page breaks" insetChildren={true} />,
-                <MenuItem primaryText="Rules" checked={true} />,
-              ]}
-            />,
-            <MenuItem primaryText="Grid lines" checked={true} />,
-            <MenuItem primaryText="Page breaks" insetChildren={true} />,
-            <MenuItem primaryText="Rules" checked={true} />,
+            <MenuItem primaryText="Blank document"/>,
+            <MenuItem primaryText="Form a template"/>,
+            
           ]}
         />
       
       <MenuItem
           primaryText="Google Sheets"
-          leftIcon={<img src={GSheetsIcon} alt="googleSheets" />}
-          rightIcon={<ArrowDropRight />}
+          leftIcon={<img src={GSheetsIcon} alt="gSheets" />}
+         rightIcon={<ArrowDropRight />}
           menuItems={[
-            <MenuItem
-              primaryText="Show"
-              rightIcon={<ArrowDropRight />}
-              menuItems={[
-                <MenuItem primaryText="Show Level 2" />,
-                <MenuItem primaryText="Grid lines" checked={true} />,
-                <MenuItem primaryText="Page breaks" insetChildren={true} />,
-                <MenuItem primaryText="Rules" checked={true} />,
-              ]}
-            />,
-            <MenuItem primaryText="Grid lines" checked={true} />,
-            <MenuItem primaryText="Page breaks" insetChildren={true} />,
-            <MenuItem primaryText="Rules" checked={true} />,
+            <MenuItem primaryText="Blank spread sheet"/>,
+            <MenuItem primaryText="Form a template"/>,
+            
           ]}
         />
+        
 
 <MenuItem
           primaryText="Google Slides"
           leftIcon={<img src={GSlidesIcon} alt="googleSheets" />}
+        
           rightIcon={<ArrowDropRight />}
           menuItems={[
-            <MenuItem
-              primaryText="Show"
-              rightIcon={<ArrowDropRight />}
-              menuItems={[
-                <MenuItem primaryText="Show Level 2" />,
-                <MenuItem primaryText="Grid lines" checked={true} />,
-                <MenuItem primaryText="Page breaks" insetChildren={true} />,
-                <MenuItem primaryText="Rules" checked={true} />,
+            <MenuItem primaryText="Blank presentation"/>,
+            <MenuItem primaryText="Form a template"/>,
               ]}
-            />,
-            <MenuItem primaryText="Grid lines" checked={true} />,
-            <MenuItem primaryText="Page breaks" insetChildren={true} />,
-            <MenuItem primaryText="Rules" checked={true} />,
-          ]}
-        />
+            />
+            
+         
       </Menu>
     </Paper>
   </div>
