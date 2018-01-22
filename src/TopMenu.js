@@ -68,9 +68,9 @@ export default class TopMenu extends React.Component {
   handleLogoClick = () => {
     alert("logo clicked");
     const text = {
-        hvName: "vij1",
-        hvPwd: "sankar",
-        hvCpwd: "sankar"
+        hvName: "vijay12New",
+        hvPwd: "sankarXYZ",
+        hvCpwd: "sankarXYZ"
     }
     alert(text);
     checkLogin(text);
