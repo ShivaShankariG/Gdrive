@@ -1,7 +1,4 @@
 import React from 'react';
-import DropDownMenu from 'material-ui/DropDownMenu';
-import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
 import AutoComplete from 'material-ui/AutoComplete';
 import './App.css';
 import SearchSVGIcon from 'material-ui/svg-icons/action/search';

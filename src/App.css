@@ -52,10 +52,14 @@
 }
 .navbarlistitem{
   display: inline ;
+ 
   
   
 }
-
+droplist{
+  padding-left: 10px;
+  font-size: 15px;
+ }
 .TopMenu{
   background-color: rgb(247, 244, 244);
   height: 50px;
