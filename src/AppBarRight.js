@@ -11,14 +11,21 @@ import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import Paper from 'material-ui/Paper';
 import GridIcon from 'material-ui/svg-icons/image/grid-on'; 
+import NotificationIcon from 'material-ui/svg-icons/social/notifications';
+import Avatar from 'material-ui/Avatar';
+import profPic from './images/twitter-person-image.png';
 
 const styles = {
-    pstyle:{ 
-    display: 'inline-block',
-    margin: '16px 32px 16px 0',
-    marginTop: 55,
-    marginLeft: -200 ,
-    position: 'absolute',},
+
+
+    Left:{
+        display: 'flex',
+        flexFlow: 'row wrap',
+        AlignContent: 'stretch',
+        ALignItems: 'baseline',
+        width: 190,
+        marginLeft: 600
+    },
 
 
 }
@@ -27,7 +34,7 @@ class MYlist extends React.Component{
     {
       
         return(
-            <Paper style={styles.pstyle}>
+            <Paper >
             <Menu className="menu">
                 <MenuItem primaryText="settings"/>
                 <MenuItem primaryText="Download Backup and Sync for Windows"/>
@@ -57,22 +64,34 @@ export default class AppBarRight extends React.Component
     render()
     {
         return (
-            <div style={{ display: 'flex'}}>
+            <div style={styles.Left} className="iconColor">
+                    <IconButton tooltip="Grid View" tooltipPosition="bottom-center"  >
+                        <GridIcon color= '#757575'/>
+                    </IconButton>
+
+                    <IconButton tooltip="Grid View" tooltipPosition="bottom-center" >
+                        <NotificationIcon color= '#757575'/>
+                    </IconButton>
+
+                    <IconButton >
+                    <Avatar className="profilePic" src={profPic} alt="profPic" round="true" onClick={this.handleLogoClick} />
+                    </IconButton>
+                    
                     {this.state.change ? <IconButton tooltip="Grid View" tooltipPosition="bottom-center" onClick={this.handleChange}>
-                        <GridIcon/>
+                        <GridIcon color= '#757575'/>
                     </IconButton>
                     :
                      <IconButton tooltip="List View"  tooltipPosition="bottom-center" onClick={this.handleChange}  >
-                     <ListIcon/>
+                     <ListIcon color= '#757575'/>
                  </IconButton>
                  }
                     
                    
                     <IconButton tooltip="View details"  tooltipPosition="bottom-center" onClick ={this.handleToggle}  >
-                        <InfoIcon />
+                        <InfoIcon color= '#757575' />
                     </IconButton>
-                    <IconButton tooltip="Settings"  tooltipPosition="bottom-center"  >
-                        <SettingsIcon onClick={this.handleClick}/>
+                    <IconButton tooltip="Settings"  tooltipPosition="bottom-center">
+                        <SettingsIcon onClick={this.handleClick}  color= '#757575'/>
                     </IconButton>
                     <Drawer width={250} openSecondary={true} open={this.state.open} containerStyle={{ top: 144}} >
                          <AppBar   title="My Drive" 
