@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
-import MainPage from './MainPage';
+import AppBar from './AppBar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import TopMenu from './TopMenu.js';
 
- 
+
  
 
 class App extends Component {
@@ -12,10 +12,9 @@ class App extends Component {
     return (
       <MuiThemeProvider >
         <div className="App">
-          <TopMenu/>
-          <MainPage/>
         
-        </div>
+        <AppBar/>
+       </div>
       </MuiThemeProvider>
     );
   }

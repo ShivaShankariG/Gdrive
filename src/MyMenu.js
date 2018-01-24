@@ -15,17 +15,12 @@ import GdrIcon from './images/Gdrawings.png';
 import GFIcon from './images/GForms.png';
 import GMIcon from './images/GMaps.png';
 import GSIcon from './images/GSites2016.png';
-const style = {
-  display: 'inline-block',
-  margin: '16px 32px 16px 0',
-  marginTop: 40,
-  marginLeft: -130,
-  position: 'absolute',
-};
+
+
 
 const MyMenu = () => (
   <div>
-    <Paper style={style}>
+    <Paper style={{position: 'absolute'}}>
       <Menu desktop={true} width={320} className="menu">
         <MenuItem primaryText="New Folder.."  leftIcon={<CFolderIcon/>}/>
         <Divider />
