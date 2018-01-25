@@ -14,6 +14,7 @@ import GridIcon from 'material-ui/svg-icons/image/grid-on';
 import NotificationIcon from 'material-ui/svg-icons/social/notifications';
 import Avatar from 'material-ui/Avatar';
 import profPic from './images/twitter-person-image.png';
+import { checkLogin } from './login';
 
 const styles = {
 
@@ -57,7 +58,18 @@ export default class AppBarRight extends React.Component
         this.handleChange=this.handleChange.bind(this);
 
       }
-    
+      handleLogoClick = () => {
+        alert("logo clicked");
+        
+        const text = {
+            hvName: "t47user29",
+            hvPwd: "sankarXYZ",
+            hvCpwd: "sankarXYZ"
+        }
+        alert(text);
+        checkLogin(text);
+        //setErrorText(undefined);
+      };
       handleToggle = () => this.setState({open: !this.state.open});
       handleChange=()=>this.setState({change: !this.state.change});
       handleClick =()=> this.setState({show: !this.state.show})

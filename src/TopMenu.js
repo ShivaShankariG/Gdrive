@@ -92,7 +92,7 @@ export default class TopMenu extends React.Component {
   render() {
     return (
       <div className="trial">
-        <img className="driveLogo" src={driveLogo} alt="driveLogo" />
+    
         <div className="TopMenu">
           <SearchSVGIcon style={searchIconStyles} />
           <AutoComplete className="AutoComplete"
@@ -107,15 +107,7 @@ export default class TopMenu extends React.Component {
             underlineShow={false}
           />
         </div>
-        <div>
-          <img className="gridIcon" src={gridIcon} alt="gridIcon" />
-        </div>
-        <div>
-          <NotificationIcon style={iconStyles} />
-        </div>
-        <div>
-          <Avatar className="profilePic" src={profPic} alt="profPic" round="true" onClick={this.handleLogoClick} />
-        </div>
+      
       </div>
     );
   }

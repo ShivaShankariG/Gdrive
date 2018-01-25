@@ -4,7 +4,7 @@ import AutoComplete from 'material-ui/AutoComplete';
 import FlatButton from 'material-ui/FlatButton';
 import DetailsIcon from 'material-ui/svg-icons/image/details';
 import MyMenu from './MyMenu';
-
+import TopMenu from './TopMenu';
 
 const styles = {
     customWidth: {
@@ -74,20 +74,7 @@ export default class AppBarCenter extends React.Component
         return (
             <div style={styles.Container}>
            
-            <div className="TopMenu">
-            <SearchSVGIcon style={searchIconStyles} />
-            <AutoComplete className="AutoComplete"
-              width={styles.customWidth.width}
-              hintText="Search Drive"
-              searchText={this.state.searchText}
-              onUpdateInput={this.handleUpdateInput}
-              onNewRequest={this.handleNewRequest}
-              dataSource={appList}
-              filter={(searchText, key) => (key.indexOf(searchText) !== -1)}
-              openOnFocus={true}
-              underlineShow={false}
-            />
-          </div>
+       <TopMenu/>
           <br/>
           <FlatButton className= "dropbutton"
                         label="My drive"
