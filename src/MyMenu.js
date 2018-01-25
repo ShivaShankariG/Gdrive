@@ -16,68 +16,95 @@ import GFIcon from './images/GForms.png';
 import GMIcon from './images/GMaps.png';
 import GSIcon from './images/GSites2016.png';
 
-
-
-const MyMenu = () => (
-  <div>
-    <Paper style={{position: 'absolute'}}>
-      <Menu desktop={true} width={320} className="menu">
-        <MenuItem primaryText="New Folder.."  leftIcon={<CFolderIcon/>}/>
-        <Divider />
-        <MenuItem primaryText="Upliad Files.." leftIcon={<UFileIcon/>} />
-        <MenuItem primaryText="Upload Folder" leftIcon={<FolderIcon/>} />
-        <Divider />
-        <MenuItem
-          primaryText="Google Docs"
-          leftIcon={<img src={GdocsIcon} alt="googleDocs" />}
-          rightIcon={<ArrowDropRight />}
-          menuItems={[
-            <MenuItem primaryText="Blank document"/>,
-            <MenuItem primaryText="Form a template"/>,
-            ]}
-        />
-        <MenuItem
-          primaryText="Google Sheets"
-          leftIcon={<img src={GSheetsIcon} alt="gSheets" />}
-          rightIcon={<ArrowDropRight />}
-          menuItems={[
-            <MenuItem primaryText="Blank spread sheet"/>,
-            <MenuItem primaryText="Form a template"/>,
-          ]}
-        />
-        <MenuItem
-          primaryText="Google Slides"
-          leftIcon={<img src={GSlidesIcon} alt="googleSheets" />}
-          rightIcon={<ArrowDropRight />}
-          menuItems={[
-            <MenuItem primaryText="Blank presentation"/>,
-            <MenuItem primaryText="Form a template"/>,
-              ]}
-        />
-        <MenuItem
-          primaryText="More"
-          leftIcon={<p></p>}
-          rightIcon={<ArrowDropRight />}
-          menuItems={[
+export default class MyMenu extends React.Component
+{
+  render()
+  {
+    if(this.props.id=="1"){
+      return(
+      <div>
+        <Paper style={{position: 'absolute'}} zdepth ={2} >
+          <Menu desktop={true} width={320} className="menu">
+            <MenuItem primaryText="New Folder.."  leftIcon={<CFolderIcon/>}/>
+            <Divider /> 
+            <MenuItem primaryText="Upliad Files.." leftIcon={<UFileIcon/>} />
+            <MenuItem primaryText="Upload Folder" leftIcon={<FolderIcon/>} />
+            <Divider />
             <MenuItem
-              primaryText="Google Forms"
-              leftIcon={<img src={GFIcon} alt="Forms" />}
+              primaryText="Google Docs"
+              leftIcon={<img src={GdocsIcon} alt="googleDocs" />}
               rightIcon={<ArrowDropRight />}
               menuItems={[
-                <MenuItem primaryText="Blank form"/>,
+                <MenuItem primaryText="Blank document"/>,
                 <MenuItem primaryText="Form a template"/>,
                 ]}
-              />,
-              <MenuItem primaryText="Google Drawings"  leftIcon={<img src={GdrIcon} color= '#616161'  alt="Dra" />}/>,
-              <MenuItem primaryText="Google My Maps"  leftIcon={<img src={GMIcon} color= '#616161'  alt="Maps" />}/>,
-              <MenuItem primaryText="Google Sites"  leftIcon={<img src={GSIcon} color= '#616161'  alt="Sites" />}/>,
-              <Divider/>,
-              <MenuItem primaryText="Connect More Apps"  leftIcon={<img src={PlusIcon} color= '#616161'  alt="pLus" />}/>
-            ]}
             />
-      </Menu>
-    </Paper>
-  </div>
-);
+            <MenuItem
+              primaryText="Google Sheets"
+              leftIcon={<img src={GSheetsIcon} alt="gSheets" />}
+              rightIcon={<ArrowDropRight />}
+              menuItems={[
+                <MenuItem primaryText="Blank spread sheet"/>,
+                <MenuItem primaryText="Form a template"/>,
+              ]}
+            />
+            <MenuItem
+              primaryText="Google Slides"
+              leftIcon={<img src={GSlidesIcon} alt="googleSheets" />}
+              rightIcon={<ArrowDropRight />}
+              menuItems={[
+                <MenuItem primaryText="Blank presentation"/>,
+                <MenuItem primaryText="Form a template"/>,
+                  ]}
+            />
+            <MenuItem
+              primaryText="More"
+              leftIcon={<p></p>}
+              rightIcon={<ArrowDropRight />}
+              menuItems={[
+                <MenuItem
+                  primaryText="Google Forms"
+                  leftIcon={<img src={GFIcon} alt="Forms" />}
+                  rightIcon={<ArrowDropRight />}
+                  menuItems={[
+                    <MenuItem primaryText="Blank form"/>,
+                    <MenuItem primaryText="Form a template"/>,
+                    ]}
+                  />,
+                  <MenuItem primaryText="Google Drawings"  leftIcon={<img src={GdrIcon} color= '#616161'  alt="Dra" />}/>,
+                  <MenuItem primaryText="Google My Maps"  leftIcon={<img src={GMIcon} color= '#616161'  alt="Maps" />}/>,
+                  <MenuItem primaryText="Google Sites"  leftIcon={<img src={GSIcon} color= '#616161'  alt="Sites" />}/>,
+                  <Divider/>,
+                  <MenuItem primaryText="Connect More Apps"  leftIcon={<img src={PlusIcon} color= '#616161'  alt="pLus" />}/>
+                ]}
+                />
+          </Menu>
+        </Paper>
+      </div>
+    );
+    }
+    else
+    {
+      return(
+        <div>
+         
+            <Menu style={{position: 'absolute', marginTop: 132, }}>
+            <MenuItem primaryText="MyDrive"  leftIcon={<CFolderIcon/>}/>
+            <MenuItem primaryText="Computers"  leftIcon={<CFolderIcon/>}/>
+            <MenuItem primaryText="Shared with me"  leftIcon={<CFolderIcon/>}/>
+            <MenuItem primaryText="Recent"  leftIcon={<CFolderIcon/>}/>
+            <MenuItem primaryText="Google Photos"  leftIcon={<CFolderIcon/>}/>
+            <MenuItem primaryText="Starred"  leftIcon={<CFolderIcon/>}/>
+            <MenuItem primaryText="Trash"  leftIcon={<CFolderIcon/>}/>
+            <Divider/>
+            <MenuItem primaryText="Backups"  leftIcon={<CFolderIcon/>}/>
+            <Divider/>
+            <MenuItem primaryText="Upgrade Storage"  leftIcon={<CFolderIcon/>}/>
 
-export default MyMenu;
+            </Menu>
+          
+        </div>
+      );
+    }
+  }
+}

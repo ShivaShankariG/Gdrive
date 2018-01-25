@@ -36,7 +36,7 @@ export default class AppBarLeft extends React.Component
             <img className="driveLogo" src={driveLogo} alt="driveLogo" />
             <br/>
             <FlatButton className= "newbutton" label="New" backgroundColor="#0091EA" onClick ={this.handleClick}/>
-            {this.state.showComponent?  <MyMenu />: null}  
+            {this.state.showComponent?  <MyMenu id="1"/>: null}  
             </div>
         );
     }

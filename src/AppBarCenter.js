@@ -4,7 +4,7 @@ import AutoComplete from 'material-ui/AutoComplete';
 import FlatButton from 'material-ui/FlatButton';
 import DetailsIcon from 'material-ui/svg-icons/image/details';
 import MyMenu from './MyMenu';
-import TopMenu from './TopMenu';
+import TopMenu from './TopMenu'
 
 const styles = {
     customWidth: {
@@ -74,7 +74,8 @@ export default class AppBarCenter extends React.Component
         return (
             <div style={styles.Container}>
            
-       <TopMenu/>
+       
+          <TopMenu/>
           <br/>
           <FlatButton className= "dropbutton"
                         label="My drive"
@@ -85,7 +86,7 @@ export default class AppBarCenter extends React.Component
             />
             
            
-            {this.state.showComponent?  <MyMenu />: null}  
+            {this.state.showComponent?  <MyMenu id="1" />: null}  
             </div>
         );
     }
