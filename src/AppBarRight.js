@@ -15,6 +15,11 @@ import NotificationIcon from 'material-ui/svg-icons/social/notifications';
 import Avatar from 'material-ui/Avatar';
 import profPic from './images/twitter-person-image.png';
 import { checkLogin } from './login';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import {SelectField, TextField} from 'material-ui';
+import driveLogo from './images/Hasura_Drive_image.png';
+
 
 const styles = {
 
@@ -25,9 +30,16 @@ const styles = {
         AlignContent: 'stretch',
         ALignItems: 'baseline',
         width: 190,
-        marginLeft: 600
+        marginLeft: 50
     },
+    Login:{
+        height: 700,
+        width: 50
+    },
+    TextEntry:{
+        width: 500  
 
+    }
 
 }
 class MYlist extends React.Component{
@@ -52,7 +64,11 @@ export default class AppBarRight extends React.Component
         super(props);
         this.state = {open: false,
                      show:false,
-                     change:true};
+                     change:true,
+                     showLogin:false,
+                     hvName: '',
+                     hvPwd: ''
+                    };
         this.handleClick=this.handleClick.bind(this);
         this.handleToggle=this.handleToggle.bind(this);
         this.handleChange=this.handleChange.bind(this);
@@ -60,21 +76,76 @@ export default class AppBarRight extends React.Component
       }
       handleLogoClick = () => {
         alert("logo clicked");
+
+
         
-        const text = {
-            hvName: "t47user29",
-            hvPwd: "sankarXYZ",
-            hvCpwd: "sankarXYZ"
+        const cred = {
+            hvName: this.state.hvName,
+            hvPwd: this.state.hvPwd,
+            hvCpwd: this.state.hvCpwd
         }
-        alert(text);
-        checkLogin(text);
+        
+        checkLogin(cred);
         //setErrorText(undefined);
       };
       handleToggle = () => this.setState({open: !this.state.open});
       handleChange=()=>this.setState({change: !this.state.change});
-      handleClick =()=> this.setState({show: !this.state.show})
+      handleClick =()=> this.setState({show: !this.state.show});
+
+      
+
+      state = {
+        open: false,
+      };
+    
+      handleOpen = () => {
+        this.setState({showLogin: true});
+      };
+    
+      handleClose = () => { 
+        this.setState({showLogin: false});
+      };
+
+      handleSubmit = () => { 
+        this.handleLogoClick();
+        this.setState({showLogin: false});
+      };
+
+      handleErrorInputChange = (e) => {
+        if (e.target.id === 'userName') {
+          var userName = e.target.value;
+  
+          this.setState({
+              hvName: userName
+          });
+          /*this.setState({
+            //name: name,
+            errorTextName: e.target.value ? '' : 'Please, type your Name'
+          });*/
+        } else if (e.target.id === 'password') {
+          var password = e.target.value;
+
+          this.setState({
+                hvPwd: password,
+                hvCpwd: password
+           });
+        } 
+      }
+  
     render()
     {
+        const actions = [
+            <FlatButton
+              label="Cancel"
+              primary={true}
+              onClick={this.handleClose}
+            />,
+            <FlatButton
+              label="Sign in"
+              primary={true}
+              onClick={this.handleSubmit}
+            />,
+          ];
         return (
             <div style={styles.Left} className="iconColor">
                     <IconButton tooltip="Grid View" tooltipPosition="bottom-center"  >
@@ -86,7 +157,40 @@ export default class AppBarRight extends React.Component
                     </IconButton>
 
                     <IconButton >
-                    <Avatar className="profilePic" src={profPic} alt="profPic" round="true" onClick={this.handleLogoClick} />
+                        <Avatar className="profilePic" src={profPic} alt="profPic" round="true" onClick={this.handleOpen} />
+                            <Dialog
+                            actions={actions}
+                            modal={true}
+                            open={this.state.showLogin}
+                            contentStyle={{width: 450, height: 1000}}
+                            >
+                                <img className="driveLogo" src={driveLogo} alt="driveLogo" />
+                                <br />
+                                <br />
+                                <strong>Sign in</strong><br />
+                                to continue to Hasura Drive
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <TextField
+                                    id="userName"
+                                    hintText="User Name"
+                                    floatingLabelText="User Name"
+                                    errorText="Enter your user name"
+                                    onChange={this.handleErrorInputChange}
+                                /><br />
+                                <TextField
+                                    id="password"
+                                    hintText="Password"
+                                    floatingLabelText="Password"
+                                    errorText="Enter your password"
+                                    onChange={this.handleErrorInputChange}
+                                /><br />
+                                <br />
+                                
+                            </Dialog>
+
                     </IconButton>
                     
                     {this.state.change ? <IconButton tooltip="Grid View" tooltipPosition="bottom-center" onClick={this.handleChange}>
