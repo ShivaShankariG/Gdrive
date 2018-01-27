@@ -22,8 +22,16 @@ export default class AppBarLeft extends React.Component
         super(props);
         this.state = {showComponent1: false};
         this.handleClick=this.handleClick.bind(this);
+        this.handler = this.handler.bind(this)
         
       }
+      handler(e) {
+        e.preventDefault()
+        this.setState({
+            showComponent: false
+        })
+      }
+    
       handleClick=() =>
       {
         this.setState({
@@ -36,7 +44,7 @@ export default class AppBarLeft extends React.Component
             <img className="driveLogo" src={driveLogo} alt="driveLogo" />
             <br/>
             <FlatButton className= "newbutton" label="New" backgroundColor="#0091EA" onClick ={this.handleClick}/>
-            {this.state.showComponent?  <MyMenu id="1"/>: null}  
+            {this.state.showComponent?  <MyMenu id="1" action = {this.handler} />: null}  
             </div>
         );
     }
