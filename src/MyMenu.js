@@ -18,6 +18,7 @@ import GSIcon from './images/GSites2016.png';
 import driveLogo from './images/Hasura_Drive_image.png';
 import FlatButton from 'material-ui/FlatButton';
 import {Dialog, TextField} from 'material-ui';
+import { SelectField } from 'material-ui/SelectField';
 
 export default class MyMenu extends React.Component
 {
@@ -110,9 +111,12 @@ export default class MyMenu extends React.Component
                   <img className="driveLogo" src={driveLogo} alt="driveLogo" />
                   <br />
                   <br />
-                  <strong>Upload File</strong><br />
-                  Choose file to upload to Drive
                   <br />
+                  <h1>File Upload</h1>
+                
+                    <input type="file" height="30"/>
+                    <button type="submit">Upload</button>
+                 
                   <br />
                   <TextField
                       id="filePathnName"
