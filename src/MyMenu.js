@@ -76,7 +76,44 @@ export default class MyMenu extends React.Component
     };
   }; 
   
-
+  handleFileUpload = () => {
+    var x = document.getElementById("fileToUpload");
+    const fileName = x.files[0];
+    
+    console.log(fileName);
+    var data = new FormData()
+    data.append('file', x.files[0])
+    
+    fetch('https://app.animator94.hasura-app.io/fupload', {
+      method: 'POST',
+      body: data
+    }).then(function(response) {
+      if (response.status >= 200 && response.status < 300) {
+          console.log("retirning response.json function");
+          var obj = JSON.stringify(response.body);
+          return response.json();
+      }
+      else{
+          return null;
+      }
+  }).then(function(data) {
+      if(data){
+          console.log("printing returned value");
+          if (data["auth_token"])
+          {
+              console.log("User logged in. Username is : " + data['username'] + " and user id is "+ data['hasura_id']);
+              //setLoggedInUser(data['username']);
+          }
+          else {
+              console.log("User sign up/in failed becaue - "+ data['message']);
+          }
+      }
+      else{
+          return false;
+      }
+    });
+    
+  }
 
   //=======================
 
@@ -117,17 +154,10 @@ export default class MyMenu extends React.Component
                   <br />
                   <h1>File Upload</h1>
                 
-                    <input type="file" height="30"/>
-                    <button type="submit">Upload</button>
-                 
-                  <br />
-                  <TextField
-                      id="filePathnName"
-                      hintText="choose file to upload"
-                      floatingLabelText="choose file to upload"
-                      errorText="choose file to upload"
-                      onChange={this.handleUpload}
-                  /><br />                  
+                    <input id="fileToUpload" type="file" height="30"/>
+                    <button type="submit" onClick={this.handleFileUpload}>Upload</button>
+                    
+                  <br />               
               </Dialog>
             <MenuItem primaryText="Upload Folder" leftIcon={<FolderIcon/>} />
             <Divider />
