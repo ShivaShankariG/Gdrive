@@ -22,6 +22,8 @@ import { SelectField } from 'material-ui/SelectField';
 import index from 'material-ui/Dialog';
 
 
+import RaisedButton from 'material-ui/RaisedButton'
+
 export default class MyMenu extends React.Component
 {
   //==================
@@ -103,7 +105,8 @@ export default class MyMenu extends React.Component
     if(this.props.id=="1"){
       return(
       <div >
-        <Paper style={{position: 'absolute', zIndex : 0}}>
+       
+        
           <Menu desktop={true} width={320} className="menu" >
             <MenuItem primaryText="New Folder.."  leftIcon={<CFolderIcon/>} />
             <Divider /> 
@@ -183,7 +186,7 @@ export default class MyMenu extends React.Component
                 ]}
                 />
           </Menu>
-        </Paper>
+      
       </div>
     );
     }

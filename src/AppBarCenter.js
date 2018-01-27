@@ -5,7 +5,7 @@ import FlatButton from 'material-ui/FlatButton';
 import DetailsIcon from 'material-ui/svg-icons/image/details';
 import MyMenu from './MyMenu';
 import TopMenu from './TopMenu'
-
+import DialogExampleSimple from './DialogExampleSimple';
 const styles = {
     customWidth: {
       width: 500
@@ -85,16 +85,8 @@ export default class AppBarCenter extends React.Component
        
           <TopMenu/>
           <br/>
-          <FlatButton className= "dropbutton"
-                        label="My drive"
-                        labelPosition="before"
-                        primary={true}
-                        icon={<DetailsIcon  color = '#21212'/>}
-                        onClick={this.handleClick} 
-            />
-            
-           
-            {this.state.showComponent?  <MyMenu id="1" action = {this.handler} />: null} 
+        
+           <DialogExampleSimple/>
             </div>
         );
     }
