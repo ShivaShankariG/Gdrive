@@ -22,6 +22,8 @@ import driveLogo from './images/Hasura_Drive_image.png';
 import blue200 from 'material-ui/styles/colors';
 import { SMALL } from 'material-ui/utils/withWidth';
 
+import MyDrawer from './MyDrawer';
+
 
 const styles = {
 
@@ -270,7 +272,7 @@ export default class AppBarRight extends React.Component {
                     <IconButton tooltip="Settings"  tooltipPosition="bottom-center">
                         <SettingsIcon onClick={this.handleClick}  color= '#757575'/>
                     </IconButton>
-                    <Drawer width={250} openSecondary={true} open={this.state.open} containerStyle={{ top: 144}} >
+                    <Drawer width={250} openSecondary={true} open={this.state.open} containerStyle={{ top: 144}} style={{display: 'flex'}}>
                          <AppBar   title="My Drive" 
                                     
                                     iconElementLeft={<IconButton>
@@ -279,6 +281,8 @@ export default class AppBarRight extends React.Component {
                                     iconElementRight={<IconButton onClick={this.handleToggle}>
                                                         <CloseIcon color= '#616161'/>
                                                     </IconButton>} /> 
+                        <MyDrawer/>
+                        
                     </Drawer>
                     {this.state.show? <MYlist/>: null}
              </div>

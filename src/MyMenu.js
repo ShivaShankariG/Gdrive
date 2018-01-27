@@ -19,6 +19,8 @@ import driveLogo from './images/Hasura_Drive_image.png';
 import FlatButton from 'material-ui/FlatButton';
 import {Dialog, TextField} from 'material-ui';
 import { SelectField } from 'material-ui/SelectField';
+import index from 'material-ui/Dialog';
+
 
 export default class MyMenu extends React.Component
 {
@@ -47,7 +49,6 @@ export default class MyMenu extends React.Component
   handleChange=()=>this.setState({change: !this.state.change});
   handleClick =()=> this.setState({show: !this.state.show});
 
-  
 
   state = {
     open: false,
@@ -93,13 +94,15 @@ export default class MyMenu extends React.Component
         onClick={this.handleClose}
       />,
     ];
+    /* needs an eventlistener that will call {this.props.action}, a funcyion defined in line 28 of AppBarLeft and line 73 of
+     AppBarRight wich changes the state of showComponent to false */
 
     if(this.props.id=="1"){
       return(
-      <div>
-        <Paper style={{position: 'absolute'}} zdepth ={2} >
-          <Menu desktop={true} width={320} className="menu">
-            <MenuItem primaryText="New Folder.."  leftIcon={<CFolderIcon/>}/>
+      <div >
+        <Paper style={{position: 'absolute', zIndex : 0}}>
+          <Menu desktop={true} width={320} className="menu" >
+            <MenuItem primaryText="New Folder.."  leftIcon={<CFolderIcon/>} />
             <Divider /> 
             <MenuItem primaryText="Upload Files.." leftIcon={<UFileIcon/>} onClick={this.handleOpen} />
               <Dialog
@@ -184,9 +187,9 @@ export default class MyMenu extends React.Component
     else
     {
       return(
-        <div>
+        <div style={{position: 'absolute', marginTop: 132, zIndex: -2,}}>
          
-            <Menu style={{position: 'absolute', marginTop: 132, }}>
+            <Menu  className="menu">
             <MenuItem primaryText="MyDrive"  leftIcon={<CFolderIcon/>}/>
             <MenuItem primaryText="Computers"  leftIcon={<CFolderIcon/>}/>
             <MenuItem primaryText="Shared with me"  leftIcon={<CFolderIcon/>}/>

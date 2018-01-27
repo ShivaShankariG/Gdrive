@@ -46,6 +46,7 @@ export default class AppBarCenter extends React.Component
     constructor(props) {
         super(props);
         this.state = {value: 1,showComponent: false};
+        this.handler = this.handler.bind(this)
       }
     
       state = {
@@ -62,11 +63,18 @@ export default class AppBarCenter extends React.Component
           searchText: searchText,
         });
       };
+
     
       handleNewRequest = () => {
         this.setState({
           searchText: '',
         });
+      };
+      handler(e) {
+        e.preventDefault()
+        this.setState({
+            showComponent: false
+        })
       };
     
      
@@ -86,7 +94,7 @@ export default class AppBarCenter extends React.Component
             />
             
            
-            {this.state.showComponent?  <MyMenu id="1" />: null}  
+            {this.state.showComponent?  <MyMenu id="1" action = {this.handler} />: null} 
             </div>
         );
     }

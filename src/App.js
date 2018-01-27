@@ -5,7 +5,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import TopMenu from './TopMenu.js';
 import MyMenu from './MyMenu';
 import Menu from 'material-ui/Menu/Menu';
-
+import MyDriveList from './MyDriveList';
  
 
 class App extends Component {
@@ -16,7 +16,7 @@ class App extends Component {
         
         <AppBar style= {{position: 'absolute'}}/>
         <MyMenu style= {{position: 'absolute'}}/>
-      
+        <MyDriveList/>
        </div>
       </MuiThemeProvider>
     );

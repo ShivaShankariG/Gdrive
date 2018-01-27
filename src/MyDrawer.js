@@ -1,29 +1,42 @@
 import React from 'react';
-import Drawer from 'material-ui/Drawer';
-import AppBar from 'material-ui/AppBar';
-import RaisedButton from 'material-ui/RaisedButton';
-import AppBar from 'material-ui/AppBar';
+
+
+
+import {
+  Table,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
+  TableRowColumn,
+} from 'material-ui/Table';
+
 
 
 export default class MyDrawer extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {open: false};
-  }
-
-  handleToggle = () => this.setState({open: !this.state.open});
 
   render() {
     return (
       <div>
-        <RaisedButton
-          label="Toggle Drawer"
-          onClick={this.handleToggle}
-        />
-        <Drawer width={200} openSecondary={true} open={this.state.open} >
-          <AppBar title="AppBar" /> 
-        </Drawer>
+        
+          <Table  selectable = {false}>
+            <TableBody  displayRowCheckbox={false} >
+              <TableRow >
+                <TableRowColumn>Type</TableRowColumn>
+                <TableRowColumn>--</TableRowColumn>
+              </TableRow>
+              <TableRow >
+                <TableRowColumn>Location</TableRowColumn>
+                <TableRowColumn>--</TableRowColumn>
+              </TableRow>
+              <TableRow >
+                <TableRowColumn>Type</TableRowColumn>
+                <TableRowColumn>--</TableRowColumn>
+              </TableRow>
+            </TableBody>
+          </Table>
+       
       </div>
     );
   }
