@@ -19,6 +19,8 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import {SelectField, TextField} from 'material-ui';
 import driveLogo from './images/Hasura_Drive_image.png';
+import blue200 from 'material-ui/styles/colors';
+import { SMALL } from 'material-ui/utils/withWidth';
 
 
 const styles = {
@@ -39,6 +41,13 @@ const styles = {
     TextEntry:{
         width: 500  
 
+    },
+    fBUtton:{
+        padding:0,
+        margin: 0
+    },
+    cfmButton:{
+        marginTop: 5
     }
 
 }
@@ -58,8 +67,7 @@ class MYlist extends React.Component{
         );
     }
 }
-export default class AppBarRight extends React.Component
-{
+export default class AppBarRight extends React.Component {
     constructor(props) {
         super(props);
         this.state = {open: false,
@@ -67,7 +75,11 @@ export default class AppBarRight extends React.Component
                      change:true,
                      showLogin:false,
                      hvName: '',
-                     hvPwd: ''
+                     hvPwd: '',
+                     hvCpwd: '',
+                     isSignUp: false,
+                     loginType: "Sign in",
+                     showLoginErrorDialog: false
                     };
         this.handleClick=this.handleClick.bind(this);
         this.handleToggle=this.handleToggle.bind(this);
@@ -78,19 +90,34 @@ export default class AppBarRight extends React.Component
         alert("logo clicked");
 
 
-        
-        const cred = {
-            hvName: this.state.hvName,
-            hvPwd: this.state.hvPwd,
-            hvCpwd: this.state.hvCpwd
+        if(!this.state.isSignUp)
+        {
+            var cred = {
+                hvName: this.state.hvName,
+                hvPwd: this.state.hvPwd
+                }
+        } else {
+            var cred = {
+                hvName: this.state.hvName,
+                hvPwd: this.state.hvPwd,
+                hvCpwd: this.state.hvCpwd
+                }
         }
         
-        checkLogin(cred);
+        if (!checkLogin(cred))
+        {
+            alert("User with same username already exists. Please try with a different username");
+        }
         //setErrorText(undefined);
       };
       handleToggle = () => this.setState({open: !this.state.open});
       handleChange=()=>this.setState({change: !this.state.change});
       handleClick =()=> this.setState({show: !this.state.show});
+      
+      setSignUp = () => {
+        this.setState({isSignUp: true});
+        this.setState({loginType: "Sign Up"});
+      }
 
       
 
@@ -104,9 +131,20 @@ export default class AppBarRight extends React.Component
     
       handleClose = () => { 
         this.setState({showLogin: false});
+        this.setState({isSignUp: false});
       };
 
-      handleSubmit = () => { 
+      handleSubmit = () => {
+        /*if (this.state.isSignUp){
+            console.log(this.state.hvPwd);
+            //var password1 = this.state.hvPwd;
+            //var password2 = this.state.hwCpwd;
+            console.log(this.state.hvCpwd);
+            if(password1 !== password2) {
+                alert("Password and confirmations don't match! Please try again");
+                return;
+            }
+        } */ 
         this.handleLogoClick();
         this.setState({showLogin: false});
       };
@@ -127,10 +165,15 @@ export default class AppBarRight extends React.Component
 
           this.setState({
                 hvPwd: password,
-                hvCpwd: password
            });
-        } 
+        } else if (e.target.id === 'cfmPassword') {
+            var cfmPassword = e.target.value;
+  
+            this.setState({
+                  hvCpwd: cfmPassword
+             });
       }
+    }
   
     render()
     {
@@ -141,7 +184,7 @@ export default class AppBarRight extends React.Component
               onClick={this.handleClose}
             />,
             <FlatButton
-              label="Sign in"
+              label={this.state.loginType}
               primary={true}
               onClick={this.handleSubmit}
             />,
@@ -171,8 +214,6 @@ export default class AppBarRight extends React.Component
                                 to continue to Hasura Drive
                                 <br />
                                 <br />
-                                <br />
-                                <br />
                                 <TextField
                                     id="userName"
                                     hintText="User Name"
@@ -185,7 +226,27 @@ export default class AppBarRight extends React.Component
                                     hintText="Password"
                                     floatingLabelText="Password"
                                     errorText="Enter your password"
+                                    type="password"
                                     onChange={this.handleErrorInputChange}
+                                /><br />
+                                <br />
+                                If not existing user, please 
+                                    <FlatButton 
+                                        id="signUPlink" 
+                                        style={styles.fBUtton} 
+                                        onClick={this.setSignUp} 
+                                        label="Sign Up"
+                                        primary={true}> 
+                                    </FlatButton> 
+                                first
+                                <TextField
+                                style={styles.cfmPassword}
+                                id="cfmPassword"
+                                hintText="Confirm Password"
+        
+                                type="password"
+                                disabled={!this.state.isSignUp}
+                                onChange={this.handleErrorInputChange}
                                 /><br />
                                 <br />
                                 
@@ -221,5 +282,6 @@ export default class AppBarRight extends React.Component
                     </Drawer>
                     {this.state.show? <MYlist/>: null}
              </div>
-        );    }
+        );    
+    }
 }
