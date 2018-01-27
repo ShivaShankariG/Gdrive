@@ -76,8 +76,11 @@ export default class MyMenu extends React.Component
   }; 
   
 
-
   //=======================
+
+  componentDidMount(){
+    window.addEventListener('onmousedown', this.props.action, false);
+}
 
   render()
   {
@@ -183,10 +186,9 @@ export default class MyMenu extends React.Component
     else
     {
       return(
-        <div style={{position: 'absolute', marginTop: 132, zIndex: -2,}}>
-         
+        <div >
+           <Paper style={{position: 'absolute', marginTop: 132, zIndex: -2,}}>
             <Menu  className="menu">
-            <MenuItem primaryText="MyDrive"  leftIcon={<CFolderIcon/>}/>
             <MenuItem primaryText="Computers"  leftIcon={<CFolderIcon/>}/>
             <MenuItem primaryText="Shared with me"  leftIcon={<CFolderIcon/>}/>
             <MenuItem primaryText="Recent"  leftIcon={<CFolderIcon/>}/>
@@ -199,7 +201,7 @@ export default class MyMenu extends React.Component
             <MenuItem primaryText="Upgrade Storage"  leftIcon={<CFolderIcon/>}/>
 
             </Menu>
-          
+          </Paper>
         </div>
       );
     }
