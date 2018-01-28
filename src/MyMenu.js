@@ -20,6 +20,7 @@ import FlatButton from 'material-ui/FlatButton';
 import {Dialog, TextField} from 'material-ui';
 import { SelectField } from 'material-ui/SelectField';
 import index from 'material-ui/Dialog';
+import {getLoggedInUser} from './login.js';
 
 
 export default class MyMenu extends React.Component
@@ -82,11 +83,18 @@ export default class MyMenu extends React.Component
     
     console.log(fileName);
     var data = new FormData()
-    data.append('file', x.files[0])
+    data.append('hvfname', x.files[0])
+
+    var arr = getLoggedInUser();
     
-    fetch('https://app.animator94.hasura-app.io/fupload', {
+    //fetch('https://app.animator94.hasura-app.io/fupload', {
+    fetch('https://app.anthology78.hasura-app.io/fupload', {
       method: 'POST',
-      body: data
+      body: data,
+      username: arr["userName"],
+      headers: {
+        "Authorization": 'Bearer ' + arr[1]
+      }
     }).then(function(response) {
       if (response.status >= 200 && response.status < 300) {
           console.log("retirning response.json function");

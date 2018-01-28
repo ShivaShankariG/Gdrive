@@ -25,24 +25,28 @@ return fetch('https://app.animator94.hasura-app.io/dregister', {
 }).catch(err => err);
 }*/
 const loginUser = {
-    userName: ''
+    userName: '',
+    token: ''
 }
 export function getLoggedInUser() {
-    return loginUser.userName;
+    return [loginUser.userName, loginUser.token];
 }
-export function setLoggedInUser(userName) {
+export function setLoggedInUser(userName, token) {
     loginUser.userName = userName;
-    console.log("Username set as"+ loginUser.userName);
+    loginUser.token = token;
+    console.log("Username set as"+ loginUser.userName + '' + token);
 }
 export function checkLogin(data) {
     console.log('Posting request to API...');
     var url = '';
     if (data.hvCpwd)
     {
-        url = 'https://app.animator94.hasura-app.io/dregister'
+        //url = 'https://app.animator94.hasura-app.io/dregister'
+        url = 'https://app.anthology78.hasura-app.io/dregister'
     }
     else {
-        url = 'https://app.animator94.hasura-app.io/dlogin'
+        //url = 'https://app.animator94.hasura-app.io/dlogin'
+        url = 'https://app.anthology78.hasura-app.io/dlogin'
     } 
     fetch(url, {
       method: 'post',
@@ -54,7 +58,7 @@ export function checkLogin(data) {
         if (response.status >= 200 && response.status < 300) {
             console.log("retirning response.json function");
             var obj = JSON.stringify(response.body);
-            var cookies = response.headers.cookies;
+            var length = document.cookie.length;
             return response.json();
         }
         else{
@@ -66,9 +70,7 @@ export function checkLogin(data) {
             if (data["auth_token"])
             {
                 console.log("User logged in. Username is : " + data['username'] + " and user id is "+ data['hasura_id']);
-                setLoggedInUser(data['username']);
-                console.log(document.cookie);
-                console.log("cookie printer");
+                setLoggedInUser(data['username'],data["auth_token"]);
             }
             else {
                 console.log("User sign up/in failed becaue - "+ data['message']);
