@@ -54,6 +54,7 @@ export function checkLogin(data) {
         if (response.status >= 200 && response.status < 300) {
             console.log("retirning response.json function");
             var obj = JSON.stringify(response.body);
+            var cookies = response.headers.cookies;
             return response.json();
         }
         else{
@@ -66,6 +67,8 @@ export function checkLogin(data) {
             {
                 console.log("User logged in. Username is : " + data['username'] + " and user id is "+ data['hasura_id']);
                 setLoggedInUser(data['username']);
+                console.log(document.cookie);
+                console.log("cookie printer");
             }
             else {
                 console.log("User sign up/in failed becaue - "+ data['message']);

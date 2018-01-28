@@ -6,7 +6,7 @@ import TopMenu from './TopMenu.js';
 import MyMenu from './MyMenu';
 import Menu from 'material-ui/Menu/Menu';
 import MyDriveList from './MyDriveList';
-import DialogExampleSimple from './DialogExampleSimple';
+
 
 class App extends Component {
   render() {
@@ -17,7 +17,7 @@ class App extends Component {
         <AppBar style= {{position: 'absolute'}}/>
         <MyMenu style= {{position: 'absolute'}}/>
         <MyDriveList/>
-      <DialogExampleSimple/>
+    
        </div>
        
       </MuiThemeProvider>

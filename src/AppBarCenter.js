@@ -5,7 +5,7 @@ import FlatButton from 'material-ui/FlatButton';
 import DetailsIcon from 'material-ui/svg-icons/image/details';
 import MyMenu from './MyMenu';
 import TopMenu from './TopMenu'
-import DialogExampleSimple from './DialogExampleSimple';
+
 const styles = {
     customWidth: {
       width: 500
@@ -45,25 +45,32 @@ export default class AppBarCenter extends React.Component
 {
     constructor(props) {
         super(props);
-        this.state = {value: 1,showComponent: false};
+        this.state = {value: 1,showComponent: false, appear: 'inline'};
         this.handler = this.handler.bind(this)
       }
     
       state = {
         searchText: '',
       };
-      handleClick=() =>
+      handleOpen=() =>
       {
         this.setState({
-            showComponent: ! this.state.showComponent,
+            showComponent: true,
           });
+          this.setState({
+           appear: 'inline',
+          });
+      }
+      handleClose =() =>
+      {
+        this.setState({showComponent: false})
       }
       handleUpdateInput = (searchText) => {
         this.setState({
           searchText: searchText,
         });
       };
-
+      
     
       handleNewRequest = () => {
         this.setState({
@@ -71,9 +78,9 @@ export default class AppBarCenter extends React.Component
         });
       };
       handler(e) {
-        e.preventDefault()
+       
         this.setState({
-            showComponent: false
+           appear: 'none'
         })
       };
     
@@ -85,8 +92,18 @@ export default class AppBarCenter extends React.Component
        
           <TopMenu/>
           <br/>
-        
-           <DialogExampleSimple/>
+          <FlatButton className= "dropbutton"
+                        label="My drive"
+                        labelPosition="before"
+                        primary={true}
+                        icon={<DetailsIcon  color = '#21212'/>}
+                        onClick={this.handleOpen} 
+                    
+                       
+            />
+            
+           
+            {this.state.showComponent?  <MyMenu id="1" appear ={this.state.appear} action={this.handler} />: null} 
             </div>
         );
     }
