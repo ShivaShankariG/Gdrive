@@ -272,6 +272,7 @@ export default class AppBarRight extends React.Component {
                     <IconButton tooltip="Settings"  tooltipPosition="bottom-center">
                         <SettingsIcon onClick={this.handleClick}  color= '#757575'/>
                     </IconButton>
+
                     <Drawer width={250} openSecondary={true} open={this.state.open} containerStyle={{ top: 144}} style={{display: 'flex'}}>
                          <AppBar   title="My Drive" 
                                     
@@ -284,6 +285,7 @@ export default class AppBarRight extends React.Component {
                         <MyDrawer/>
                         
                     </Drawer>
+
                     {this.state.show? <MYlist/>: null}
              </div>
         );    

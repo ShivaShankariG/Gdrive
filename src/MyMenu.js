@@ -23,6 +23,8 @@ import index from 'material-ui/Dialog';
 import {getLoggedInUser} from './login.js';
 
 
+import RaisedButton from 'material-ui/RaisedButton'
+
 export default class MyMenu extends React.Component
 {
   //==================
@@ -33,13 +35,17 @@ export default class MyMenu extends React.Component
                  show:false,
                  change:true,
                  showUpload:false,
-                 filePathnName: ''
+                 filePathnName: '',
+                 Index: 0,
+               
                 };
     this.handleUpload=this.handleUpload.bind(this);
     this.handleToggle=this.handleToggle.bind(this);
     this.handleChange=this.handleChange.bind(this);
+  
 
   }
+
   handleUpload = () => {
 
     
@@ -55,7 +61,8 @@ export default class MyMenu extends React.Component
     open: false,
   };
 
-  handleOpen = () => {
+  handleOpen = (e) => {
+   
     this.setState({showUpload: true});
   };
 
@@ -75,7 +82,13 @@ export default class MyMenu extends React.Component
         errorTextName: e.target.value ? '' : 'Please, type your Name'
       });*/
     };
+    
   }; 
+ handletest=(e)=>{
+   e.stopPropagation();
+   alert("onblur");
+ }
+
   
   handleFileUpload = () => {
     var x = document.getElementById("fileToUpload");
@@ -125,6 +138,10 @@ export default class MyMenu extends React.Component
 
   //=======================
 
+  componentDidMount(){
+    window.addEventListener('onmousedown', this.props.action, false);
+}
+
   render()
   {
     const actions = [
@@ -143,30 +160,16 @@ export default class MyMenu extends React.Component
      AppBarRight wich changes the state of showComponent to false */
 
     if(this.props.id=="1"){
+    
       return(
       <div >
-        <Paper style={{position: 'absolute', zIndex : 0}}>
-          <Menu desktop={true} width={320} className="menu" >
+       
+          <Paper style={{position: 'absolute', zIndex: 10}}  >
+          <Menu desktop={true} width={320} className="menu" style= {{display: this.props.appear}} onMouseLeave= {this.props.action} >
             <MenuItem primaryText="New Folder.."  leftIcon={<CFolderIcon/>} />
             <Divider /> 
             <MenuItem primaryText="Upload Files.." leftIcon={<UFileIcon/>} onClick={this.handleOpen} />
-              <Dialog
-              actions={actions}
-              modal={true}
-              open={this.state.showUpload}
-              contentStyle={{width: 450, height: 600}}
-              >
-                  <img className="driveLogo" src={driveLogo} alt="driveLogo" />
-                  <br />
-                  <br />
-                  <br />
-                  <h1>File Upload</h1>
-                
-                    <input id="fileToUpload" type="file" height="30"/>
-                    <button type="submit" onClick={this.handleFileUpload}>Upload</button>
-                    
-                  <br />               
-              </Dialog>
+            
             <MenuItem primaryText="Upload Folder" leftIcon={<FolderIcon/>} />
             <Divider />
             <MenuItem
@@ -218,30 +221,53 @@ export default class MyMenu extends React.Component
                 ]}
                 />
           </Menu>
-        </Paper>
+          </Paper>
+          <Dialog
+              actions={actions}
+              modal={true}
+              open={this.state.showUpload}
+              contentStyle={{width: 450, height: 600}}
+              >
+                  <img className="driveLogo" src={driveLogo} alt="driveLogo" />
+                  <br />
+                  <br />
+                  <br />
+                  <h1>File Upload</h1>
+                
+                    <input id="fileToUpload" type="file" height="30"/>
+                    <button type="submit" onClick={this.handleFileUpload}>Upload</button>
+                    
+                  <br />               
+              </Dialog>
       </div>
     );
     }
     else
     {
       return(
-        <div style={{position: 'absolute', marginTop: 132, zIndex: -2,}}>
+        <div >
+           <Paper style={{position: 'absolute', marginTop: 132, zIndex: -1,}}>
+           <Menu desktop={true} width={300} className="menu" >
+           <MenuItem primaryText="MyDrive"  leftIcon={<CFolderIcon/>} 
+            menuItems={[
+              <MenuItem primaryText="F1"/>,
+              <MenuItem primaryText="F2"/>,
+            ]}/>
          
-            <Menu  className="menu">
-            <MenuItem primaryText="MyDrive"  leftIcon={<CFolderIcon/>}/>
-            <MenuItem primaryText="Computers"  leftIcon={<CFolderIcon/>}/>
-            <MenuItem primaryText="Shared with me"  leftIcon={<CFolderIcon/>}/>
-            <MenuItem primaryText="Recent"  leftIcon={<CFolderIcon/>}/>
-            <MenuItem primaryText="Google Photos"  leftIcon={<CFolderIcon/>}/>
-            <MenuItem primaryText="Starred"  leftIcon={<CFolderIcon/>}/>
-            <MenuItem primaryText="Trash"  leftIcon={<CFolderIcon/>}/>
-            <Divider/>
-            <MenuItem primaryText="Backups"  leftIcon={<CFolderIcon/>}/>
-            <Divider/>
-            <MenuItem primaryText="Upgrade Storage"  leftIcon={<CFolderIcon/>}/>
+           <MenuItem primaryText="Computers" leftIcon={<UFileIcon/>} onClick={this.handleOpen} />
+            
+           <MenuItem primaryText="Shared with me" leftIcon={<FolderIcon/>} />
+           <Divider />
+           <MenuItem primaryText="Recent" leftIcon={<FolderIcon/>} />
+           <MenuItem primaryText="Google Photos" leftIcon={<FolderIcon/>} />
+           <MenuItem primaryText="Starred" leftIcon={<FolderIcon/>} />
+           <MenuItem primaryText="Trash" leftIcon={<FolderIcon/>} />
+           <MenuItem primaryText="Backups" leftIcon={<FolderIcon/>} />
+           <MenuItem primaryText="Upgrade storage" leftIcon={<FolderIcon/>} />
 
-            </Menu>
-          
+         </Menu>
+
+          </Paper>
         </div>
       );
     }
