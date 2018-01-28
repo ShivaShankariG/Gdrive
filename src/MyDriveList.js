@@ -20,12 +20,12 @@ const styles= {
 const MyDriveList = () => (
   <div>
   <Table style={styles}
-  selectable = {false}>
+  selectable = {true}>
     <TableHeader 
     displaySelectAll={false}
     adjustForCheckbox={false}
    >
-      <TableRow >
+      <TableRow selectable={true}>
         <TableHeaderColumn>Name</TableHeaderColumn>
         <TableHeaderColumn>Owner</TableHeaderColumn>
         <TableHeaderColumn>Last modified by me</TableHeaderColumn>
@@ -34,9 +34,10 @@ const MyDriveList = () => (
     </TableHeader>
     <TableBody
             displayRowCheckbox={false}
+          
                       
           >
-      <TableRow >
+      <TableRow selectable={true} >
         <TableRowColumn>F1</TableRowColumn>
         <TableRowColumn>me</TableRowColumn>
         <TableRowColumn>date</TableRowColumn>

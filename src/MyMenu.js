@@ -20,9 +20,9 @@ import FlatButton from 'material-ui/FlatButton';
 import {Dialog, TextField} from 'material-ui';
 import { SelectField } from 'material-ui/SelectField';
 import index from 'material-ui/Dialog';
-
-
 import RaisedButton from 'material-ui/RaisedButton'
+import {List, ListItem} from 'material-ui/List';
+
 
 export default class MyMenu extends React.Component
 {
@@ -35,7 +35,7 @@ export default class MyMenu extends React.Component
                  change:true,
                  showUpload:false,
                  filePathnName: '',
-                 Index: 0,
+                 
                
                 };
     this.handleUpload=this.handleUpload.bind(this);
@@ -83,10 +83,7 @@ export default class MyMenu extends React.Component
     };
     
   }; 
- handletest=(e)=>{
-   e.stopPropagation();
-   alert("onblur");
- }
+
 
   
   handleFileUpload = () => {
@@ -130,10 +127,7 @@ export default class MyMenu extends React.Component
 
   //=======================
 
-  componentDidMount(){
-    window.addEventListener('onmousedown', this.props.action, false);
-}
-
+  
   render()
   {
     const actions = [
@@ -152,11 +146,11 @@ export default class MyMenu extends React.Component
      AppBarRight wich changes the state of showComponent to false */
 
     if(this.props.id=="1"){
-    
+     
       return(
       <div >
        
-          <Paper style={{position: 'absolute', zIndex: 10}}  >
+          <Paper style={{position: 'absolute', zIndex: 1}}  >
           <Menu desktop={true} width={320} className="menu" style= {{display: this.props.appear}} onMouseLeave= {this.props.action} >
             <MenuItem primaryText="New Folder.."  leftIcon={<CFolderIcon/>} />
             <Divider /> 
@@ -234,32 +228,52 @@ export default class MyMenu extends React.Component
       </div>
     );
     }
-    else
+    else 
     {
       return(
         <div >
-           <Paper style={{position: 'absolute', marginTop: 132, zIndex: -1,}}>
-           <Menu desktop={true} width={300} className="menu" >
-           <MenuItem primaryText="MyDrive"  leftIcon={<CFolderIcon/>} 
-            menuItems={[
-              <MenuItem primaryText="F1"/>,
-              <MenuItem primaryText="F2"/>,
-            ]}/>
+         
+           <List width={250} className="menu" style={{position: 'absolute', marginTop: 20, zIndex: -1}} >
+          
+              <ListItem
+              primaryText="My Drive"
+              leftIcon={<CFolderIcon />}
+              initiallyOpen={false}
+              primaryTogglesNestedList={true}
+              nestedItems={[
+                <ListItem
+                  key={1}
+                  primaryText="F1"
+                  leftIcon={<CFolderIcon />}
+                />,
+                <ListItem
+                  key={2}
+                  primaryText="F2"
+                  leftIcon={<CFolderIcon />}
+                  
+                  
+                />,
+              
+              ]}
+            />,
+             
          
            <MenuItem primaryText="Computers" leftIcon={<UFileIcon/>} onClick={this.handleOpen} />
             
            <MenuItem primaryText="Shared with me" leftIcon={<FolderIcon/>} />
-           <Divider />
+          
            <MenuItem primaryText="Recent" leftIcon={<FolderIcon/>} />
            <MenuItem primaryText="Google Photos" leftIcon={<FolderIcon/>} />
            <MenuItem primaryText="Starred" leftIcon={<FolderIcon/>} />
            <MenuItem primaryText="Trash" leftIcon={<FolderIcon/>} />
+           <Divider/>
            <MenuItem primaryText="Backups" leftIcon={<FolderIcon/>} />
+           <Divider/>
            <MenuItem primaryText="Upgrade storage" leftIcon={<FolderIcon/>} />
 
-         </Menu>
+         </List>
 
-          </Paper>
+      
         </div>
       );
     }
