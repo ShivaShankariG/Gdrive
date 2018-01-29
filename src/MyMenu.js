@@ -101,9 +101,10 @@ export default class MyMenu extends React.Component
     var arr = getLoggedInUser();
     
     //fetch('https://app.animator94.hasura-app.io/fupload', {
-    fetch('https://app.anthology78.hasura-app.io/fupload', {
+    fetch('https://t47d.anthology78.hasura-app.io/fupload', {
       method: 'POST',
       body: data,
+      credentials: 'include',
       username: arr["userName"],
       headers: {
         "Authorization": 'Bearer ' + arr[1]
