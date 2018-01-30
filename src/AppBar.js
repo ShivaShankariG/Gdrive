@@ -11,7 +11,7 @@ const styles = {
     position: 'fixed',
     display: 'flex',
     flexFlow: 'row nowrap',
-    backgroundColor : '#FF5722',
+    backgroundColor :' #FF5722',
   //  justifyContent: 'space-between',
 
     },

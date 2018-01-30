@@ -21,9 +21,9 @@ import {SelectField, TextField} from 'material-ui';
 import driveLogo from './images/Hasura_Drive_image.png';
 import blue200 from 'material-ui/styles/colors';
 import { SMALL } from 'material-ui/utils/withWidth';
-
+import MyDriveList from './MyDriveList';
 import MyDrawer from './MyDrawer';
-
+import {loginUser} from './login';
 
 const styles = {
 
@@ -81,12 +81,16 @@ export default class AppBarRight extends React.Component {
                      hvCpwd: '',
                      isSignUp: false,
                      loginType: "Sign in",
-                     showLoginErrorDialog: false
+                     showLoginErrorDialog: false,
+                     success: false,
                     };
         this.handleClick=this.handleClick.bind(this);
         this.handleToggle=this.handleToggle.bind(this);
         this.handleChange=this.handleChange.bind(this);
 
+      }
+      componentDidMount(){
+          alert(this.state.success);
       }
       handleLogoClick = () => {
         alert("logo clicked");
@@ -109,6 +113,8 @@ export default class AppBarRight extends React.Component {
         if (!checkLogin(cred))
         {
             alert("User with same username already exists. Please try with a different username");
+            this.setState({success: true});
+            
         }
         //setErrorText(undefined);
       };
@@ -192,6 +198,7 @@ export default class AppBarRight extends React.Component {
             />,
           ];
         return (
+            <div>
             <div style={styles.Left} className="iconColor">
                     <IconButton tooltip="Grid View" tooltipPosition="bottom-center"  >
                         <GridIcon color= '#212121'/>
@@ -287,6 +294,9 @@ export default class AppBarRight extends React.Component {
                     </Drawer>
 
                     {this.state.show? <MYlist/>: null}
+                    
+             </div>
+             {this.state.success==''? null : <MyDriveList/>} 
              </div>
         );    
     }

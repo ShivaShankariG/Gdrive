@@ -24,10 +24,15 @@ return fetch('https://app.animator94.hasura-app.io/dregister', {
       }
 }).catch(err => err);
 }*/
-const loginUser = {
+
+
+
+export const loginUser = {
     userName: '',
     token: ''
 }
+export const status= false;
+
 export function getLoggedInUser() {
     return [loginUser.userName, loginUser.token];
 }
@@ -71,6 +76,7 @@ export function checkLogin(data) {
             {
                 console.log("User logged in. Username is : " + data['username'] + " and user id is "+ data['hasura_id']);
                 setLoggedInUser(data['username'],data["auth_token"]);
+               
             }
             else {
                 console.log("User sign up/in failed becaue - "+ data['message']);
