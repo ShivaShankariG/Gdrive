@@ -30,8 +30,19 @@ const loginUser = {
     rtpthid: '',
     hasura_id: ''
 }
+const mapOfFiles = {}
+const mapOfFolders = {}
+export function getFoldersOfUser(userName){
+    
+    return mapOfFolders;
+}
+export function getFilesOfUser(userName){
+    
+    return mapOfFiles;
+}
+
 export function getLoggedInUser() {
-    return [loginUser.userName, loginUser.token];
+    return loginUser;
 }
 export function setLoggedInUser(userName, token, rtpthid, hasura_id) {
     loginUser.userName = userName;

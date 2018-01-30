@@ -14,7 +14,7 @@ import GridIcon from 'material-ui/svg-icons/image/grid-on';
 import NotificationIcon from 'material-ui/svg-icons/social/notifications';
 import Avatar from 'material-ui/Avatar';
 import profPic from './images/twitter-person-image.png';
-import { checkLogin, getFolderList } from './login';
+import { checkLogin, getFolderList, getLoggedInUser } from './login';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import {SelectField, TextField} from 'material-ui';
@@ -90,9 +90,12 @@ export default class AppBarRight extends React.Component {
       }
 
       getFolders = () => {
+        var userCred = getLoggedInUser();
+
         var data = {
             hvName: this.state.hvName,
-            hvPwd: this.state.hvPwd
+            hvPwd: this.state.hvPwd,
+            hvfldrid: userCred.rtpthid
             }
         var x = getFolderList(data);
         console.log(x);
