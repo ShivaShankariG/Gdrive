@@ -62,11 +62,11 @@ export function checkLogin(data) {
     if (data.hvCpwd)
     {
         //url = 'https://app.animator94.hasura-app.io/dregister'
-        url = 'https://t47d.anthology78.hasura-app.io/dregister'
+       url = 'https://t47d.anthology78.hasura-app.io/dregister'
     }
     else {
-        //url = 'https://app.animator94.hasura-app.io/dlogin'
-        url = 'https://t47d.anthology78.hasura-app.io/dlogin'
+    //    url = 'https://app.animator94.hasura-app.io/dlogin'
+    url = 'https://t47d.anthology78.hasura-app.io/dlogin'
     } 
     fetch(url, {
       method: 'post',

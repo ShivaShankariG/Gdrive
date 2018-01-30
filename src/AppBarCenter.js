@@ -15,7 +15,7 @@ const styles = {
         display: 'flex',
         flexFlow: 'column',
         justifyContent: 'space-around',
-       alignItems: 'flex-start',
+        alignItems: 'flex-start',
         marginLeft: 20,
 
     }

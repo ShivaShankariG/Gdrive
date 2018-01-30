@@ -209,7 +209,7 @@ export default class AppBarRight extends React.Component {
             />,
           ];
         return (
-            <div>
+            <div style={{display: 'block'}}>
             <div style={styles.Left} className="iconColor">
                     <IconButton tooltip="Grid View" tooltipPosition="bottom-center" onClick={this.getFolders}  >
                         <GridIcon color= '#757575'/>
@@ -307,6 +307,7 @@ export default class AppBarRight extends React.Component {
                     {this.state.show? <MYlist/>: null}
                     
              </div>
+             
              {this.state.success==''? null : <MyDriveList/>} 
              </div>
         );    

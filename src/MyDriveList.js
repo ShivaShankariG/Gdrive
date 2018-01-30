@@ -7,34 +7,56 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
-import {test} from './App';
-import {loginUser} from './login';
+import {getLoggedInUser, getFoldersOfUser,loginUser} from './login';
+
 const styles= {
-    marginTop: 160,
-    marginLeft: 300, 
-    width: '60%',
+    marginTop: 10,
+    marginLeft: -610, 
+  
     zIndex : -2,
-    position: 'relative',
+   // position: 'absolute',
 }
 /**
  * A simple table demonstrating the hierarchy of the `Table` component and its sub-components.
  */
 export default class MyDriveList extends React.Component{
+  constructor(props) {
+    super(props);
+    this.state = {
+       
+    };
+  }
+ componentDidMount()
+ {
+  //var userCred = getLoggedInUser(); 
+  //var FolderInfo = getFoldersOfUser(userCred.userName);
 
- 
+ }
+  /* <TableBody>
+            {tableData.map( (row, index) => (
+              <TableRow key={index}>
+                <TableRowColumn>{index}</TableRowColumn>
+                <TableRowColumn>{row.name}</TableRowColumn>
+                <TableRowColumn>{row.owner}</TableRowColumn>
+                <TableRowColumn>LastModified</TableRowColumn>
+                <TableRowColumn>Size</TableRowColumn>
+              </TableRow>
+              ))}
+          </TableBody>
+   */
   render(){
-   
-    return (
+   return (
     
   <div>
-  <Table style={styles}
+  <Table 
   selectable = {true}>
     <TableHeader 
     displaySelectAll={false}
     adjustForCheckbox={false}
    >
+  
       <TableRow selectable={true}>
-        <TableHeaderColumn>{test}}</TableHeaderColumn>
+        <TableHeaderColumn>Name</TableHeaderColumn>
         <TableHeaderColumn>Owner</TableHeaderColumn>
         <TableHeaderColumn>Last modified by me</TableHeaderColumn>
         <TableHeaderColumn>Size</TableHeaderColumn>

@@ -7,7 +7,7 @@ import MyMenu from './MyMenu';
 import Menu from 'material-ui/Menu/Menu';
 import MyDriveList from './MyDriveList';
 import Toggle from 'material-ui/Toggle';
-export const test = 'true';
+
 
 class App extends Component {
   constructor(props) {
