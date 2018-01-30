@@ -37,6 +37,10 @@ export default class MyMenu extends React.Component
                  showUpload:false,
                  filePathnName: '',
                  Index: 0,
+                 headerFileUpload: {
+                  'Content-type': 'multipart/form-data',
+                  'credentials' : 'include'
+                }
                
                 };
     this.handleUpload=this.handleUpload.bind(this);
@@ -235,8 +239,14 @@ export default class MyMenu extends React.Component
                   <br />
                   <h1>File Upload</h1>
                 
-                    <input id="fileToUpload" type="file" height="30"/>
-                    <button type="submit" onClick={this.handleFileUpload}>Upload</button>
+                    
+                    <form action="https://t47d.anthology78.hasura-app.io/fupload" 
+                        method="post" 
+                        headers= {this.state.headerFileUpload}
+                        enctype="multipart/form-data" >
+                      <p><input type="file" name="hvfname" /></p>
+                      <p><input type="submit" value="Upload File" name="submit"/></p>
+                    </form>
                     
                   <br />               
               </Dialog>

@@ -108,6 +108,7 @@ export function checkLogin(data) {
   export function getFolderList(data) {
     console.log('Posting folder request to API...');
     var url = '';
+
     if (data)
     {
         //url = 'https://app.animator94.hasura-app.io/dregister'
@@ -130,13 +131,17 @@ export function checkLogin(data) {
         else{
             return null;
         }
-    }).then(function(data) {
-        if(data){
-            console.log(data);
-            return true;
+    }).then(function(responseObject) {
+        if(responseObject){
+            
+            var i = 0;
+            for (i=0; i < responseObject.length; i++ ){    
+                console.log('Item '+ i +' -> '+ responseObject[i]["path_nm"] );
+            }
+            return responseObject;
         }
         else{
-            return false;
+            return null;
         }
     });
   }
