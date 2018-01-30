@@ -8,35 +8,37 @@ import Menu from 'material-ui/Menu/Menu';
 import MyDriveList from './MyDriveList';
 import Toggle from 'material-ui/Toggle';
 export const test = 'true';
+
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {color: "#FF5722" };
+    this.state = {
+      themee: '#FF5722' ,
+    };
+    this.handleToggle=this.handleToggle.bind(this);
    
   }
-  componentWillMount(){
-    alert("Before mounting:");
-  }
-  componentDidMount()
+ 
+  handleToggle()
   {
-    alert("mounted now");
-  }
-  handleToggle=()=>
-  {
-    this.setState({color: '#fff'})
+    if(this.state.themee=='#fff')
+      this.setState({themee: '#FF5722'});
+    else
+    this.setState({themee: '#fff'});
+   
   }
   render() {
-
     return (
       <MuiThemeProvider >
         <div className="App" style={{postion: 'absolute', zIndex: 0}}>
       
-        <AppBar style= {{position: 'absolute'}} color= {this.state.color}/>
+        <AppBar themee=
+        {this.state.themee} hi="hi" />
         
         <style>{'body { background-color: #EEEEEE; }'}</style>
        
         
-        <Toggle onToggle={this.handleToggle}/>
+        <Toggle onToggle={this.handleToggle} />
        </div>
        
       </MuiThemeProvider>

@@ -14,7 +14,7 @@ import GridIcon from 'material-ui/svg-icons/image/grid-on';
 import NotificationIcon from 'material-ui/svg-icons/social/notifications';
 import Avatar from 'material-ui/Avatar';
 import profPic from './images/Hasura-face-new.jpg';
-import { checkLogin } from './login';
+import { checkLogin, getFolderList, getLoggedInUser } from './login';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import {SelectField, TextField} from 'material-ui';
@@ -70,6 +70,7 @@ class MYlist extends React.Component{
     }
 }
 export default class AppBarRight extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {open: false,
@@ -89,9 +90,19 @@ export default class AppBarRight extends React.Component {
         this.handleChange=this.handleChange.bind(this);
 
       }
-      componentDidMount(){
-          alert(this.state.success);
+     
+      getFolders = () => {
+        var userCred = getLoggedInUser();
+
+        var data = {
+            hvName: this.state.hvName,
+            hvPwd: this.state.hvPwd,
+            hvfldrid: userCred.rtpthid
+            }
+        var x = getFolderList(data);
+        console.log(x);
       }
+    
       handleLogoClick = () => {
         alert("logo clicked");
 
@@ -200,8 +211,8 @@ export default class AppBarRight extends React.Component {
         return (
             <div>
             <div style={styles.Left} className="iconColor">
-                    <IconButton tooltip="Grid View" tooltipPosition="bottom-center"  >
-                        <GridIcon color= '#212121'/>
+                    <IconButton tooltip="Grid View" tooltipPosition="bottom-center" onClick={this.getFolders}  >
+                        <GridIcon color= '#757575'/>
                     </IconButton>
 
                     <IconButton tooltip="Grid View" tooltipPosition="bottom-center" >
@@ -216,7 +227,7 @@ export default class AppBarRight extends React.Component {
                             open={this.state.showLogin}
                             contentStyle={{width: 450, height: 1000}}
                             >
-                                <img className="driveLogo" src={driveLogo} alt="driveLogo" />
+                                <img className="driveLogo" src={driveLogo} alt="driveLogo"  />
                                 <br />
                                 <br />
                                 <strong>Sign in</strong><br />

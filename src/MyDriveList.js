@@ -21,11 +21,9 @@ const styles= {
  */
 export default class MyDriveList extends React.Component{
 
- componentDidMount(){
-   alert("MyDriveList didmount");
- }
+ 
   render(){
-    alert("MyDriveList render()");
+   
     return (
     
   <div>
