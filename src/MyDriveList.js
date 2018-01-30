@@ -7,6 +7,8 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
+import {test} from './App';
+import {loginUser} from './login';
 const styles= {
     marginTop: 160,
     marginLeft: 300, 
@@ -17,16 +19,22 @@ const styles= {
 /**
  * A simple table demonstrating the hierarchy of the `Table` component and its sub-components.
  */
-const MyDriveList = () => (
+export default class MyDriveList extends React.Component{
+
+ 
+  render(){
+   
+    return (
+    
   <div>
   <Table style={styles}
-  selectable = {false}>
+  selectable = {true}>
     <TableHeader 
     displaySelectAll={false}
     adjustForCheckbox={false}
    >
-      <TableRow >
-        <TableHeaderColumn>Name</TableHeaderColumn>
+      <TableRow selectable={true}>
+        <TableHeaderColumn>{test}}</TableHeaderColumn>
         <TableHeaderColumn>Owner</TableHeaderColumn>
         <TableHeaderColumn>Last modified by me</TableHeaderColumn>
         <TableHeaderColumn>Size</TableHeaderColumn>
@@ -34,9 +42,10 @@ const MyDriveList = () => (
     </TableHeader>
     <TableBody
             displayRowCheckbox={false}
+          
                       
           >
-      <TableRow >
+      <TableRow selectable={true} >
         <TableRowColumn>F1</TableRowColumn>
         <TableRowColumn>me</TableRowColumn>
         <TableRowColumn>date</TableRowColumn>
@@ -110,4 +119,6 @@ const MyDriveList = () => (
   </div>
 );
 
-export default MyDriveList;
+
+  }
+}

@@ -24,12 +24,16 @@ return fetch('https://app.animator94.hasura-app.io/dregister', {
       }
 }).catch(err => err);
 }*/
-const loginUser = {
+
+
+
+export const loginUser = {
     userName: '',
     token: '',
     rtpthid: '',
     hasura_id: ''
 }
+export const status= false;
 const mapOfFiles = {}
 const mapOfFolders = {}
 export function getFoldersOfUser(userName){

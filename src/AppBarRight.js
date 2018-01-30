@@ -13,7 +13,7 @@ import Paper from 'material-ui/Paper';
 import GridIcon from 'material-ui/svg-icons/image/grid-on'; 
 import NotificationIcon from 'material-ui/svg-icons/social/notifications';
 import Avatar from 'material-ui/Avatar';
-import profPic from './images/twitter-person-image.png';
+import profPic from './images/Hasura-face-new.jpg';
 import { checkLogin, getFolderList, getLoggedInUser } from './login';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
@@ -21,9 +21,9 @@ import {SelectField, TextField} from 'material-ui';
 import driveLogo from './images/Hasura_Drive_image.png';
 import blue200 from 'material-ui/styles/colors';
 import { SMALL } from 'material-ui/utils/withWidth';
-
+import MyDriveList from './MyDriveList';
 import MyDrawer from './MyDrawer';
-
+import {loginUser} from './login';
 
 const styles = {
 
@@ -70,6 +70,7 @@ class MYlist extends React.Component{
     }
 }
 export default class AppBarRight extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {open: false,
@@ -81,14 +82,15 @@ export default class AppBarRight extends React.Component {
                      hvCpwd: '',
                      isSignUp: false,
                      loginType: "Sign in",
-                     showLoginErrorDialog: false
+                     showLoginErrorDialog: false,
+                     success: false,
                     };
         this.handleClick=this.handleClick.bind(this);
         this.handleToggle=this.handleToggle.bind(this);
         this.handleChange=this.handleChange.bind(this);
 
       }
-
+     
       getFolders = () => {
         var userCred = getLoggedInUser();
 
@@ -100,6 +102,7 @@ export default class AppBarRight extends React.Component {
         var x = getFolderList(data);
         console.log(x);
       }
+    
       handleLogoClick = () => {
         alert("logo clicked");
 
@@ -121,6 +124,8 @@ export default class AppBarRight extends React.Component {
         if (!checkLogin(cred))
         {
             alert("User with same username already exists. Please try with a different username");
+            this.setState({success: true});
+            
         }
         //setErrorText(undefined);
       };
@@ -204,13 +209,14 @@ export default class AppBarRight extends React.Component {
             />,
           ];
         return (
+            <div>
             <div style={styles.Left} className="iconColor">
                     <IconButton tooltip="Grid View" tooltipPosition="bottom-center" onClick={this.getFolders}  >
                         <GridIcon color= '#757575'/>
                     </IconButton>
 
                     <IconButton tooltip="Grid View" tooltipPosition="bottom-center" >
-                        <NotificationIcon color= '#757575'/>
+                        <NotificationIcon color= '#212121'/>
                     </IconButton>
 
                     <IconButton >
@@ -269,20 +275,20 @@ export default class AppBarRight extends React.Component {
                     </IconButton>
                     
                     {this.state.change ? <IconButton tooltip="Grid View" tooltipPosition="bottom-center" onClick={this.handleChange}>
-                        <GridIcon color= '#757575'/>
+                        <GridIcon color= '#212121'/>
                     </IconButton>
                     :
                      <IconButton tooltip="List View"  tooltipPosition="bottom-center" onClick={this.handleChange}  >
-                     <ListIcon color= '#757575'/>
+                     <ListIcon color= '#212121'/>
                  </IconButton>
                  }
                     
                    
                     <IconButton tooltip="View details"  tooltipPosition="bottom-center" onClick ={this.handleToggle}  >
-                        <InfoIcon color= '#757575' />
+                        <InfoIcon color= '#212121' />
                     </IconButton>
                     <IconButton tooltip="Settings"  tooltipPosition="bottom-center">
-                        <SettingsIcon onClick={this.handleClick}  color= '#757575'/>
+                        <SettingsIcon onClick={this.handleClick}  color= '#212121'/>
                     </IconButton>
 
                     <Drawer width={250} openSecondary={true} open={this.state.open} containerStyle={{ top: 144}} style={{display: 'flex'}}>
@@ -299,6 +305,9 @@ export default class AppBarRight extends React.Component {
                     </Drawer>
 
                     {this.state.show? <MYlist/>: null}
+                    
+             </div>
+             {this.state.success==''? null : <MyDriveList/>} 
              </div>
         );    
     }

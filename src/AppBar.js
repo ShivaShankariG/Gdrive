@@ -3,15 +3,13 @@ import Paper from 'material-ui/Paper';
 import AppBarLeft from './AppBarLeft';
 import AppBarCenter from './AppBarCenter';
 import AppBarRight from './AppBarRight';
+import {deepOrange400, grey50} from 'material-ui/styles/colors';
+
 const styles = {
-    appbar: {
-    height: 130,
-    width: '100%',
-    position: 'fixed',
-    display: 'flex',
-    flexFlow: 'row nowrap',
-   
-    },
+
+  //  justifyContent: 'space-between',
+
+
 
   };
 
@@ -20,13 +18,25 @@ export default  class AppBar extends React.Component
 
     render()
     {
+       
         return(
-            <Paper style={styles.appbar} zDepth={3} >
-               
+            <div >
+            <Paper style={{
+                            height: 130,
+                            width: '100%',
+                            position: 'fixed',
+                            display: 'flex',
+                            flexFlow: 'row nowrap',
+                            backgroundColor : this.props.themee,}} 
+                    zDepth={3}  >
+                                    
                 <AppBarLeft/>
                 <AppBarCenter/>
                 <AppBarRight/>
+               
             </Paper>
+             
+           </div>
         );
     }
 }
