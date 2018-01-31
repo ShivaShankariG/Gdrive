@@ -56,7 +56,7 @@ export function setLoggedInUser(userName, token, rtpthid, hasura_id) {
 
     console.log("Username set as"+ loginUser.userName + '' + token);
 }
-export function checkLogin(data) {
+export async function checkLogin(data) {
     console.log('Posting request to API...');
     var url = '';
     if (data.hvCpwd)
@@ -68,6 +68,20 @@ export function checkLogin(data) {
         //url = 'https://app.animator94.hasura-app.io/dlogin'
         url = 'https://t47d.anthology78.hasura-app.io/dlogin'
     } 
+
+    let responseObject =  await (await fetch(url,{
+        method: 'post',
+        credentials: 'include',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+          }
+      })).json();
+      console.log("User logged in. Username is : " + responseObject['username'] + " and user id is "+ responseObject['hasura_id']);
+                setLoggedInUser(responseObject['username'],responseObject["auth_token"],responseObject["rtpthid"],responseObject["hasura_id"]);
+      return responseObject;
+
+    /*  
     fetch(url, {
       method: 'post',
       credentials: 'include',
@@ -106,10 +120,10 @@ export function checkLogin(data) {
         else{
             return false;
         }
-    });
+    });*/
   }
-
-  export function getFolderList(data) {
+///////////////////////////////////////
+  /*export function getFolderList(data) {
     console.log('Posting folder request to API...');
     var url = '';
 
@@ -118,7 +132,7 @@ export function checkLogin(data) {
         //url = 'https://app.animator94.hasura-app.io/dregister'
         url = 'https://t47d.anthology78.hasura-app.io/fldrlist'
     }
-   
+
     fetch(url, {
       method: 'post',
       credentials: 'include',
@@ -148,8 +162,41 @@ export function checkLogin(data) {
             return null;
         }
     });
+  }*/
+//================================================
+
+export async function getFolderList(data) {
+    console.log('Posting folder request to API...');
+    var url = '';
+
+    if (data)
+    {
+        //url = 'https://app.animator94.hasura-app.io/dregister'
+        url = 'https://t47d.anthology78.hasura-app.io/fldrlist'
+    }
+
+    let responseObject = await (await fetch(url, {
+      method: 'post',
+      credentials: 'include',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json'
+        }
+    })).json();
+   
+     if(responseObject){
+        var i = 0;
+        for (i=0; i < responseObject.length; i++ ){    
+                console.log('Item '+ i +' -> '+ responseObject[i]["path_nm"] );
+        }
+        return responseObject;
+    }
+    else{
+        return null;
+    }
   }
 
+//================================================
 
   export function signUpNewUser(data) {
 
