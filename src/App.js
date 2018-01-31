@@ -38,7 +38,7 @@ class App extends Component {
         <style>{'body { background-color: #EEEEEE; }'}</style>
        
         
-        <Toggle onToggle={this.handleToggle} />
+      
        </div>
        
       </MuiThemeProvider>
@@ -47,3 +47,5 @@ class App extends Component {
 }
 
 export default App;
+
+//  <Toggle onToggle={this.handleToggle} />
