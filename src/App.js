@@ -33,12 +33,12 @@ class App extends Component {
         <div className="App" style={{postion: 'absolute', zIndex: 0}}>
       
         <AppBar themee=
-        {this.state.themee} hi="hi" />
+        {this.state.themee} />
         
         <style>{'body { background-color: #EEEEEE; }'}</style>
        
         
-        <Toggle onToggle={this.handleToggle} />
+       
        </div>
        
       </MuiThemeProvider>
@@ -47,3 +47,4 @@ class App extends Component {
 }
 
 export default App;
+// <Toggle onToggle={this.handleToggle} />

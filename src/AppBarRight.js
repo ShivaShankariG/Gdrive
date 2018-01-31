@@ -23,7 +23,7 @@ import blue200 from 'material-ui/styles/colors';
 import { SMALL } from 'material-ui/utils/withWidth';
 import MyDriveList from './MyDriveList';
 import MyDrawer from './MyDrawer';
-import {loginUser} from './login';
+import {loginUser,getPromise, getDetails} from './login';
 
 const styles = {
 
@@ -84,51 +84,62 @@ export default class AppBarRight extends React.Component {
                      loginType: "Sign in",
                      showLoginErrorDialog: false,
                      success: false,
-                    };
+                     };
         this.handleClick=this.handleClick.bind(this);
         this.handleToggle=this.handleToggle.bind(this);
         this.handleChange=this.handleChange.bind(this);
-
+      
       }
      
       getFolders = () => {
         var userCred = getLoggedInUser();
-
         var data = {
             hvName: this.state.hvName,
             hvPwd: this.state.hvPwd,
             hvfldrid: userCred.rtpthid
             }
         var x = getFolderList(data);
-        console.log(x);
-      }
+        console.log('x=: '+x);
+       }
     
       handleLogoClick = () => {
         alert("logo clicked");
 
-
+        var cred= {};
         if(!this.state.isSignUp)
         {
             var cred = {
                 hvName: this.state.hvName,
                 hvPwd: this.state.hvPwd
-                }
+                };
         } else {
             var cred = {
                 hvName: this.state.hvName,
                 hvPwd: this.state.hvPwd,
                 hvCpwd: this.state.hvCpwd
-                }
+                };
         }
+        getDetails(cred).then( (loginresp) => {
+       // checkLogin(cred);
+       console.log(loginresp[0]);
+        this.setState({ success: true} ); }
+        )
+    }
         
-        if (!checkLogin(cred))
-        {
-            alert("User with same username already exists. Please try with a different username");
-            this.setState({success: true});
-            
-        }
+           // alert("User with same username already exists. Please try with a different username");
+         /*  setTimeout(() => {
+            this.setState({ success: true} );
+          }, 3000);*/
+          // this.setState({success: true});
+     
+       /* getPromise().then(function(){
+            alert("Promise resolved");
+        this.setState({success: true});
+        })
+    };
+    */
         //setErrorText(undefined);
-      };
+      
       handleToggle = () => this.setState({open: !this.state.open});
       handleChange=()=>this.setState({change: !this.state.change});
       handleClick =()=> this.setState({show: !this.state.show});
@@ -307,9 +318,10 @@ export default class AppBarRight extends React.Component {
                     {this.state.show? <MYlist/>: null}
                     
              </div>
-             
-             {this.state.success==''? null : <MyDriveList/>} 
+             {this.state.success ? <MyDriveList hvName={this.state.hvName} hvPwd={this.state.hvPwd}/> : null } 
+         
              </div>
         );    
     }
 }
+////    {this.state.success==''? null : <MyDriveList data={x}/>} 

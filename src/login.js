@@ -46,6 +46,7 @@ export function getFilesOfUser(userName){
 }
 
 export function getLoggedInUser() {
+    console.log("reached getLoggedInUser");
     return loginUser;
 }
 export function setLoggedInUser(userName, token, rtpthid, hasura_id) {
@@ -56,7 +57,7 @@ export function setLoggedInUser(userName, token, rtpthid, hasura_id) {
 
     console.log("Username set as"+ loginUser.userName + '' + token);
 }
-export function checkLogin(data) {
+/*export function checkLogin(data) {
     console.log('Posting request to API...');
     var url = '';
     if (data.hvCpwd)
@@ -107,9 +108,41 @@ export function checkLogin(data) {
             return false;
         }
     });
+  }*/
+  export async function checkLogin(data) {
+    console.log('Posting request to API...');
+    var url = '';
+    if (data.hvCpwd)
+    {
+        //url = 'https://app.animator94.hasura-app.io/dregister'
+        url = 'https://t47d.anthology78.hasura-app.io/dregister'
+    }
+    else {
+        //url = 'https://app.animator94.hasura-app.io/dlogin'
+        url = 'https://t47d.anthology78.hasura-app.io/dlogin'
+    } 
+
+    let responseObject =  await (await fetch(url,{
+        method: 'post',
+        credentials: 'include',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+          }
+      })).json();
+      console.log("User logged in. Username is : " + responseObject['username'] + " and user id is "+ responseObject['hasura_id']);
+                setLoggedInUser(responseObject['username'],responseObject["auth_token"],responseObject["rtpthid"],responseObject["hasura_id"]);
+      return responseObject;
+  }
+  export function getDetails(data){
+    return Promise.all([checkLogin(data)])
   }
 
-  export function getFolderList(data) {
+  export function getDetailsofFolders(data){
+    return Promise.all([getFolderList(data)])
+  }
+
+ /* export function getFolderList(data) {
     console.log('Posting folder request to API...');
     var url = '';
 
@@ -138,20 +171,54 @@ export function checkLogin(data) {
     }).then(function(responseObject) {
         if(responseObject){
             
-            var i = 0;
+          /*  var i = 0;
             for (i=0; i < responseObject.length; i++ ){    
                 console.log('Item '+ i +' -> '+ responseObject[i]["path_nm"] );
             }
-            return responseObject;
+            return responseObject;*/
+           /* console.log(responseObject);
+                return responseObject;
         }
         else{
             return null;
         }
     });
-  }
+  } */
+  export async function getFolderList(data) {
+    console.log('Posting folder request to API...');
+    var url = '';
 
+    if (data)
+    {
+        //url = 'https://app.animator94.hasura-app.io/dregister'
+        url = 'https://t47d.anthology78.hasura-app.io/fldrlist'
+    }
+
+    let responseObject = await (await fetch(url, {
+      method: 'post',
+      credentials: 'include',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json'
+        }
+    })).json();
+   
+     if(responseObject){
+        var i = 0;
+        for (i=0; i < responseObject.length; i++ ){    
+                console.log('Item '+ i +' -> '+ responseObject[i]["path_nm"] );
+        }
+        return responseObject;
+    }
+    else{
+        return null;
+    }
+  }
 
   export function signUpNewUser(data) {
 
+  }
+  export function getPromise(){
+    return Promise.all([checkLogin()]);
   }
   //{"auth_token":"3af1682cf0c585452595b5294b698b46fb279c84ac7ad756","username":"vijay4534","hasura_id":168,"hasura_roles":["user"]}
