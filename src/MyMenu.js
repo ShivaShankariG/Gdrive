@@ -41,15 +41,16 @@ export default class MyMenu extends React.Component
                  Index: 0,
                  headerFileUpload: {
                   'Content-type': 'multipart/form-data',
-                  'credentials' : 'include'
+                  'credentials' : 'include',
                 },
-                // rtpthid: this.getLoggedInUser().rtpthid,
+                rtpthid: 0
+                 
                
                 };
     this.handleUpload=this.handleUpload.bind(this);
     this.handleToggle=this.handleToggle.bind(this);
     this.handleChange=this.handleChange.bind(this);
-  
+    this.getUserPathId=this.getUserPathId.bind(this);  
 
   }
 
@@ -76,6 +77,11 @@ export default class MyMenu extends React.Component
   handleClose = () => { 
     this.setState({showUpload: false});
   };
+
+  getUserPathId = () => {
+    var loginUser = getLoggedInUser();
+    this.setState({rtpthid: loginUser.rtpthid});
+  }
 
   handleErrorInputChange = (e) => {
     if (e.target.id === 'filePathnName') {
@@ -240,10 +246,10 @@ export default class MyMenu extends React.Component
                     <form action="https://t47d.anthology78.hasura-app.io/fupload" 
                         method="post" 
                         headers= {this.state.headerFileUpload}
-                        enctype="multipart/form-data" >
+                        encType="multipart/form-data" >
                       <p><input type="file" name="hvfname" /></p>
-                      <p><input type="hidden" name="hvfldrid" value="1"/></p>
-                      <p><input type="submit" value="Upload File" name="submit"/></p>
+                      <p><input type="hidden" name="hvfldrid" value={this.state.rtpthid} /></p>
+                      <p><input type="submit" value="Upload File" name="submit" onClick={this.getUserPathId}/></p>
                     </form>
                     
                   <br />               

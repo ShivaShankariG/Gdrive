@@ -7,7 +7,7 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
-import {getLoggedInUser, loginUser,getFolderList,getPromise, getDetails,getDetailsofFolders} from './login';
+import {getLoggedInUser, getFoldersOfUser,loginUser,getFolderList,getPromise, getDetails,getDetailsofFolders,getDetailsofFiles} from './login';
 
 const styles= {
     marginTop: 10,
@@ -54,30 +54,57 @@ export default class MyDriveList extends React.Component{
         hvName: this.state.hvName,
         hvPwd: this.state.hvPwd,
         hvfldrid: userCred.rtpthid
-        }
-
+        } 
+        var arrayFiles =  [{}];
+        var arrayMix = [{}];
+        
         getDetailsofFolders(data).then( (tableData) => {
           // checkLogin(cred);
           console.log(tableData.length);
-          var table=tableData[0];
+          arrayFiles = tableData[0];
           var j = 0;
         
         console.log(  tableData );
 
 
-           this.setState({ TData: table} ); 
+           
            var i = 0;
            for (i=0; i < sampleTableData.length; i++ ){    
                    console.log('Item '+ i +' -> '+ sampleTableData[i]["path_nm"] );
            }
           var j = 0;
-           for (j=0; j < table.length; j++ ){    
-                   console.log('Item '+ j +' -> '+ table[j]["path_nm"] );
+           for (j=0; j < arrayFiles.length; j++ ){    
+                   console.log('Item '+ j +' -> '+ arrayFiles[j]["path_nm"] );
            }
 
           // console.log(`this.state.TData `+this.state.TData);
          } )
 
+         getDetailsofFiles(data).then( (fileData) => {
+          // checkLogin(cred);
+          console.log(fileData.length);
+          var file=fileData[0];
+
+          var j = 0;
+           for (j=0; j < file.length; j++ ){    
+                   console.log('Item '+ j +' -> '+ file[j]["file_name"] );
+           }
+
+          arrayMix = arrayFiles.concat(file);
+
+          console.log ("concatenated arrays");
+          var k = 0;
+           for (k=0; k < arrayMix.length; k++ ){    
+                   console.log('Item '+ k +' -> '+ arrayMix[k]["path_nm"] );
+           }
+        
+          //console.log("Files were" + file );   
+          this.setState({ TData: arrayMix} ); 
+          console.log("set state called");
+ 
+         })
+         
+        
 
     //tableData = getFolderList(data);
     //setTimeout(function() { this.setState({success: true}); }.bind(this), 3000);
@@ -134,9 +161,9 @@ export default class MyDriveList extends React.Component{
           <TableBody  displayRowCheckbox={false}>
                   {this.state.TData.map( (row, index) => (
                     <TableRow  key={index}>
-                      <TableRowColumn>{row.path_nm}</TableRowColumn>
-                      <TableRowColumn>{row.path_id}</TableRowColumn>
-                      <TableRowColumn>{row.prnt_path_id}</TableRowColumn>
+                      <TableRowColumn>{row.path_nm ? row.path_nm : row.file_name}</TableRowColumn>
+                      <TableRowColumn>{row.path_id ? row.path_id : row.file_id}</TableRowColumn>
+                      <TableRowColumn>{row.prnt_path_id ? row.prnt_path_id : row.file_path_id}</TableRowColumn>
                       <TableRowColumn>{row.created_at}</TableRowColumn>
           </TableRow>
                     ))}
