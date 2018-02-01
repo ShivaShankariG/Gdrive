@@ -38,7 +38,7 @@ class App extends Component {
         <style>{'body { background-color: #EEEEEE; }'}</style>
        
         
-       
+
        </div>
        
       </MuiThemeProvider>

@@ -7,7 +7,7 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
-import {getLoggedInUser, getFoldersOfUser,loginUser,getFolderList,getPromise, getDetails,getDetailsofFolders} from './login';
+import {getLoggedInUser, loginUser,getFolderList,getPromise, getDetails,getDetailsofFolders} from './login';
 
 const styles= {
     marginTop: 10,
@@ -38,7 +38,7 @@ export default class MyDriveList extends React.Component{
       success: false
    
     };
-    this.thefn = this.thefn.bind(this);
+  
   this.componentDidMount = this.componentDidMount.bind(this);
   }
 
@@ -88,22 +88,7 @@ export default class MyDriveList extends React.Component{
     
   
 
-  /*dummy eventListener until solving the issue of ComponentDidMount*/
-  thefn() {
-      var userCred = getLoggedInUser();
-      alert(`checking rtpthid in thefn of MyDriveList :\n userCred.userName:`+userCred.userName + `\n userCred.rtpthid: `+userCred.rtpthid );
-      var data = {
-        hvName: this.state.hvName,
-        hvPwd: this.state.hvPwd,
-        hvfldrid: userCred.rtpthid
-        }
-     var tableData = (getFolderList(data));
-     // x=(getFolderList(data));
-     // console.log(`x = `+x);
-      console.log(`tableData = `+tableData);
-      this.setState({TData: tableData}); /*updates the state, so the component is re-rendered */
-      
-    }
+
 
   render(){
     const TData = this.state.TData;
@@ -136,7 +121,7 @@ export default class MyDriveList extends React.Component{
     }
     /*if set, rendering with the fetched data */
     else return (
-      <div>
+      <div style={{}}>
         <Table selectable = {true}>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow selectable={true} onCellClick={this.thefn}>

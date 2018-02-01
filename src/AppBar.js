@@ -15,6 +15,9 @@ const styles = {
 
 export default  class AppBar extends React.Component
 {
+    constructor(props){
+        super(props);
+    }
 
     render()
     {
@@ -27,6 +30,7 @@ export default  class AppBar extends React.Component
                             position: 'fixed',
                             display: 'flex',
                             flexFlow: 'row nowrap',
+                            justifyContent:  'space-between',
                             backgroundColor : this.props.themee,}} 
                     zDepth={3}  >
                                     

@@ -24,6 +24,8 @@ import { SMALL } from 'material-ui/utils/withWidth';
 import MyDriveList from './MyDriveList';
 import MyDrawer from './MyDrawer';
 import {loginUser,getPromise, getDetails} from './login';
+import flag from 'material-ui/svg-icons/content/flag';
+import face from 'material-ui/svg-icons/action/face';
 
 const styles = {
 
@@ -220,10 +222,10 @@ export default class AppBarRight extends React.Component {
             />,
           ];
         return (
-            <div style={{display: 'block'}}>
+            <div >
             <div style={styles.Left} className="iconColor">
                     <IconButton tooltip="Grid View" tooltipPosition="bottom-center" onClick={this.getFolders}  >
-                        <GridIcon color= '#757575'/>
+                        <GridIcon color= '#212121'/>
                     </IconButton>
 
                     <IconButton tooltip="Grid View" tooltipPosition="bottom-center" >
@@ -318,8 +320,9 @@ export default class AppBarRight extends React.Component {
                     {this.state.show? <MYlist/>: null}
                     
              </div>
+             <div style={{position: 'relative', top:40, left: -500 }}>
              {this.state.success ? <MyDriveList hvName={this.state.hvName} hvPwd={this.state.hvPwd}/> : null } 
-         
+             </div>                           
              </div>
         );    
     }

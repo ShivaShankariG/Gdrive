@@ -42,8 +42,8 @@ export default class MyMenu extends React.Component
                  headerFileUpload: {
                   'Content-type': 'multipart/form-data',
                   'credentials' : 'include'
-                }
-                 
+                },
+                // rtpthid: this.getLoggedInUser().rtpthid,
                
                 };
     this.handleUpload=this.handleUpload.bind(this);
@@ -242,7 +242,7 @@ export default class MyMenu extends React.Component
                         headers= {this.state.headerFileUpload}
                         enctype="multipart/form-data" >
                       <p><input type="file" name="hvfname" /></p>
-                      <p><input type="hidden" name="hvfldrid" /></p>
+                      <p><input type="hidden" name="hvfldrid" value="1"/></p>
                       <p><input type="submit" value="Upload File" name="submit"/></p>
                     </form>
                     
