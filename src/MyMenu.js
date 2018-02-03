@@ -72,9 +72,10 @@ export default class MyMenu extends React.Component
       //this.showProgressIndicator(false)
       console.log(response);
       if (response.file_id) {
-        this.showAlert("File uploaded successfully: " + JSON.stringify(response, null, 4));
+        alert("File uploaded successfully");
+        //this.showAlert("File uploaded successfully: " + JSON.stringify(response, null, 4));
       } else {
-        this.showAlert("File upload failed: " + JSON.stringify(response));
+        //this.showAlert("File upload failed: " + JSON.stringify(response));
       }
     }).catch(error => {
       console.log('File upload failed: ' + error);
