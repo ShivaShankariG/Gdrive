@@ -20,7 +20,7 @@ import FlatButton from 'material-ui/FlatButton';
 import {Dialog, TextField} from 'material-ui';
 import { SelectField } from 'material-ui/SelectField';
 import index from 'material-ui/Dialog';
-import {getLoggedInUser} from './login.js';
+import {getLoggedInUser, uploadFile} from './login.js';
 
 
 import RaisedButton from 'material-ui/RaisedButton'
@@ -47,19 +47,40 @@ export default class MyMenu extends React.Component
                  
                
                 };
-    this.handleUpload=this.handleUpload.bind(this);
+    //this.handleUpload=this.handleUpload.bind(this);
     this.handleToggle=this.handleToggle.bind(this);
     this.handleChange=this.handleChange.bind(this);
     this.getUserPathId=this.getUserPathId.bind(this);  
 
   }
 
-  handleUpload = () => {
 
-    
-    //checkLogin(cred);
-    //setErrorText(undefined);
-  };
+  handleFileUpload = (file) => {
+    console.log(file);
+    const authToken = getLoggedInUser().token;
+    if (!authToken) {
+      this.showAlert('Please login first. Go to /auth to login');
+      return;
+    }
+    const folderId = getLoggedInUser().rtpthid;
+    var data = {
+      hvfname: file,
+      hvfldrid: folderId
+      }
+    //this.showProgressIndicator(true)
+    uploadFile(data, authToken).then(response => {
+      //this.showProgressIndicator(false)
+      console.log(response);
+      if (response.file_id) {
+        this.showAlert("File uploaded successfully: " + JSON.stringify(response, null, 4));
+      } else {
+        this.showAlert("File upload failed: " + JSON.stringify(response));
+      }
+    }).catch(error => {
+      console.log('File upload failed: ' + error);
+    });
+  }
+
   handleToggle = () => this.setState({open: !this.state.open});
   handleChange=()=>this.setState({change: !this.state.change});
   handleClick =()=> this.setState({show: !this.state.show});
@@ -99,7 +120,7 @@ export default class MyMenu extends React.Component
   }; 
 
 
-  
+  /*
   handleFileUpload = () => {
     var x = document.getElementById("fileToUpload");
     const fileName = x.files[0];
@@ -120,6 +141,7 @@ export default class MyMenu extends React.Component
         "Authorization": 'Bearer ' + arr[1]
       }
     }).then(function(response) {
+      console.log("Inside function response of file upload");
       if (response.status >= 200 && response.status < 300) {
           console.log("retirning response.json function");
           var obj = JSON.stringify(response.body);
@@ -131,9 +153,9 @@ export default class MyMenu extends React.Component
   }).then(function(data) {
       if(data){
           console.log("printing returned value");
-          if (data["auth_token"])
+          if (data["file_id"])
           {
-              console.log("User logged in. Username is : " + data['username'] + " and user id is "+ data['hasura_id']);
+              console.log("File uploadedwith file id : " + data['file_id'] + " and size of the file is "+ data['size']+"bytes");
               //setLoggedInUser(data['username']);
           }
           else {
@@ -146,6 +168,7 @@ export default class MyMenu extends React.Component
     });
     
   }
+*/
 
   //=======================
 
@@ -241,17 +264,22 @@ export default class MyMenu extends React.Component
                   <br />
                   <br />
                   <h1>File Upload</h1>
-                
-                    
-                    <form action="https://t47d.anthology78.hasura-app.io/fupload" 
-                        method="post" 
-                        headers= {this.state.headerFileUpload}
-                        encType="multipart/form-data" >
-                      <p><input type="file" name="hvfname" /></p>
-                      <p><input type="hidden" name="hvfldrid" value={this.state.rtpthid} /></p>
-                      <p><input type="submit" value="Upload File" name="submit" onClick={this.getUserPathId}/></p>
-                    </form>
-                    
+                  <div>
+                    <input type="file" className="form-control" placeholder="Upload a file"/>                   
+                  </div> &nbsp;
+                  <FlatButton
+                    label="Upload File"
+                    secondary={true}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      //var pathId = {this.getUserPathId}
+                      const input = document.querySelector('input[type="file"]');
+                      if (input.files[0]) {
+                        this.handleFileUpload(input.files[0])
+                      } else {
+                        this.showAlert("Please select a file")
+                      }
+                    }}/>                  
                   <br />               
               </Dialog>
       </div>
@@ -322,3 +350,36 @@ export default class MyMenu extends React.Component
     }
   }
 }
+
+/*
+
+ <form action="https://t47d.anthology78.hasura-app.io/fupload" 
+                        method="post" 
+                        headers= {this.state.headerFileUpload}
+                        encType="multipart/form-data" >
+                      <p><input type="file" name="hvfname" /></p>
+                      <p><input type="hidden" name="hvfldrid" value={this.state.rtpthid} /></p>
+                      <p><input type="submit" value="Upload File" name="submit" onClick={this.getUserPathId}/></p>
+                    </form>
+                    
+
+*/
+
+/* Hasura type file upload JSX
+<div>
+                    <input type="file" className="form-control" placeholder="Upload a file"/>                   
+                  </div> &nbsp;
+                  <FlatButton
+                    label="Upload File"
+                    secondary={true}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      //var pathId = {this.getUserPathId}
+                      const input = document.querySelector('input[type="file"]');
+                      if (input.files[0]) {
+                        this.handleFileUpload(input.files[0])
+                      } else {
+                        this.showAlert("Please select a file")
+                      }
+                    }}/>
+*/

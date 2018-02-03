@@ -32,13 +32,28 @@ export default class MyDriveList extends React.Component{
       hvName: this.props.hvName,
       hvPwd: this.props.hvPwd,
       TData: [{}], /*Array to hold the data from fetch */
-      success: false
+      success: false,
+      selected: [1]
    
     };
-  
-  this.componentDidMount = this.componentDidMount.bind(this);
-  this.handleSelection = this.handleSelection.bind(this);
+
+    this.componentDidMount = this.componentDidMount.bind(this);
+    this.handleRowSelection = this.handleRowSelection.bind(this);
+    this.isSelected = this.isSelected.bind(this);
   }
+
+  isSelected = (index) => {
+    return this.state.selected.indexOf(index) !== -1;
+  };
+
+  handleRowSelection = (selectedRows) => {
+    this.setState({
+      selected: selectedRows
+    });
+    console.log("selected row "+selectedRows);
+  };
+
+
 
  /*the getLoggedInUser returning nothing here. How to get the rtpthid?*/
  handleSelection(selectedRow){
@@ -152,7 +167,7 @@ export default class MyDriveList extends React.Component{
           </TableHeader>
           <TableBody  displayRowCheckbox={false}>
                   {this.state.TData.map( (row, index) => (
-                    <TableRow  key={index}>
+                    <TableRow  key={index} selected={this.isSelected(index)}>
                       <TableRowColumn>{row.path_nm ?<img src={FolderIcon} alt="folder" height='20' width='30'/>: null}</TableRowColumn>
                       <TableRowColumn>{row.path_nm ?row.path_nm : row.file_name}</TableRowColumn>
                       <TableRowColumn>{uName}</TableRowColumn>

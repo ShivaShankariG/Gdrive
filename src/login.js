@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch';
+import { projectConfig } from './config';
 
 /*export function checkLogin(data) {
     console.log("this is data"+ data);
@@ -46,7 +47,7 @@ export function getFilesOfUser(userName){
 }
 
 export function getLoggedInUser() {
- //   console.log("reached getLoggedInUser");
+    console.log("reached getLoggedInUser");
     return loginUser;
 }
 export function setLoggedInUser(userName, token, rtpthid, hasura_id) {
@@ -229,7 +230,7 @@ export function setLoggedInUser(userName, token, rtpthid, hasura_id) {
     });
   }*/
 //================================================
-
+/*
 export async function getFolderList(data) {
     console.log('Posting folder request to API...');
     var url = '';
@@ -259,7 +260,7 @@ export async function getFolderList(data) {
     else{
         return null;
     }
-  }
+}*/
 
   export function signUpNewUser(data) {
 
@@ -301,4 +302,89 @@ export async function getFolderList(data) {
     else{
         return null;
     }
+  }
+
+//===================================================
+
+export async function getFolderList(data) {
+    console.log('Posting folder request to API...');
+    var url = '';
+
+    if (data)
+    {
+        //url = 'https://app.animator94.hasura-app.io/dregister'
+        url = 'https://t47d.anthology78.hasura-app.io/fldrlist'
+    }
+
+    let responseObject = await (await fetch(url, {
+      method: 'post',
+      credentials: 'include',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json'
+        }
+    })).json();
+   
+     if(responseObject){
+        var i = 0;
+        for (i=0; i < responseObject.length; i++ ){    
+                console.log('Item '+ i +' -> '+ responseObject[i]["path_nm"] );
+        }
+        return responseObject;
+    }
+    else{
+        return null;
+    }
+  }
+
+  export const uploadFile = (data, authToken) => {
+    const uuidv4 = require('uuid/v4');
+    var fileId = uuidv4();
+    console.log(JSON.stringify(data));
+    const options = {
+        method: 'POST',
+        body: data.hvfname,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + authToken
+        }
+      };
+    console.log(projectConfig.url.filestore);
+    return fetch(projectConfig.url.filestore+'/'+fileId, options)
+    .then(function(response) {
+      return response.json();
+    })
+    .catch(function(error) {
+      return Promise.reject('File upload failed: ' + error);
+    })
+  }
+
+  export async function logout() {
+    console.log('Posting logout request sent to API...');
+    var url = '';
+    const userName = getLoggedInUser().userName;
+    const authToken = getLoggedInUser().token;
+    if (userName)
+    {
+        
+        url = projectConfig.url.logout;
+    }
+    else {
+        return false;
+    } 
+    var userCred = {
+        hvName: userName
+        };
+
+    let responseObject =  await (await fetch(url,{
+        method: 'POST',
+        credentials: 'include',
+        body: JSON.stringify(userCred),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + authToken
+          }
+      })).json();
+      console.log("User " + userName +" has been successfully logged out");
+      return responseObject;
   }

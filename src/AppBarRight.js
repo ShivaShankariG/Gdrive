@@ -14,7 +14,7 @@ import GridIcon from 'material-ui/svg-icons/image/grid-on';
 import NotificationIcon from 'material-ui/svg-icons/social/notifications';
 import Avatar from 'material-ui/Avatar';
 import profPic from './images/Hasura-face-new.jpg';
-import { checkLogin, getFolderList, getLoggedInUser } from './login';
+import { checkLogin, getFolderList, getLoggedInUser, logout } from './login';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import {SelectField, TextField} from 'material-ui';
@@ -86,7 +86,7 @@ export default class AppBarRight extends React.Component {
                      loginType: "Sign in",
                      showLoginErrorDialog: false,
                      success: false,
-                     showSnack: false,
+                     showSnack: false
                      };
         this.handleClick=this.handleClick.bind(this);
         this.handleToggle=this.handleToggle.bind(this);
@@ -178,6 +178,9 @@ export default class AppBarRight extends React.Component {
         this.setState({showLogin: false});
         this.setState({isSignUp: false});
       };
+      handleSignOutClose = () => {
+
+      }
 
       handleSubmit = () => {
         /*if (this.state.isSignUp){
@@ -190,8 +193,19 @@ export default class AppBarRight extends React.Component {
                 return;
             }
         } */ 
-        this.handleLogoClick();
+        if(!this.state.success)
+        {
+            this.handleLogoClick();
+         }
+
+         else{
+             this.handleSignOut();
+         }
         this.setState({showLogin: false});
+        
+        this.state.loginType === "Sign Out" ? 
+            this.setState({loginType: "Sign in"}) : 
+            this.setState({loginType: "Sign Out"});
       };
 
       handleErrorInputChange = (e) => {
@@ -219,6 +233,23 @@ export default class AppBarRight extends React.Component {
              });
       }
     }
+
+    handleSignOut = () => {
+        const status = logout();
+        if (status)
+        {
+            this.setState({showSnackBarLogout: true });
+           
+        }
+        
+       
+        alert("User has been signed out");
+        this.setState({showLogin: false});
+        this.setState({success: false});
+    }
+    handleCancelSignOut = (e) => {
+        this.setState({showLogin: false});
+    }
   
     render()
     {
@@ -232,7 +263,7 @@ export default class AppBarRight extends React.Component {
               label={this.state.loginType}
               primary={true}
               onClick={this.handleSubmit}
-            />,
+            />
           ];
         return (
             <div >
@@ -253,48 +284,59 @@ export default class AppBarRight extends React.Component {
                             open={this.state.showLogin}
                             contentStyle={{width: 450, height: 1000}}
                             >
-                                <img className="driveLogo" src={driveLogo} alt="driveLogo"  />
-                                <br />
-                                <br />
-                                <strong>Sign in</strong><br />
-                                to continue to Hasura Drive
-                                <br />
-                                <br />
-                                <TextField
-                                    id="userName"
-                                    hintText="User Name"
-                                    floatingLabelText="User Name"
-                                    errorText="Enter your user name"
-                                    onChange={this.handleErrorInputChange}
-                                /><br />
-                                <TextField
-                                    id="password"
-                                    hintText="Password"
-                                    floatingLabelText="Password"
-                                    errorText="Enter your password"
+                            {this.state.success ?
+                                <div>
+                                    <Avatar className="profilePic" src={profPic} alt="profPic" round="true"/>
+                                    <h4> Logged in user : {this.state.hvName} </h4>
+
+                                </div>
+                                :
+                                <div>
+                                    <img className="driveLogo" src={driveLogo} alt="driveLogo"  />
+                                    <br />
+                                    <br />
+                                    <strong>Sign in</strong><br />
+                                    to continue to Hasura Drive
+                                    <br />
+                                    <br />
+                                    <TextField
+                                        id="userName"
+                                        hintText="User Name"
+                                        floatingLabelText="User Name"
+                                        errorText="Enter your user name"
+                                        onChange={this.handleErrorInputChange}
+                                    /><br />
+                                    <TextField
+                                        id="password"
+                                        hintText="Password"
+                                        floatingLabelText="Password"
+                                        errorText="Enter your password"
+                                        type="password"
+                                        onChange={this.handleErrorInputChange}
+                                    /><br />
+                                    <br />
+                                    If not existing user, please 
+                                        <FlatButton 
+                                            id="signUPlink" 
+                                            style={styles.fBUtton} 
+                                            onClick={this.setSignUp} 
+                                            label="Sign Up"
+                                            primary={true}> 
+                                        </FlatButton> 
+                                    first
+                                    <TextField
+                                    style={styles.cfmPassword}
+                                    id="cfmPassword"
+                                    hintText="Confirm Password"
+            
                                     type="password"
+                                    disabled={!this.state.isSignUp}
                                     onChange={this.handleErrorInputChange}
-                                /><br />
-                                <br />
-                                If not existing user, please 
-                                    <FlatButton 
-                                        id="signUPlink" 
-                                        style={styles.fBUtton} 
-                                        onClick={this.setSignUp} 
-                                        label="Sign Up"
-                                        primary={true}> 
-                                    </FlatButton> 
-                                first
-                                <TextField
-                                style={styles.cfmPassword}
-                                id="cfmPassword"
-                                hintText="Confirm Password"
-        
-                                type="password"
-                                disabled={!this.state.isSignUp}
-                                onChange={this.handleErrorInputChange}
-                                /><br />
-                                <br />
+                                    /><br />
+                                    <br />
+                                </div>
+                                
+                            }
                                 
                             </Dialog>
 
