@@ -26,7 +26,7 @@ import MyDrawer from './MyDrawer';
 import {loginUser,getPromise, getDetails} from './login';
 import flag from 'material-ui/svg-icons/content/flag';
 import face from 'material-ui/svg-icons/action/face';
-
+import Snackbar from 'material-ui/Snackbar';
 const styles = {
 
 
@@ -86,11 +86,21 @@ export default class AppBarRight extends React.Component {
                      loginType: "Sign in",
                      showLoginErrorDialog: false,
                      success: false,
+                     showSnack: false,
                      };
         this.handleClick=this.handleClick.bind(this);
         this.handleToggle=this.handleToggle.bind(this);
         this.handleChange=this.handleChange.bind(this);
-      
+        this.handleRequestClose=this.handleRequestClose.bind(this);
+        this.handleRequestOpen=this.handleRequestOpen.bind(this);
+      }
+      handleRequestOpen =()=>
+      {
+        this.setState({showSnack: true});
+      }
+      handleRequestClose =()=>
+      {
+        this.setState({showSnack: false});
       }
      
       getFolders = () => {
@@ -124,7 +134,10 @@ export default class AppBarRight extends React.Component {
         getDetails(cred).then( (loginresp) => {
        // checkLogin(cred);
        console.log(loginresp[0]);
-        this.setState({ success: true} ); }
+        this.setState({ success: true} );
+        
+       
+    }
         )
     }
         
@@ -321,8 +334,13 @@ export default class AppBarRight extends React.Component {
                     
              </div>
              <div style={{position: 'relative', top:40, left: -500 }}>
-             {this.state.success ? <MyDriveList hvName={this.state.hvName} hvPwd={this.state.hvPwd}/> : null } 
-             </div>                           
+             {this.state.success ?  
+             <div>                
+             <MyDriveList hvName={this.state.hvName} hvPwd={this.state.hvPwd}/>           
+             
+      /></div>:null}
+
+             </div>
              </div>
         );    
     }

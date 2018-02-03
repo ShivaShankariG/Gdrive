@@ -7,26 +7,20 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
+import FolderIcon from './images/GDocs.png'; 
 import {getLoggedInUser, getFoldersOfUser,loginUser,getFolderList,getPromise, getDetails,getDetailsofFolders,getDetailsofFiles} from './login';
-
+import Paper from 'material-ui/Paper';
 const styles= {
-    marginTop: 10,
-    marginLeft: -610, 
-    zIndex : -2,
-   // position: 'absolute',
+  height: 600,
+  width: '100%',
+//  marginTop: theme.spacing.unit * 3,
+  overflow: 'auto',
+  float: 'right',
 }
 
 /*the array to get the folderInfo*/
 
-var x='';
-/*sample array to learn mapping*/
-var sampleTableData=[
 
- {path_nm: 'a', path_id: 'b', prnt_path_id:'c', created_at: 'd'},
- {path_nm: 'a', path_id: 'b', prnt_path_id:'c', created_at: 'd'},
- {path_nm: 'a', path_id: 'b', prnt_path_id:'c', created_at: 'd'},
-
-];
 
 export default class MyDriveList extends React.Component{
   constructor(props) {
@@ -43,17 +37,17 @@ export default class MyDriveList extends React.Component{
   }
 
  /*the getLoggedInUser returning nothing here. How to get the rtpthid?*/
-
+ 
   componentDidMount() {
     alert("reached componentDidMount");
-   // getDetails() .then(([loginresp]) => {
+
       var userCred = getLoggedInUser();
-   
+   //if(!userCred.hvName){ return false;}
    alert(`componentDidMount of MyDriveList:\n userCred.userName:`+userCred.userName + `\n userCred.rtpthid  :\n`+userCred.rtpthid);
     var data = {
-        hvName: this.state.hvName,
-        hvPwd: this.state.hvPwd,
-        hvfldrid: userCred.rtpthid
+       // hvName: this.state.hvName,
+       // hvPwd: this.state.hvPwd,
+        hvfldrid: getLoggedInUser().rtpthid
         } 
         var arrayFiles =  [{}];
         var arrayMix = [{}];
@@ -68,10 +62,7 @@ export default class MyDriveList extends React.Component{
 
 
            
-           var i = 0;
-           for (i=0; i < sampleTableData.length; i++ ){    
-                   console.log('Item '+ i +' -> '+ sampleTableData[i]["path_nm"] );
-           }
+         
           var j = 0;
            for (j=0; j < arrayFiles.length; j++ ){    
                    console.log('Item '+ j +' -> '+ arrayFiles[j]["path_nm"] );
@@ -82,9 +73,9 @@ export default class MyDriveList extends React.Component{
 
          getDetailsofFiles(data).then( (fileData) => {
           // checkLogin(cred);
-          console.log(fileData.length);
+          console.log(fileData);
           var file=fileData[0];
-
+          
           var j = 0;
            for (j=0; j < file.length; j++ ){    
                    console.log('Item '+ j +' -> '+ file[j]["file_name"] );
@@ -92,7 +83,8 @@ export default class MyDriveList extends React.Component{
 
           arrayMix = arrayFiles.concat(file);
 
-          console.log ("concatenated arrays");
+       //   console.log ("!!!!!!!!!!!concatenated arrays!!!!!!: \n"+arrayMix);
+
           var k = 0;
            for (k=0; k < arrayMix.length; k++ ){    
                    console.log('Item '+ k +' -> '+ arrayMix[k]["path_nm"] );
@@ -119,40 +111,26 @@ export default class MyDriveList extends React.Component{
 
   render(){
     const TData = this.state.TData;
+    var uName=getLoggedInUser().userName;
     /*If TData is not set ,  rendering with the sampleArrray */
     if(TData.length==0){
     return (
     <div>
-      <Table onCellClick={this.thefn} selectable = {true}>
-        <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-          <TableRow selectable={true} onCellClick={this.thefn}>
-            <TableHeaderColumn >Name</TableHeaderColumn>
-            <TableHeaderColumn>Owner</TableHeaderColumn>
-            <TableHeaderColumn>Last modified by me</TableHeaderColumn>
-            <TableHeaderColumn>Size</TableHeaderColumn>
-          </TableRow>
-        </TableHeader>
-        <TableBody  displayRowCheckbox={false}>
-          {sampleTableData.map( (row, index) => (
-          <TableRow key={index}>
-            <TableRowColumn>{row.path_nm}</TableRowColumn>
-            <TableRowColumn>{row.path_id}</TableRowColumn>
-            <TableRowColumn>{row.prnt_path_id}</TableRowColumn>
-            <TableRowColumn>{row.created_at}</TableRowColumn>
-          </TableRow>
-                  ))}
-        </TableBody>
-      </Table>
+     
+      <h2> get started by uploading files or folders </h2>
     </div>
     );
     }
     /*if set, rendering with the fetched data */
     else return (
       <div style={{}}>
+       <Paper style= {styles}>
         <Table selectable = {true}>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow selectable={true} onCellClick={this.thefn}>
+            <TableHeaderColumn > </TableHeaderColumn>
                 <TableHeaderColumn >Name</TableHeaderColumn>
+                
                 <TableHeaderColumn>Owner</TableHeaderColumn>
                 <TableHeaderColumn>Last modified by me</TableHeaderColumn>
                 <TableHeaderColumn>Size</TableHeaderColumn>
@@ -161,14 +139,16 @@ export default class MyDriveList extends React.Component{
           <TableBody  displayRowCheckbox={false}>
                   {this.state.TData.map( (row, index) => (
                     <TableRow  key={index}>
-                      <TableRowColumn>{row.path_nm ? row.path_nm : row.file_name}</TableRowColumn>
-                      <TableRowColumn>{row.path_id ? row.path_id : row.file_id}</TableRowColumn>
-                      <TableRowColumn>{row.prnt_path_id ? row.prnt_path_id : row.file_path_id}</TableRowColumn>
-                      <TableRowColumn>{row.created_at}</TableRowColumn>
+                      <TableRowColumn>{row.path_nm ?<img src={FolderIcon} alt="folder" height='20' width='30'/>: null}</TableRowColumn>
+                      <TableRowColumn>{row.path_nm ?row.path_nm : row.file_name}</TableRowColumn>
+                      <TableRowColumn>{uName}</TableRowColumn>
+                      <TableRowColumn>{row.modified_at}</TableRowColumn>
+                      <TableRowColumn>{row.file_name? row.file_size: '-'}</TableRowColumn>
           </TableRow>
                     ))}
             </TableBody>
         </Table>
+        </Paper>
       </div>
   );
 
