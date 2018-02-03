@@ -178,6 +178,9 @@ export default class AppBarRight extends React.Component {
         this.setState({showLogin: false});
         this.setState({isSignUp: false});
       };
+      handleSignOutClose = () => {
+
+      }
 
       handleSubmit = () => {
         /*if (this.state.isSignUp){
@@ -190,8 +193,19 @@ export default class AppBarRight extends React.Component {
                 return;
             }
         } */ 
-        this.handleLogoClick();
+        if(!this.state.success)
+        {
+            this.handleLogoClick();
+         }
+
+         else{
+             this.handleSignOut();
+         }
         this.setState({showLogin: false});
+        
+        this.state.loginType === "Sign Out" ? 
+            this.setState({loginType: "Sign in"}) : 
+            this.setState({loginType: "Sign Out"});
       };
 
       handleErrorInputChange = (e) => {
@@ -220,12 +234,21 @@ export default class AppBarRight extends React.Component {
       }
     }
 
-    handleSignOut = (e) => {
+    handleSignOut = () => {
         const status = logout();
         if (status)
         {
-            alert("user has been logged out");
+            this.setState({showSnackBarLogout: true });
+           
         }
+        
+       
+        alert("User has been signed out");
+        this.setState({showLogin: false});
+        this.setState({success: false});
+    }
+    handleCancelSignOut = (e) => {
+        this.setState({showLogin: false});
     }
   
     render()
@@ -240,7 +263,7 @@ export default class AppBarRight extends React.Component {
               label={this.state.loginType}
               primary={true}
               onClick={this.handleSubmit}
-            />,
+            />
           ];
         return (
             <div >
@@ -264,8 +287,8 @@ export default class AppBarRight extends React.Component {
                             {this.state.success ?
                                 <div>
                                     <Avatar className="profilePic" src={profPic} alt="profPic" round="true"/>
-                                    <h4> {this.state.hvName} </h4>
-                                    <FlatButton onClick={this.handleSignOut}> Sign Out </FlatButton>
+                                    <h4> Logged in user : {this.state.hvName} </h4>
+
                                 </div>
                                 :
                                 <div>

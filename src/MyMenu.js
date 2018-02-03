@@ -70,6 +70,7 @@ export default class MyMenu extends React.Component
     //this.showProgressIndicator(true)
     uploadFile(data, authToken).then(response => {
       //this.showProgressIndicator(false)
+      console.log(response);
       if (response.file_id) {
         this.showAlert("File uploaded successfully: " + JSON.stringify(response, null, 4));
       } else {
@@ -278,9 +279,7 @@ export default class MyMenu extends React.Component
                       } else {
                         this.showAlert("Please select a file")
                       }
-                    }}/>
-                    
-                   
+                    }}/>                  
                   <br />               
               </Dialog>
       </div>
@@ -350,4 +349,23 @@ export default class MyMenu extends React.Component
                     </form>
                     
 
+*/
+
+/* Hasura type file upload JSX
+<div>
+                    <input type="file" className="form-control" placeholder="Upload a file"/>                   
+                  </div> &nbsp;
+                  <FlatButton
+                    label="Upload File"
+                    secondary={true}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      //var pathId = {this.getUserPathId}
+                      const input = document.querySelector('input[type="file"]');
+                      if (input.files[0]) {
+                        this.handleFileUpload(input.files[0])
+                      } else {
+                        this.showAlert("Please select a file")
+                      }
+                    }}/>
 */

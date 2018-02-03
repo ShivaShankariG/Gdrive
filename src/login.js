@@ -314,16 +314,17 @@ export async function getFolderList(data) {
   export const uploadFile = (data, authToken) => {
     const uuidv4 = require('uuid/v4');
     var fileId = uuidv4();
+    console.log(JSON.stringify(data));
     const options = {
         method: 'POST',
-        body: JSON.stringify(data),
+        body: data.hvfname,
         headers: {
-          'Content-Type': data.hvfname.type,
+          'Content-Type': 'application/json',
           'Authorization': 'Bearer ' + authToken
         }
       };
     console.log(projectConfig.url.filestore);
-    return fetch(projectConfig.url.filestore, options)
+    return fetch(projectConfig.url.filestore+'/'+fileId, options)
     .then(function(response) {
       return response.json();
     })
@@ -345,10 +346,14 @@ export async function getFolderList(data) {
     else {
         return false;
     } 
+    var userCred = {
+        hvName: userName
+        };
 
     let responseObject =  await (await fetch(url,{
-        method: 'post',
+        method: 'POST',
         credentials: 'include',
+        body: JSON.stringify(userCred),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ' + authToken
