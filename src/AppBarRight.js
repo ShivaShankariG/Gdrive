@@ -14,7 +14,7 @@ import GridIcon from 'material-ui/svg-icons/image/grid-on';
 import NotificationIcon from 'material-ui/svg-icons/social/notifications';
 import Avatar from 'material-ui/Avatar';
 import profPic from './images/Hasura-face-new.jpg';
-import { checkLogin, getFolderList, getLoggedInUser } from './login';
+import { checkLogin, getFolderList, getLoggedInUser, logout } from './login';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import {SelectField, TextField} from 'material-ui';
@@ -86,7 +86,7 @@ export default class AppBarRight extends React.Component {
                      loginType: "Sign in",
                      showLoginErrorDialog: false,
                      success: false,
-                     showSnack: false,
+                     showSnack: false
                      };
         this.handleClick=this.handleClick.bind(this);
         this.handleToggle=this.handleToggle.bind(this);
@@ -219,6 +219,14 @@ export default class AppBarRight extends React.Component {
              });
       }
     }
+
+    handleSignOut = (e) => {
+        const status = logout();
+        if (status)
+        {
+            alert("user has been logged out");
+        }
+    }
   
     render()
     {
@@ -253,48 +261,59 @@ export default class AppBarRight extends React.Component {
                             open={this.state.showLogin}
                             contentStyle={{width: 450, height: 1000}}
                             >
-                                <img className="driveLogo" src={driveLogo} alt="driveLogo"  />
-                                <br />
-                                <br />
-                                <strong>Sign in</strong><br />
-                                to continue to Hasura Drive
-                                <br />
-                                <br />
-                                <TextField
-                                    id="userName"
-                                    hintText="User Name"
-                                    floatingLabelText="User Name"
-                                    errorText="Enter your user name"
-                                    onChange={this.handleErrorInputChange}
-                                /><br />
-                                <TextField
-                                    id="password"
-                                    hintText="Password"
-                                    floatingLabelText="Password"
-                                    errorText="Enter your password"
+                            {this.state.success ?
+                                <div>
+                                    <Avatar className="profilePic" src={profPic} alt="profPic" round="true"/>
+                                    <h4> {this.state.hvName} </h4>
+                                    <FlatButton onClick={this.handleSignOut}> Sign Out </FlatButton>
+                                </div>
+                                :
+                                <div>
+                                    <img className="driveLogo" src={driveLogo} alt="driveLogo"  />
+                                    <br />
+                                    <br />
+                                    <strong>Sign in</strong><br />
+                                    to continue to Hasura Drive
+                                    <br />
+                                    <br />
+                                    <TextField
+                                        id="userName"
+                                        hintText="User Name"
+                                        floatingLabelText="User Name"
+                                        errorText="Enter your user name"
+                                        onChange={this.handleErrorInputChange}
+                                    /><br />
+                                    <TextField
+                                        id="password"
+                                        hintText="Password"
+                                        floatingLabelText="Password"
+                                        errorText="Enter your password"
+                                        type="password"
+                                        onChange={this.handleErrorInputChange}
+                                    /><br />
+                                    <br />
+                                    If not existing user, please 
+                                        <FlatButton 
+                                            id="signUPlink" 
+                                            style={styles.fBUtton} 
+                                            onClick={this.setSignUp} 
+                                            label="Sign Up"
+                                            primary={true}> 
+                                        </FlatButton> 
+                                    first
+                                    <TextField
+                                    style={styles.cfmPassword}
+                                    id="cfmPassword"
+                                    hintText="Confirm Password"
+            
                                     type="password"
+                                    disabled={!this.state.isSignUp}
                                     onChange={this.handleErrorInputChange}
-                                /><br />
-                                <br />
-                                If not existing user, please 
-                                    <FlatButton 
-                                        id="signUPlink" 
-                                        style={styles.fBUtton} 
-                                        onClick={this.setSignUp} 
-                                        label="Sign Up"
-                                        primary={true}> 
-                                    </FlatButton> 
-                                first
-                                <TextField
-                                style={styles.cfmPassword}
-                                id="cfmPassword"
-                                hintText="Confirm Password"
-        
-                                type="password"
-                                disabled={!this.state.isSignUp}
-                                onChange={this.handleErrorInputChange}
-                                /><br />
-                                <br />
+                                    /><br />
+                                    <br />
+                                </div>
+                                
+                            }
                                 
                             </Dialog>
 
