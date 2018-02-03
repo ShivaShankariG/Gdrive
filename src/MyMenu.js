@@ -191,7 +191,7 @@ export default class MyMenu extends React.Component
     /* needs an eventlistener that will call {this.props.action}, a funcyion defined in line 28 of AppBarLeft and line 73 of
      AppBarRight wich changes the state of showComponent to false */
 
-    if(this.props.id=="1"){
+    if(this.props.id==="1"){
      
       return(
       <div >
@@ -286,6 +286,20 @@ export default class MyMenu extends React.Component
       </div>
     );
     }
+    else if(this.props.id=='2')
+  {
+    return(
+      <div>
+        <Menu>
+      <MenuItem primaryText="Download" />
+            
+           <MenuItem primaryText="View Details"  />
+          
+           
+           </Menu>
+           </div>
+    )
+  }
     else 
     {
       return(

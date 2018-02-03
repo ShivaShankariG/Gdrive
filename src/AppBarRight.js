@@ -135,7 +135,7 @@ export default class AppBarRight extends React.Component {
        // checkLogin(cred);
        console.log(loginresp[0]);
         this.setState({ success: true} );
-        
+      
        
     }
         )
@@ -376,15 +376,19 @@ export default class AppBarRight extends React.Component {
                     
              </div>
              <div style={{position: 'relative', top:40, left: -500 }}>
-             {this.state.success ?  
-             <div>                
-             <MyDriveList hvName={this.state.hvName} hvPwd={this.state.hvPwd}/>           
-             
-      /></div>:null}
+           
 
              </div>
+             {this.state.success ?  <FlatButton
+            label="getlist"
+            primary={true}
+            onClick={this.props.handler}
+          />:null }
              </div>
+             
         );    
+       
     }
+   
 }
-////    {this.state.success==''? null : <MyDriveList data={x}/>} 
+/*  {this.state.success ? this.props.handler : null}*/

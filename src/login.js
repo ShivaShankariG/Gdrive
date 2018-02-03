@@ -124,6 +124,32 @@ export function setLoggedInUser(userName, token, rtpthid, hasura_id) {
         }
     });
   }*/
+  export function downloadFile(data, authToken){
+  var url = "https://filestore.animator94.hasura-app.io/v1/file/"+data;
+      console.log("GET to url : "+url);
+
+      var requestOptions = {
+          method: "GET",
+          credentials: 'include',
+          headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + authToken
+        }
+        
+      };
+
+      fetch(url, requestOptions)
+      .then(function(response) {
+        return response.blob();
+      })
+      .then(function(blob) {
+        console.log(blob);
+      })
+      .catch(function(error) {
+        console.log('Request Failed:' + error);
+      });
+
+    }
   export async function checkLogin(data) {
     console.log('Posting request to API...');
     var url = '';
