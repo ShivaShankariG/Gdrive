@@ -46,7 +46,7 @@ export function getFilesOfUser(userName){
 }
 
 export function getLoggedInUser() {
-    console.log("reached getLoggedInUser");
+ //   console.log("reached getLoggedInUser");
     return loginUser;
 }
 export function setLoggedInUser(userName, token, rtpthid, hasura_id) {
