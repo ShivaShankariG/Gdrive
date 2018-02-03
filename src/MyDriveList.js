@@ -8,14 +8,17 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 import FolderIcon from './images/GDocs.png'; 
-import {getLoggedInUser, getFoldersOfUser,loginUser,getFolderList,getPromise, getDetails,getDetailsofFolders,getDetailsofFiles} from './login';
+import {getLoggedInUser,downloadFile, getFoldersOfUser,loginUser,getFolderList,getPromise, getDetails,getDetailsofFolders,getDetailsofFiles} from './login';
 import Paper from 'material-ui/Paper';
+import MyMenu from './MyMenu';
 const styles= {
   height: 600,
-  width: '100%',
+  marginTop: 130,
+  marginLeft: 200,
+  width: '70%',
 //  marginTop: theme.spacing.unit * 3,
   overflow: 'auto',
-  float: 'right',
+ 
 }
 
 /*the array to get the folderInfo*/
@@ -34,10 +37,22 @@ export default class MyDriveList extends React.Component{
     };
   
   this.componentDidMount = this.componentDidMount.bind(this);
+  this.handleSelection = this.handleSelection.bind(this);
   }
 
  /*the getLoggedInUser returning nothing here. How to get the rtpthid?*/
- 
+ handleSelection(selectedRow){
+   <MyMenu id="2"/>
+   alert("row selected: "+selectedRow);
+   const TData = this.state.TData;
+   console.log('file_id of row '+ selectedRow +' -> '+ TData[selectedRow]["file_id"] );
+      var file_id="";
+      var auth_token=getLoggedInUser().token;
+      console.log("auth_token is "+auth_token);
+      file_id=TData[selectedRow]["file_id"] ;
+      console.log("file_id is "+file_id)
+      downloadFile(file_id, auth_token);
+  }
   componentDidMount() {
     alert("reached componentDidMount");
 
@@ -57,8 +72,7 @@ export default class MyDriveList extends React.Component{
           console.log(tableData.length);
           arrayFiles = tableData[0];
           var j = 0;
-        
-        console.log(  tableData );
+          console.log(  tableData );
 
 
            
@@ -87,7 +101,7 @@ export default class MyDriveList extends React.Component{
 
           var k = 0;
            for (k=0; k < arrayMix.length; k++ ){    
-                   console.log('Item '+ k +' -> '+ arrayMix[k]["path_nm"] );
+                   console.log('Item '+ k +' -> '+ arrayMix[k]["file_id"] );
            }
         
           //console.log("Files were" + file );   
@@ -110,7 +124,7 @@ export default class MyDriveList extends React.Component{
 
 
   render(){
-    const TData = this.state.TData;
+   var TData=this.state.TData;
     var uName=getLoggedInUser().userName;
     /*If TData is not set ,  rendering with the sampleArrray */
     if(TData.length==0){
@@ -125,7 +139,7 @@ export default class MyDriveList extends React.Component{
     else return (
       <div style={{}}>
        <Paper style= {styles}>
-        <Table selectable = {true}>
+        <Table selectable = {true} onRowSelection={this.handleSelection}>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow selectable={true} onCellClick={this.thefn}>
             <TableHeaderColumn > </TableHeaderColumn>

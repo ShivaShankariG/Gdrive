@@ -257,6 +257,20 @@ export default class MyMenu extends React.Component
       </div>
     );
     }
+    else if(this.props.id=='2')
+  {
+    return(
+      <div>
+        <Menu>
+      <MenuItem primaryText="Download" />
+            
+           <MenuItem primaryText="View Details"  />
+          
+           
+           </Menu>
+           </div>
+    )
+  }
     else 
     {
       return(

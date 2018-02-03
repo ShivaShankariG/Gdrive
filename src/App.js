@@ -14,6 +14,7 @@ class App extends Component {
     super(props);
     this.state = {
       themee: '#FF5722' ,
+    
     };
     this.handleToggle=this.handleToggle.bind(this);
    
@@ -27,18 +28,19 @@ class App extends Component {
     this.setState({themee: '#fff'});
    
   }
+
   render() {
     return (
       <MuiThemeProvider >
         <div className="App" style={{postion: 'absolute', zIndex: 0}}>
       
         <AppBar themee=
-        {this.state.themee} />
+        {this.state.themee}/>
         
         <style>{'body { background-color: #EEEEEE; }'}</style>
        
         
-
+    
        </div>
        
       </MuiThemeProvider>
