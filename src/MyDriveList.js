@@ -42,7 +42,7 @@ export default class MyDriveList extends React.Component{
 
  /*the getLoggedInUser returning nothing here. How to get the rtpthid?*/
  handleSelection(selectedRow){
-   <MyMenu id="2"/>
+
    alert("row selected: "+selectedRow);
    const TData = this.state.TData;
    console.log('file_id of row '+ selectedRow +' -> '+ TData[selectedRow]["file_id"] );
