@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import { projectConfig } from './config';
-
+//import {FileSaver} from 'file-saver';
+import download from 'downloadjs';
 /*export function checkLogin(data) {
     console.log("this is data"+ data);
 return fetch('https://app.animator94.hasura-app.io/dregister', {
@@ -124,13 +125,13 @@ export function setLoggedInUser(userName, token, rtpthid, hasura_id) {
         }
     });
   }*/
-  export function downloadFile(data, authToken){
-  var url = "https://filestore.animator94.hasura-app.io/v1/file/"+data;
+  export function downloadFile(file_id,file_name, authToken){
+  var url = "https://filestore.anthology78.hasura-app.io/v1/file/"+file_id;
       console.log("GET to url : "+url);
 
       var requestOptions = {
           method: "GET",
-          credentials: 'include',
+          
           headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ' + authToken
@@ -143,7 +144,11 @@ export function setLoggedInUser(userName, token, rtpthid, hasura_id) {
         return response.blob();
       })
       .then(function(blob) {
+        // blob = new Blob(["Hello, world!"], {type: "text/plain;charset=utf-8"});
+       // FileSaver.saveAs(blob, "hello world.txt");
+       // FileSaver.
         console.log(blob);
+        download(blob, file_name, "text/plain");
       })
       .catch(function(error) {
         console.log('Request Failed:' + error);
