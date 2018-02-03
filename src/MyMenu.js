@@ -120,6 +120,7 @@ export default class MyMenu extends React.Component
         "Authorization": 'Bearer ' + arr[1]
       }
     }).then(function(response) {
+      console.log("Inside function response of file upload");
       if (response.status >= 200 && response.status < 300) {
           console.log("retirning response.json function");
           var obj = JSON.stringify(response.body);
@@ -131,9 +132,9 @@ export default class MyMenu extends React.Component
   }).then(function(data) {
       if(data){
           console.log("printing returned value");
-          if (data["auth_token"])
+          if (data["file_id"])
           {
-              console.log("User logged in. Username is : " + data['username'] + " and user id is "+ data['hasura_id']);
+              console.log("File uploadedwith file id : " + data['file_id'] + " and size of the file is "+ data['size']+"bytes");
               //setLoggedInUser(data['username']);
           }
           else {
