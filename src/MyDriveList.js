@@ -9,7 +9,7 @@ import {
 } from 'material-ui/Table';
 import FileIcon from './images/GDocs.png'; 
 import FolderIcon from './images/folder.png';
-import {getLoggedInUser,downloadFile,getDetailsofFolders,getDetailsofFiles} from './login';
+import {getLoggedInUser,setLoggedInUser,downloadFile,getDetailsofFolders,getDetailsofFiles} from './login';
 import Paper from 'material-ui/Paper';
 import {info} from './MyMenu';
 const styles= {
@@ -69,11 +69,23 @@ export default class MyDriveList extends React.Component{
    const TData = this.state.TData;
    console.log(TData[selectedRow]);
    setSelectedRowDetails(TData[selectedRow]);
-   console.log('file_id of row '+ selectedRow +' -> '+ TData[selectedRow]["file_id"] );
+   //console.log('file_id of row '+ selectedRow +' -> '+ TData[selectedRow]["file_id"] );
       var file_id="";
       file_id=TData[selectedRow]["file_id"] ;
       if(!file_id)
       {
+        var fldrid= TData[selectedRow]["path_id"] ;
+        if(fldrid){
+          var userDetails = getLoggedInUser();
+          userDetails.rtpthid = fldrid;
+          setLoggedInUser(userDetails.userName, 
+                          userDetails.token, 
+                          userDetails.rtpthid, 
+                          userDetails.hasura_id);
+          userDetails = getLoggedInUser();
+          this.componentDidMount();
+          return;
+        }
         alert("select a file please");
         return;
       }

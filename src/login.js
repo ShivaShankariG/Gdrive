@@ -51,14 +51,20 @@ export function getLoggedInUser() {
     console.log("reached getLoggedInUser");
     return loginUser;
 }
+
+export function resetUserCredentials()
+{
+    setLoggedInUser("","","","");
+}
 export function setLoggedInUser(userName, token, rtpthid, hasura_id) {
     loginUser.userName = userName;
     loginUser.token = token;
     loginUser.rtpthid = rtpthid;
-    loginUser.hasuraId = hasura_id;
+    loginUser.hasura_id = hasura_id;
 
     console.log("Username set as"+ loginUser.userName + '' + token);
 }
+
 /*export async function checkLogin(data) {
     console.log('Posting request to API...');
     var url = '';
@@ -176,9 +182,11 @@ export function setLoggedInUser(userName, token, rtpthid, hasura_id) {
           'Content-Type': 'application/json'
           }
       })).json();
-      console.log("User logged in. Username is : " + responseObject['username'] + " and user id is "+ responseObject['hasura_id']);
+      if(responseObject['username']){
+        console.log("User logged in. Username is : " + responseObject['username'] + " and user id is "+ responseObject['hasura_id']);
                 setLoggedInUser(responseObject['username'],responseObject["auth_token"],responseObject["rtpthid"],responseObject["hasura_id"]);
-      return responseObject;
+      }
+        return responseObject;
   }
   export function getDetails(data){
     return Promise.all([checkLogin(data)])
@@ -427,7 +435,7 @@ export async function getFolderList(data) {
           'Authorization': 'Bearer ' + authToken
           }
       })).json();
-      console.log("Folder info update for file named -"+responseObject["file_name"]);
+      console.log("Folder info updated for file");
       return responseObject;
   }
 

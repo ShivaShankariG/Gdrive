@@ -4,6 +4,7 @@ import AppBarLeft from './AppBarLeft';
 import AppBarCenter from './AppBarCenter';
 import AppBarRight from './AppBarRight';
 import MyDriveList from './MyDriveList';
+import { getLoggedInUser } from './login';
 
 export default  class AppBar extends React.Component
 {
@@ -18,7 +19,11 @@ export default  class AppBar extends React.Component
     }
     handleRenderList1()
     {
-    this.setState({RenderList1: true})
+        this.setState({RenderList1: true});
+        if(!getLoggedInUser().userName){
+            this.setState({RenderList1: false});
+        }
+
     }
     handleVanishList1()
     {
