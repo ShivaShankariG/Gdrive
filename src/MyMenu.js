@@ -20,7 +20,7 @@ import FlatButton from 'material-ui/FlatButton';
 import {Dialog, TextField} from 'material-ui';
 import { SelectField } from 'material-ui/SelectField';
 import index from 'material-ui/Dialog';
-import {getLoggedInUser, uploadFile} from './login.js';
+import {getLoggedInUser, uploadFile, updateFolderInfoOfFile,getPromiseOfUploadFile,getPromiseOfFolderInfoUpdate} from './login.js';
 
 
 import RaisedButton from 'material-ui/RaisedButton'
@@ -56,7 +56,7 @@ export default class MyMenu extends React.Component
 
 
   handleFileUpload = (file) => {
-    console.log(file);
+    console.log(file.name);
     const authToken = getLoggedInUser().token;
     if (!authToken) {
       this.showAlert('Please login first. Go to /auth to login');
@@ -64,22 +64,52 @@ export default class MyMenu extends React.Component
     }
     const folderId = getLoggedInUser().rtpthid;
     var data = {
-      hvfname: file,
+      hvfname: file.name,
       hvfldrid: folderId
       }
+      var folderData = {
+        hvfname: file.name,
+        hvfldrid: data.hvfldrid,
+        hvfileid: "",
+        hvfilesize: ""
+      }
     //this.showProgressIndicator(true)
-    uploadFile(data, authToken).then(response => {
+    getPromiseOfUploadFile(data, authToken).then(response => {
       //this.showProgressIndicator(false)
-      console.log(response);
-      if (response.file_id) {
-        alert("File uploaded successfully");
+      console.log(response[0]);
+      if (response[0]["file_id"]) {
+        alert("Upload of file named " + file.name + ". Status - " + response[0]["file_status"]);
+        folderData.hvfileid = response[0]["file_id"];
+        folderData.hvfilesize = response[0]["file_size"];
+        console.log(folderData);
+
+        getPromiseOfFolderInfoUpdate(folderData, authToken).then(response => {
+          //this.showProgressIndicator(false)
+          console.log(response);
+          /*if (response["file_id"]) {
+            console.log("folder info updated for the file");
+            //this.showAlert("File uploaded successfully: " + JSON.stringify(response, null, 4));
+          } else {
+            console.log("File upload failed because of an internal error");
+          }*/
+        }).catch(error => {
+          console.log('File upload failed: ' + error);
+        });
+
         //this.showAlert("File uploaded successfully: " + JSON.stringify(response, null, 4));
       } else {
-        //this.showAlert("File upload failed: " + JSON.stringify(response));
+        alert("File upload failed because of an internal error");
       }
+
+      
+
     }).catch(error => {
       console.log('File upload failed: ' + error);
     });
+
+    
+
+    
   }
 
   handleToggle = () => this.setState({open: !this.state.open});

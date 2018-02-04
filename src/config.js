@@ -3,6 +3,7 @@ var projectConfig = {
     data: "https://data." + process.env.REACT_APP_CLUSTER_NAME + ".hasura-app.io/v1/query",
     auth: "https://auth." + process.env.REACT_APP_CLUSTER_NAME + ".hasura-app.io/v1",
     filestore: "https://filestore." + process.env.REACT_APP_CLUSTER_NAME + ".hasura-app.io/v1/file",
+    folderUpdate: "https://t47d." + process.env.REACT_APP_CLUSTER_NAME + ".hasura-app.io/fupload2",
     logout: "https://t47d."+ process.env.REACT_APP_CLUSTER_NAME + ".hasura-app.io/dlogout"
   }
 }
