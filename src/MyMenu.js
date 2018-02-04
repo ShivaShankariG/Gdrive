@@ -17,13 +17,8 @@ import GMIcon from './images/GMaps.png';
 import GSIcon from './images/GSites2016.png';
 import driveLogo from './images/Hasura_Drive_image.png';
 import FlatButton from 'material-ui/FlatButton';
-import {Dialog, TextField} from 'material-ui';
-import { SelectField } from 'material-ui/SelectField';
-import index from 'material-ui/Dialog';
+import {Dialog} from 'material-ui';
 import {getLoggedInUser, uploadFile} from './login.js';
-
-
-import RaisedButton from 'material-ui/RaisedButton'
 import {List, ListItem} from 'material-ui/List';
 
 
@@ -286,7 +281,7 @@ export default class MyMenu extends React.Component
       </div>
     );
     }
-    else if(this.props.id=='2')
+    else if(this.props.id==='2')
   {
     return(
       <div>

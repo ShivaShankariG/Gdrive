@@ -14,19 +14,13 @@ import GridIcon from 'material-ui/svg-icons/image/grid-on';
 import NotificationIcon from 'material-ui/svg-icons/social/notifications';
 import Avatar from 'material-ui/Avatar';
 import profPic from './images/Hasura-face-new.jpg';
-import { checkLogin, getFolderList, getLoggedInUser, logout } from './login';
+import {getFolderList, getLoggedInUser, logout } from './login';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import {SelectField, TextField} from 'material-ui';
+import {TextField} from 'material-ui';
 import driveLogo from './images/Hasura_Drive_image.png';
-import blue200 from 'material-ui/styles/colors';
-import { SMALL } from 'material-ui/utils/withWidth';
-import MyDriveList from './MyDriveList';
 import MyDrawer from './MyDrawer';
-import {loginUser,getPromise, getDetails} from './login';
-import flag from 'material-ui/svg-icons/content/flag';
-import face from 'material-ui/svg-icons/action/face';
-import Snackbar from 'material-ui/Snackbar';
+import {getDetails} from './login';
 const styles = {
 
 
@@ -115,17 +109,15 @@ export default class AppBarRight extends React.Component {
        }
     
       handleLogoClick = () => {
-        alert("logo clicked");
-
         var cred= {};
         if(!this.state.isSignUp)
         {
-            var cred = {
+             cred = {
                 hvName: this.state.hvName,
                 hvPwd: this.state.hvPwd
                 };
         } else {
-            var cred = {
+             cred = {
                 hvName: this.state.hvName,
                 hvPwd: this.state.hvPwd,
                 hvCpwd: this.state.hvCpwd
@@ -135,6 +127,7 @@ export default class AppBarRight extends React.Component {
        // checkLogin(cred);
        console.log(loginresp[0]);
         this.setState({ success: true} );
+        this.props.handler();
       
        
     }
@@ -375,15 +368,8 @@ export default class AppBarRight extends React.Component {
                     {this.state.show? <MYlist/>: null}
                     
              </div>
-             <div style={{position: 'relative', top:40, left: -500 }}>
+             
            
-
-             </div>
-             {this.state.success ?  <FlatButton
-            label="getlist"
-            primary={true}
-            onClick={this.props.handler}
-          />:null }
              </div>
              
         );    
