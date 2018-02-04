@@ -20,7 +20,12 @@ import FlatButton from 'material-ui/FlatButton';
 import {Dialog} from 'material-ui';
 import {getLoggedInUser, uploadFile, updateFolderInfoOfFile,getPromiseOfUploadFile,getPromiseOfFolderInfoUpdate} from './login.js';
 import {List, ListItem} from 'material-ui/List';
-
+export var info={};
+export function  setUploadedData(data)
+{
+   info=data;
+  console.log(info);
+}
 
 export default class MyMenu extends React.Component
 {
@@ -49,7 +54,7 @@ export default class MyMenu extends React.Component
 
   }
 
-
+ 
   handleFileUpload = (file) => {
     console.log(file.name);
     const authToken = getLoggedInUser().token;
@@ -68,6 +73,7 @@ export default class MyMenu extends React.Component
         hvfileid: "",
         hvfilesize: ""
       }
+    
     //this.showProgressIndicator(true)
     getPromiseOfUploadFile(data, authToken).then(response => {
       //this.showProgressIndicator(false)
@@ -77,8 +83,9 @@ export default class MyMenu extends React.Component
         folderData.hvfileid = response[0]["file_id"];
         folderData.hvfilesize = response[0]["file_size"];
         console.log(folderData);
-
-        getPromiseOfFolderInfoUpdate(folderData, authToken).then(response => {
+        setUploadedData(folderData);
+      //  this.props.update();
+        /*getPromiseOfFolderInfoUpdate(folderData, authToken).then(response => {
           //this.showProgressIndicator(false)
           console.log(response);
           /*if (response["file_id"]) {
@@ -86,10 +93,10 @@ export default class MyMenu extends React.Component
             //this.showAlert("File uploaded successfully: " + JSON.stringify(response, null, 4));
           } else {
             console.log("File upload failed because of an internal error");
-          }*/
+          }
         }).catch(error => {
           console.log('File upload failed: ' + error);
-        });
+        });*/
 
         //this.showAlert("File uploaded successfully: " + JSON.stringify(response, null, 4));
       } else {
@@ -198,7 +205,7 @@ export default class MyMenu extends React.Component
 
   //=======================
 
-  
+
   render()
   {
     const actions = [
@@ -221,13 +228,13 @@ export default class MyMenu extends React.Component
       return(
       <div >
        
-          <Paper style={{position: 'absolute', zIndex: 1}}  >
-          <Menu desktop={true} width={320} className="menu" style= {{display: this.props.appear}} onMouseLeave= {this.props.action} >
+          <Paper style={{position: 'absolute', zIndex: 1}} onMouseLeave= {this.props.action}   >
+          <Menu desktop={true} width={320} className="menu" style= {{display: this.props.appear}} >
             <MenuItem primaryText="New Folder.."  leftIcon={<CFolderIcon/>} />
             <Divider /> 
             <MenuItem primaryText="Upload Files.." leftIcon={<UFileIcon/>} onClick={this.handleOpen} />
             
-            <MenuItem primaryText="Upload Folder" leftIcon={<FolderIcon/>} />
+            <MenuItem primaryText="Upload Folder" leftIcon={<FolderIcon/>}  />
             <Divider />
             <MenuItem
               primaryText="Google Docs"

@@ -127,7 +127,7 @@ export default class AppBarRight extends React.Component {
        // checkLogin(cred);
        console.log(loginresp[0]);
         this.setState({ success: true} );
-        this.props.handler();
+        this.props.render();
       
        
     }
@@ -232,6 +232,7 @@ export default class AppBarRight extends React.Component {
         if (status)
         {
             this.setState({showSnackBarLogout: true });
+            this.props.vanish();
            
         }
         

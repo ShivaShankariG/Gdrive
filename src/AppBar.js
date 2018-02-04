@@ -10,18 +10,31 @@ export default  class AppBar extends React.Component
     constructor(props){
         super(props);
         this.state={
-            RenderList1: false
+            RenderList1: false,
+            dummy: false,
         }
       this.handleRenderList1=this.handleRenderList1.bind(this);
+      this.handleVanishList1=this.handleVanishList1.bind(this);
     }
     handleRenderList1()
     {
     this.setState({RenderList1: true})
     }
-    render()
+    handleVanishList1()
     {
+        this.setState({RenderList1: false})
+    }
+    rerendering()
+    {
+        alert("came here too..");
+        this.setState({dummy: true});
+    }
+    render()
+    { alert("AppBar getting rendered");
+    
        
         return(
+           
             <div style={{diplay:'flex', overflowY:'hidden'}}>
             <Paper style={{
                             height: 130,
@@ -33,9 +46,9 @@ export default  class AppBar extends React.Component
                             backgroundColor : this.props.themee,}} 
                     zDepth={3}  >
                                     
-                <AppBarLeft/>
+                <AppBarLeft update ={this.rerendering}/>
                 <AppBarCenter/>
-                <AppBarRight handler={this.handleRenderList1}/>
+                <AppBarRight render={this.handleRenderList1} vanish={this.handleVanishList1}/>
                
                
             </Paper>

@@ -11,6 +11,7 @@ import FileIcon from './images/GDocs.png';
 import FolderIcon from './images/folder.png';
 import {getLoggedInUser,downloadFile,getDetailsofFolders,getDetailsofFiles} from './login';
 import Paper from 'material-ui/Paper';
+import {info} from './MyMenu';
 const styles= {
   height: 600,
   marginTop: 150,
@@ -23,8 +24,10 @@ const styles= {
 
 
 //a function to give the details of selected row to be displayed in the side bar.
-export function setSelectedRowDetails(data){
-  return data;
+export function setSelectedRowDetails(){
+ alert("Working mannnnnnnnnnn");
+
+
 }
 
 export default class MyDriveList extends React.Component{
@@ -35,6 +38,7 @@ export default class MyDriveList extends React.Component{
       hvPwd: this.props.hvPwd,
       TData: [{}], /*Array to hold the data from fetch */
       success: false,
+      NewUpoad: info,
      // selected: [1]
    
     };
@@ -56,13 +60,14 @@ export default class MyDriveList extends React.Component{
     console.log("selected row "+selectedRows);
   };
 */
-
+ 
 
  /*the getLoggedInUser returning nothing here. How to get the rtpthid?*/
  handleSelection(selectedRow){
    
    alert("row selected: "+selectedRow);
    const TData = this.state.TData;
+   console.log(TData[selectedRow]);
    setSelectedRowDetails(TData[selectedRow]);
    console.log('file_id of row '+ selectedRow +' -> '+ TData[selectedRow]["file_id"] );
       var file_id="";
@@ -80,9 +85,10 @@ export default class MyDriveList extends React.Component{
       downloadFile(file_id,file_name, auth_token);
   }
   componentDidMount() {
-// var userCred = getLoggedInUser();
+    console.log("the only info as of now is : "+info);
+   // var userCred = getLoggedInUser();
    //if(!userCred.hvName){ return false;}
-  // alert(`componentDidMount of MyDriveList:\n userCred.userName:`+userCred.userName + `\n userCred.rtpthid  :\n`+userCred.rtpthid);
+   // alert(`componentDidMount of MyDriveList:\n userCred.userName:`+userCred.userName + `\n userCred.rtpthid  :\n`+userCred.rtpthid);
     var data = {
        // hvName: this.state.hvName,
        // hvPwd: this.state.hvPwd,
@@ -125,6 +131,7 @@ export default class MyDriveList extends React.Component{
         
           //console.log("Files were" + file );   
           this.setState({ TData: arrayMix} ); 
+
           console.log("set state called");
  
          })
@@ -135,6 +142,10 @@ export default class MyDriveList extends React.Component{
     //setTimeout(function() { this.setState({success: true}); }.bind(this), 3000);
 
    // console.log(`tabledata is `+tableData);
+    }
+    componentDidUpdate()
+    {
+      alert("didupdate it seems");
     }
     
     
