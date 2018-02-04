@@ -14,7 +14,7 @@ import GridIcon from 'material-ui/svg-icons/image/grid-on';
 import NotificationIcon from 'material-ui/svg-icons/social/notifications';
 import Avatar from 'material-ui/Avatar';
 import profPic from './images/Hasura-face-new.jpg';
-import {getFolderList, getLoggedInUser, logout } from './login';
+import {getFolderList, getLoggedInUser, logout, resetUserCredentials } from './login';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import {TextField} from 'material-ui';
@@ -125,28 +125,24 @@ export default class AppBarRight extends React.Component {
         }
         getDetails(cred).then( (loginresp) => {
        // checkLogin(cred);
-       console.log(loginresp[0]);
+       if(loginresp[0]["username"])
+       {
+        console.log(loginresp[0]);
         this.setState({ success: true} );
         this.props.handler();
+       }
+       else
+       {
+           alert("Username and Password do not match. Please try again");
+           this.setState({showLogin: false});
+           this.setState({success: false});
+           this.setState({loginType: "Sign in"});
+       }
       
        
     }
         )
     }
-        
-           // alert("User with same username already exists. Please try with a different username");
-         /*  setTimeout(() => {
-            this.setState({ success: true} );
-          }, 3000);*/
-          // this.setState({success: true});
-     
-       /* getPromise().then(function(){
-            alert("Promise resolved");
-        this.setState({success: true});
-        })
-    };
-    */
-        //setErrorText(undefined);
       
       handleToggle = () => this.setState({open: !this.state.open});
       handleChange=()=>this.setState({change: !this.state.change});
@@ -239,6 +235,8 @@ export default class AppBarRight extends React.Component {
         alert("User has been signed out");
         this.setState({showLogin: false});
         this.setState({success: false});
+        resetUserCredentials();
+        this.props.handler();
     }
     handleCancelSignOut = (e) => {
         this.setState({showLogin: false});

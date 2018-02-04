@@ -209,9 +209,19 @@ export default class MyMenu extends React.Component
       />,
       <FlatButton
         label="Upload"
-        primary={true}
-        onClick={this.handleClose}
-      />,
+        secondary={true}
+        onClick={(e) => {
+          e.preventDefault();
+          //var pathId = {this.getUserPathId}
+          const input = document.querySelector('input[type="file"]');
+          if (input.files[0]) {
+            this.handleFileUpload(input.files[0])
+          } else {
+            this.showAlert("Please select a file")
+          }
+          this.handleClose();
+        }
+      }/> 
     ];
     /* needs an eventlistener that will call {this.props.action}, a funcyion defined in line 28 of AppBarLeft and line 73 of
      AppBarRight wich changes the state of showComponent to false */
@@ -293,19 +303,7 @@ export default class MyMenu extends React.Component
                   <div>
                     <input type="file" className="form-control" placeholder="Upload a file"/>                   
                   </div> &nbsp;
-                  <FlatButton
-                    label="Upload File"
-                    secondary={true}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      //var pathId = {this.getUserPathId}
-                      const input = document.querySelector('input[type="file"]');
-                      if (input.files[0]) {
-                        this.handleFileUpload(input.files[0])
-                      } else {
-                        this.showAlert("Please select a file")
-                      }
-                    }}/>                  
+                                  
                   <br />               
               </Dialog>
       </div>
