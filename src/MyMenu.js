@@ -18,7 +18,7 @@ import GSIcon from './images/GSites2016.png';
 import driveLogo from './images/Hasura_Drive_image.png';
 import FlatButton from 'material-ui/FlatButton';
 import {Dialog} from 'material-ui';
-import {getLoggedInUser, uploadFile, updateFolderInfoOfFile,getPromiseOfUploadFile,getPromiseOfFolderInfoUpdate} from './login.js';
+import {getLoggedInUser,getPromiseOfUploadFile,getPromiseOfFolderInfoUpdate} from './login.js';
 import {List, ListItem} from 'material-ui/List';
 
 
@@ -137,64 +137,12 @@ export default class MyMenu extends React.Component
       this.setState({
         filePathnName: fileDetails
       });
-      /*this.setState({
-        //name: name,
-        errorTextName: e.target.value ? '' : 'Please, type your Name'
-      });*/
+      
     };
     
   }; 
 
 
-  /*
-  handleFileUpload = () => {
-    var x = document.getElementById("fileToUpload");
-    const fileName = x.files[0];
-    
-    console.log(fileName);
-    var data = new FormData()
-    data.append('hvfname', x.files[0])
-
-    var arr = getLoggedInUser();
-    
-    //fetch('https://app.animator94.hasura-app.io/fupload', {
-    fetch('https://t47d.anthology78.hasura-app.io/fupload', {
-      method: 'POST',
-      body: data,
-      credentials: 'include',
-      username: arr["userName"],
-      headers: {
-        "Authorization": 'Bearer ' + arr[1]
-      }
-    }).then(function(response) {
-      console.log("Inside function response of file upload");
-      if (response.status >= 200 && response.status < 300) {
-          console.log("retirning response.json function");
-          var obj = JSON.stringify(response.body);
-          return response.json();
-      }
-      else{
-          return null;
-      }
-  }).then(function(data) {
-      if(data){
-          console.log("printing returned value");
-          if (data["file_id"])
-          {
-              console.log("File uploadedwith file id : " + data['file_id'] + " and size of the file is "+ data['size']+"bytes");
-              //setLoggedInUser(data['username']);
-          }
-          else {
-              console.log("User sign up/in failed becaue - "+ data['message']);
-          }
-      }
-      else{
-          return false;
-      }
-    });
-    
-  }
-*/
 
   //=======================
 
@@ -375,35 +323,3 @@ export default class MyMenu extends React.Component
   }
 }
 
-/*
-
- <form action="https://t47d.anthology78.hasura-app.io/fupload" 
-                        method="post" 
-                        headers= {this.state.headerFileUpload}
-                        encType="multipart/form-data" >
-                      <p><input type="file" name="hvfname" /></p>
-                      <p><input type="hidden" name="hvfldrid" value={this.state.rtpthid} /></p>
-                      <p><input type="submit" value="Upload File" name="submit" onClick={this.getUserPathId}/></p>
-                    </form>
-                    
-
-*/
-
-/* Hasura type file upload JSX
-<div>
-                    <input type="file" className="form-control" placeholder="Upload a file"/>                   
-                  </div> &nbsp;
-                  <FlatButton
-                    label="Upload File"
-                    secondary={true}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      //var pathId = {this.getUserPathId}
-                      const input = document.querySelector('input[type="file"]');
-                      if (input.files[0]) {
-                        this.handleFileUpload(input.files[0])
-                      } else {
-                        this.showAlert("Please select a file")
-                      }
-                    }}/>
-*/
