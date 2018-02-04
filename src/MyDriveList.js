@@ -48,14 +48,14 @@ export default class MyDriveList extends React.Component{
   /*isSelected = (index) => {
     return this.state.selected.indexOf(index) !== -1;
   };*/
-
+/*
   handleRowSelection = (selectedRows) => {
     this.setState({
       selected: selectedRows
     });
     console.log("selected row "+selectedRows);
   };
-
+*/
 
 
  /*the getLoggedInUser returning nothing here. How to get the rtpthid?*/

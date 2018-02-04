@@ -342,7 +342,7 @@ export async function getFolderList(data) {
     }
   }
 
-  export const uploadFile = (data, authToken) => {
+  export async function uploadFile(data, authToken) {
     const uuidv4 = require('uuid/v4');
     var fileId = uuidv4();
     console.log(JSON.stringify(data));
@@ -355,13 +355,23 @@ export async function getFolderList(data) {
         }
       };
     console.log(projectConfig.url.filestore);
-    return fetch(projectConfig.url.filestore+'/'+fileId, options)
-    .then(function(response) {
-      return response.json();
-    })
-    .catch(function(error) {
-      return Promise.reject('File upload failed: ' + error);
-    })
+    let responseObject = await( await fetch(projectConfig.url.filestore+'/'+fileId, options)
+    ).json();
+
+    if(responseObject){
+        var i = 0;
+        for (i=0; i < responseObject.length; i++ ){    
+                console.log('Item '+ i +' -> '+ responseObject[i]["file_name"] );
+        }
+        return responseObject;
+    }
+
+    //.catch(function(error) {
+    //  return Promise.reject('File upload failed: ' + error);
+    //})
+  }
+  export function getPromiseOfUploadFile(data, authToken){
+    return Promise.all([uploadFile(data, authToken)]);
   }
 
   export async function logout() {
@@ -392,4 +402,35 @@ export async function getFolderList(data) {
       })).json();
       console.log("User " + userName +" has been successfully logged out");
       return responseObject;
+  }
+
+  export async function updateFolderInfoOfFile(data,authToken) {
+    console.log('Posting logout request sent to API...');
+    var url = '';
+    const userName = getLoggedInUser().userName;
+    //const authToken = getLoggedInUser().token;
+    if (userName)
+    {
+        
+        url = projectConfig.url.folderUpdate;
+    }
+    else {
+        return false;
+    } 
+
+    let responseObject =  await (await fetch(url,{
+        method: 'POST',
+        credentials: 'include',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + authToken
+          }
+      })).json();
+      console.log("Folder info update for file named -"+responseObject["file_name"]);
+      return responseObject;
+  }
+
+  export function getPromiseOfFolderInfoUpdate(data, authToken){
+    return Promise.all([updateFolderInfoOfFile(data, authToken)]);
   }
