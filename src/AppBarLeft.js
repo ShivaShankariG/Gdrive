@@ -24,7 +24,7 @@ export default class AppBarLeft extends React.Component
             showComponent1: false, 
             appear: 'inline', 
             ZI: "0",
-            update: false,
+          
     };
         this.handleClick=this.handleClick.bind(this);
         this.handler = this.handler.bind(this)
@@ -56,10 +56,11 @@ export default class AppBarLeft extends React.Component
            });
        
       }
-      handleUpdatingOnUploading()
+      handleUpdatingOnUploading(name)
       {
-          alert("came here");
-         this.props.update();
+          alert("FileName in AppBarLeft: "+name);
+          //The FileName is passed to its parent AppBar through props.
+         this.props.update(name);
       }
     render(){
         return(

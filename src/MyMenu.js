@@ -20,7 +20,7 @@ import FlatButton from 'material-ui/FlatButton';
 import {Dialog} from 'material-ui';
 import {getLoggedInUser, uploadFile, updateFolderInfoOfFile,getPromiseOfUploadFile,getPromiseOfFolderInfoUpdate} from './login.js';
 import {List, ListItem} from 'material-ui/List';
-import {handleFileUpload} from './MyDriveList';
+import MyDriveList, { handleFileUpload } from './MyDriveList';
 export var info={};
 export function  setUploadedData(data)
 {
@@ -28,7 +28,7 @@ export function  setUploadedData(data)
   console.log(info);
 }
 
-export default class MyMenu extends React.Component
+export default class MyMenu extends  React.Component
 {
   //==================
 
@@ -84,28 +84,19 @@ export default class MyMenu extends React.Component
         folderData.hvfileid = response[0]["file_id"];
         folderData.hvfilesize = response[0]["file_size"];
         console.log(folderData);
-        setUploadedData(folderData);
-      //  this.props.update();
-        /*getPromiseOfFolderInfoUpdate(folderData, authToken).then(response => {
-          //this.showProgressIndicator(false)
+        getPromiseOfFolderInfoUpdate(folderData, authToken).then(response => {
+
           console.log(response);
-          /*if (response["file_id"]) {
-            console.log("folder info updated for the file");
-            //this.showAlert("File uploaded successfully: " + JSON.stringify(response, null, 4));
-          } else {
-            console.log("File upload failed because of an internal error");
-          }
+       
         }).catch(error => {
           console.log('File upload failed: ' + error);
-        });*/
-
-        //this.showAlert("File uploaded successfully: " + JSON.stringify(response, null, 4));
+        });
+        //On successful file Upload, passes the FileName through props function to parent(AppBarLeft).
+        this.props.update(file.name);
+     
       } else {
         alert("File upload failed because of an internal error");
       }
-
-      
-
     }).catch(error => {
       console.log('File upload failed: ' + error);
     });
@@ -114,7 +105,6 @@ export default class MyMenu extends React.Component
 
     
   }
-
   handleToggle = () => this.setState({open: !this.state.open});
   handleChange=()=>this.setState({change: !this.state.change});
   handleClick =()=> this.setState({show: !this.state.show});
@@ -165,7 +155,7 @@ export default class MyMenu extends React.Component
 
     var arr = getLoggedInUser();
     
-    //fetch('https://app.animator94.hasura-app.io/fupload', {
+    //fetch('https://app.anthology78.hasura-app.io/fupload', {
     fetch('https://t47d.anthology78.hasura-app.io/fupload', {
       method: 'POST',
       body: data,
@@ -223,7 +213,7 @@ export default class MyMenu extends React.Component
           //var pathId = {this.getUserPathId}
           const input = document.querySelector('input[type="file"]');
           if (input.files[0]) {
-            this.handleFileUpload(input.files[0])
+           this.handleFileUpload(input.files[0])
           } else {
             this.showAlert("Please select a file")
           }
@@ -385,7 +375,7 @@ export default class MyMenu extends React.Component
 
 /*
 
- <form action="https://t47d.anthology78.hasura-app.io/fupload" 
+ <form action="https://t47d.78.hasura-app.io/fupload" 
                         method="post" 
                         headers= {this.state.headerFileUpload}
                         encType="multipart/form-data" >

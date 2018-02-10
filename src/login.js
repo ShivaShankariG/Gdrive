@@ -4,7 +4,7 @@ import { projectConfig } from './config';
 import download from 'downloadjs';
 /*export function checkLogin(data) {
     console.log("this is data"+ data);
-return fetch('https://app.animator94.hasura-app.io/dregister', {
+return fetch('https://app.anthology78.hasura-app.io/dregister', {
     method: 'POST',
     body: JSON.stringify(data),
     headers: {
@@ -70,11 +70,11 @@ export function setLoggedInUser(userName, token, rtpthid, hasura_id) {
     var url = '';
     if (data.hvCpwd)
     {
-        //url = 'https://app.animator94.hasura-app.io/dregister'
-       url = 'https://t47d.anthology78.hasura-app.io/dregister'
+        //url = 'https://app.anthology78.hasura-app.io/dregister'
+       url = 'https://t47d.s78.hasura-app.io/dregister'
     }
     else {
-    //    url = 'https://app.animator94.hasura-app.io/dlogin'
+    //    url = 'https://app.anthology78.hasura-app.io/dlogin'
     url = 'https://t47d.anthology78.hasura-app.io/dlogin'
     } 
 
@@ -166,11 +166,11 @@ export function setLoggedInUser(userName, token, rtpthid, hasura_id) {
     var url = '';
     if (data.hvCpwd)
     {
-        //url = 'https://app.animator94.hasura-app.io/dregister'
+        //url = 'https://app.anthology78.hasura-app.io/dregister'
         url = 'https://t47d.anthology78.hasura-app.io/dregister'
     }
     else {
-        //url = 'https://app.animator94.hasura-app.io/dlogin'
+        //url = 'https://app.anthology78.hasura-app.io/dlogin'
         url = 'https://t47d.anthology78.hasura-app.io/dlogin'
     } 
 
@@ -206,7 +206,7 @@ export function setLoggedInUser(userName, token, rtpthid, hasura_id) {
 
     if (data)
     {
-        //url = 'https://app.animator94.hasura-app.io/dregister'
+        //url = 'https://app.anthology78.hasura-app.io/dregister'
         url = 'https://t47d.anthology78.hasura-app.io/fldrlist'
     }
 
@@ -250,7 +250,7 @@ export async function getFolderList(data) {
 
     if (data)
     {
-        //url = 'https://app.animator94.hasura-app.io/dregister'
+        //url = 'https://app.anthology78.hasura-app.io/dregister'
         url = 'https://t47d.anthology78.hasura-app.io/fldrlist'
     }
 
@@ -292,7 +292,7 @@ export async function getFolderList(data) {
 
     if (data)
     {
-        //url = 'https://app.animator94.hasura-app.io/dregister'
+        //url = 'https://app.anthology78.hasura-app.io/dregister'
         url = 'https://t47d.anthology78.hasura-app.io/filelist'
     }
 
@@ -325,7 +325,7 @@ export async function getFolderList(data) {
 
     if (data)
     {
-        //url = 'https://app.animator94.hasura-app.io/dregister'
+        //url = 'https://app.anthology78.hasura-app.io/dregister'
         url = 'https://t47d.anthology78.hasura-app.io/fldrlist'
     }
 

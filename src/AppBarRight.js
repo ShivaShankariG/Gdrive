@@ -245,6 +245,7 @@ export default class AppBarRight extends React.Component {
   
     render()
     {
+       // alert("ABBarRight rendering");
         const actions = [
             <FlatButton
               label="Cancel"
@@ -258,6 +259,7 @@ export default class AppBarRight extends React.Component {
             />
           ];
         return (
+
             <div >
             <div style={styles.Left} className="iconColor">
                     <IconButton tooltip="Grid View" tooltipPosition="bottom-center" onClick={this.getFolders}  >
