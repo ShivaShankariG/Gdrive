@@ -20,9 +20,15 @@ import FlatButton from 'material-ui/FlatButton';
 import {Dialog} from 'material-ui';
 import {getLoggedInUser,getPromiseOfUploadFile,getPromiseOfFolderInfoUpdate,getPromiseOfFolderCreation} from './login.js';
 import {List, ListItem} from 'material-ui/List';
+import MyDriveList, { handleFileUpload } from './MyDriveList';
+export var info={};
+export function  setUploadedData(data)
+{
+   info=data;
+  console.log(info);
+}
 
-
-export default class MyMenu extends React.Component
+export default class MyMenu extends  React.Component
 {
   //==================
 
@@ -50,7 +56,7 @@ export default class MyMenu extends React.Component
 
   }
 
-
+ 
   handleFileUpload = (file) => {
     console.log(file.name);
     const authToken = getLoggedInUser().token;
@@ -69,6 +75,7 @@ export default class MyMenu extends React.Component
         hvfileid: "",
         hvfilesize: ""
       }
+    
     //this.showProgressIndicator(true)
     getPromiseOfUploadFile(data, authToken).then(response => {
       //this.showProgressIndicator(false)
@@ -78,27 +85,19 @@ export default class MyMenu extends React.Component
         folderData.hvfileid = response[0]["file_id"];
         folderData.hvfilesize = response[0]["file_size"];
         console.log(folderData);
-
         getPromiseOfFolderInfoUpdate(folderData, authToken).then(response => {
-          //this.showProgressIndicator(false)
+
           console.log(response);
-          /*if (response["file_id"]) {
-            console.log("folder info updated for the file");
-            //this.showAlert("File uploaded successfully: " + JSON.stringify(response, null, 4));
-          } else {
-            console.log("File upload failed because of an internal error");
-          }*/
+       
         }).catch(error => {
           console.log('File upload failed: ' + error);
         });
-
-        //this.showAlert("File uploaded successfully: " + JSON.stringify(response, null, 4));
+        //On successful file Upload, passes the FileName through props function to parent(AppBarLeft).
+        this.props.update(file.name);
+     
       } else {
         alert("File upload failed because of an internal error");
       }
-
-      
-
     }).catch(error => {
       console.log('File upload failed: ' + error);
     });
@@ -126,12 +125,6 @@ export default class MyMenu extends React.Component
       console.log('Folder creation failed : ' + error);
     });
   }
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-
   handleToggle = () => this.setState({open: !this.state.open});
   handleChange=()=>this.setState({change: !this.state.change});
   handleClick =()=> this.setState({show: !this.state.show});
@@ -174,10 +167,6 @@ export default class MyMenu extends React.Component
   }; 
 
 
-
-  //=======================
-
-  
   render()
   {
     const actions = [
@@ -194,7 +183,7 @@ export default class MyMenu extends React.Component
           //var pathId = {this.getUserPathId}
           const input = document.querySelector('input[type="file"]');
           if (input.files[0]) {
-            this.handleFileUpload(input.files[0])
+           this.handleFileUpload(input.files[0])
           } else {
             this.showAlert("Please select a file")
           }
