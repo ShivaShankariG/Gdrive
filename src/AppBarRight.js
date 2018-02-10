@@ -124,7 +124,7 @@ export default class AppBarRight extends React.Component {
                 };
         }
         getDetails(cred).then( (loginresp) => {
-       // checkLogin(cred);
+      
        if(loginresp[0]["username"])
        {
         console.log(loginresp[0]);
@@ -172,16 +172,7 @@ export default class AppBarRight extends React.Component {
       }
 
       handleSubmit = () => {
-        /*if (this.state.isSignUp){
-            console.log(this.state.hvPwd);
-            //var password1 = this.state.hvPwd;
-            //var password2 = this.state.hwCpwd;
-            console.log(this.state.hvCpwd);
-            if(password1 !== password2) {
-                alert("Password and confirmations don't match! Please try again");
-                return;
-            }
-        } */ 
+        
         if(!this.state.success)
         {
             this.handleLogoClick();
@@ -204,10 +195,7 @@ export default class AppBarRight extends React.Component {
           this.setState({
               hvName: userName
           });
-          /*this.setState({
-            //name: name,
-            errorTextName: e.target.value ? '' : 'Please, type your Name'
-          });*/
+          
         } else if (e.target.id === 'password') {
           var password = e.target.value;
 
@@ -232,7 +220,6 @@ export default class AppBarRight extends React.Component {
            
         }
         
-       
         alert("User has been signed out");
         this.setState({showLogin: false});
         this.setState({success: false});
@@ -378,4 +365,3 @@ export default class AppBarRight extends React.Component {
     }
    
 }
-/*  {this.state.success ? this.props.handler : null}*/
