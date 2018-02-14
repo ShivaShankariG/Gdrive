@@ -2,6 +2,8 @@ import React from 'react';
 import driveLogo from './images/Hasura_Drive_image.png';
 import FlatButton from 'material-ui/FlatButton';
 import MyMenu from './MyMenu';
+import leftMenu from './leftMenu';
+
 const styles=
 {
     Left:
@@ -70,10 +72,12 @@ export default class AppBarLeft extends React.Component
             <br/>
             <br/>
             <FlatButton className= "newbutton" label="New" backgroundColor="#222" onClick ={this.handleClick}/>
+            
             {this.state.showComponent?  <MyMenu id="1" appear ={this.state.appear} action={this.handler} update={this.handleUpdatingOnUploading}/>: null}  
             </div>
-            <MyMenu style= {{position: 'absolute', }} ZI={this.state.ZI} />
+         
+            <leftMenu style= {{position: 'absolute' }}  ZI={this.state.ZI} />
             </div>
         );
     }
-}
+}//            <MyMenu style= {{position: 'absolute', }} ZI={this.state.ZI} />

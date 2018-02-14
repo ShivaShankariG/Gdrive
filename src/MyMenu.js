@@ -172,7 +172,7 @@ export default class MyMenu extends  React.Component
 
   render()
   {
-    const actions = [
+     const actions = [
       <FlatButton
         label="Cancel"
         primary={true}

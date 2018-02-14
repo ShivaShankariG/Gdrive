@@ -11,15 +11,13 @@ import FileIcon from './images/GDocs.png';
 import FolderIcon from './images/folder.png';
 import {getLoggedInUser,setLoggedInUser,downloadFile,getDetailsofFolders,getDetailsofFiles,getPromiseOfUploadFile,getPromiseOfFolderInfoUpdate} from './login';
 import Paper from 'material-ui/Paper';
-import {info} from './MyMenu';
+
 const styles= {
   height: 600,
   marginTop: 150,
   marginLeft: 200,
   width: '70%',
-  overflow: 'auto',
- 
-}
+  overflow: 'auto',}
 
 export default class MyDriveList extends React.Component{
   constructor(props) {
@@ -108,14 +106,16 @@ componentWillReceiveProps(nextProps)
 }
 
   render(){
-   //alert("render()");
-  
+   
+
    var TData=this.state.TData;
    console.log("length of Tdata: "+TData.length);
     var uName=getLoggedInUser().userName;
     if(TData){
     return (
-      <div style={{}}>
+     
+    <div>
+
        <Paper style= {styles}>
         <Table selectable = {true} onRowSelection={this.handleSelection}>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
