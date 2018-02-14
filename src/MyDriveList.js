@@ -11,7 +11,7 @@ import FileIcon from './images/GDocs.png';
 import FolderIcon from './images/folder.png';
 import {getLoggedInUser,setLoggedInUser,downloadFile,getDetailsofFolders,getDetailsofFiles,getPromiseOfUploadFile,getPromiseOfFolderInfoUpdate} from './login';
 import Paper from 'material-ui/Paper';
-
+import leftMenu from './leftMenu';
 const styles= {
   height: 600,
   marginTop: 150,
@@ -115,7 +115,7 @@ componentWillReceiveProps(nextProps)
     return (
      
     <div>
-
+        <leftMenu style= {{position: 'absolute' }}  />
        <Paper style= {styles}>
         <Table selectable = {true} onRowSelection={this.handleSelection}>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>

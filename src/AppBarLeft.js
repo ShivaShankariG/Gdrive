@@ -76,7 +76,7 @@ export default class AppBarLeft extends React.Component
             {this.state.showComponent?  <MyMenu id="1" appear ={this.state.appear} action={this.handler} update={this.handleUpdatingOnUploading}/>: null}  
             </div>
          
-            <leftMenu style= {{position: 'absolute' }}  ZI={this.state.ZI} />
+           
             </div>
         );
     }
