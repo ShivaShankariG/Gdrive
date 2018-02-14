@@ -18,7 +18,7 @@ import GSIcon from './images/GSites2016.png';
 import driveLogo from './images/Hasura_Drive_image.png';
 import FlatButton from 'material-ui/FlatButton';
 import {Dialog} from 'material-ui';
-import {getLoggedInUser,getPromiseOfUploadFile,getPromiseOfFolderInfoUpdate,getPromiseOfFolderCreation} from './login.js';
+import {getLoggedInUser,getDetailsofFolders,getPromiseOfUploadFile,getPromiseOfFolderInfoUpdate,getPromiseOfFolderCreation} from './login.js';
 import {List, ListItem} from 'material-ui/List';
 import MyDriveList, { handleFileUpload } from './MyDriveList';
 export var info={};
@@ -45,7 +45,8 @@ export default class MyMenu extends  React.Component
                   'Content-type': 'multipart/form-data',
                   'credentials' : 'include',
                 },
-                rtpthid: 0
+                rtpthid: 0,
+                TData: [{}],
                  
                
                 };
@@ -53,7 +54,7 @@ export default class MyMenu extends  React.Component
     this.handleToggle=this.handleToggle.bind(this);
     this.handleChange=this.handleChange.bind(this);
     this.getUserPathId=this.getUserPathId.bind(this);  
-
+    this.handleBrowse=this.handleBrowse.bind(this);
   }
 
  
@@ -168,7 +169,42 @@ export default class MyMenu extends  React.Component
     };
     
   }; 
+ handleBrowse(x){
+  var arrayFolders =  [{}];
+  var data={};
+  if(!x){
+    data= {
+    hvfldrid: getLoggedInUser().rtpthid
+    } ;
+  
 
+   
+     getDetailsofFolders(data).then( (tableData) =>
+      {
+        arrayFolders=tableData[0];
+        this.setState({ TData: arrayFolders} );
+        console.log(this.state.TData);
+
+        
+      } 
+    )
+  }
+  else
+  {
+    data= {
+      hvfldrid: x
+      } ;
+    getDetailsofFolders(data).then( (tableData) =>
+      {
+        arrayFolders=tableData[0];
+        this.setState({ TData: arrayFolders} );
+        console.log(this.state.TData);
+
+        
+      } 
+    )
+  }
+ }
 
   render()
   {
@@ -325,54 +361,33 @@ export default class MyMenu extends  React.Component
       </div>
     );
     }
-    else if(this.props.id==='2')
-  {
-    return(
-      <div>
-        <Menu>
-      <MenuItem primaryText="Download" />
-            
-           <MenuItem primaryText="View Details"  />
-          
-           
-           </Menu>
-           </div>
-    )
-  }
     else 
     {
-      return(
+
+      
+            return(
         <div >
-         
-           <List width={250} className="menu" style={{position: 'absolute', marginTop: 20, zIndex: -1}} >
-          
-              <ListItem
-              primaryText="My Drive"
-              leftIcon={<CFolderIcon />}
-              initiallyOpen={false}
-              primaryTogglesNestedList={true}
-              nestedItems={[
-                <ListItem
-                  key={1}
-                  primaryText="F1"
-                  leftIcon={<CFolderIcon />}
-                />,
-                <ListItem
-                  key={2}
-                  primaryText="F2"
-                  leftIcon={<CFolderIcon />}
-                  
-                  
-                />,
-              
-              ]}
-            />,
-             
-         
-           <MenuItem primaryText="Computers" leftIcon={<UFileIcon/>} onClick={this.handleOpen} />
-            
-           <MenuItem primaryText="Shared with me" leftIcon={<FolderIcon/>} />
-          
+          <List width={250} className="menu" style={{position: 'absolute', marginTop: 20, zIndex: -1}} >
+
+          <ListItem primaryText="MyDrive" 
+                    leftIcon={<UFileIcon/>} 
+                    onClick={() =>this.handleBrowse("")}
+                    initiallyOpen={false}
+                    primaryTogglesNestedList={true}
+                    nestedItems={[
+                      this.state.TData.map( (row, index) => (
+                      
+                          <ListItem key= {index} 
+                                    primaryText = {row.path_nm } 
+                                    onClick={() =>this.handleBrowse(row.path_id)}
+                                    />
+                         
+                        ))
+                ]} />,
+                
+                
+          <MenuItem primaryText="Computers" leftIcon={<UFileIcon/>} onClick={this.handleOpen} />
+          <MenuItem primaryText="Shared with me" leftIcon={<FolderIcon/>} />
            <MenuItem primaryText="Recent" leftIcon={<FolderIcon/>} />
            <MenuItem primaryText="Google Photos" leftIcon={<FolderIcon/>} />
            <MenuItem primaryText="Starred" leftIcon={<FolderIcon/>} />

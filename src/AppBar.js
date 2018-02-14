@@ -14,6 +14,7 @@ export default  class AppBar extends React.Component
             RenderList1: false,
             // The state that will be passed as props to MyDriveList
             FileName: "",
+            ZI: "0",
         }
       this.handleRenderList1=this.handleRenderList1.bind(this);
       this.handleVanishList1=this.handleVanishList1.bind(this);
@@ -52,7 +53,7 @@ export default  class AppBar extends React.Component
                             backgroundColor : this.props.themee,}} 
                     zDepth={3}  >
                                     
-                <AppBarLeft update ={this.toReRender}/>
+                <AppBarLeft update ={this.toReRender} id="left"/>
                 <AppBarCenter/>
                 <AppBarRight render={this.handleRenderList1} vanish={this.handleVanishList1}/>
                
@@ -60,7 +61,7 @@ export default  class AppBar extends React.Component
             </Paper>
              
           
-          {this.state.RenderList1 ? <MyDriveList props={this.state.FileName}/> :null}
+          {this.state.RenderList1 ? <MyDriveList props={this.state.FileName} ZI={this.state.ZI}/> :null}
            </div>
         );
         
