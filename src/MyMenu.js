@@ -21,7 +21,37 @@ import {Dialog} from 'material-ui';
 import {getLoggedInUser,getDetailsofFolders,getPromiseOfUploadFile,getPromiseOfFolderInfoUpdate,getPromiseOfFolderCreation} from './login.js';
 import {List, ListItem} from 'material-ui/List';
 import MyDriveList, { handleFileUpload } from './MyDriveList';
+import TreeNode from './TreeNode';
 export var info={};
+
+/*nestedItems={[
+  this.state.TData.map( (row, index) => (
+  
+      <ListItem key= {index} 
+                primaryText = {row.path_nm } 
+                onClick={() =>this.handleBrowse(row.path_id)}
+                />
+     
+    ))
+]} />,
+*/
+var tree = {
+  childNodes: [
+    {title: "Folder 1"},
+    {title: "Folder 2"},
+    {title: "Folder 3", 
+            childNodes: [
+                          {title: "Folder 3.1",
+                                  childNodes: [
+                                                {title: "Folder 3.1.1"}]
+                          },
+                          {title: "Folder 3.2"}
+                       ]
+    }
+  ],
+  
+};
+
 export function  setUploadedData(data)
 {
    info=data;
@@ -54,7 +84,7 @@ export default class MyMenu extends  React.Component
     this.handleToggle=this.handleToggle.bind(this);
     this.handleChange=this.handleChange.bind(this);
     this.getUserPathId=this.getUserPathId.bind(this);  
-    this.handleBrowse=this.handleBrowse.bind(this);
+ //   this.handleBrowse=this.handleBrowse.bind(this);
   }
 
  
@@ -169,17 +199,14 @@ export default class MyMenu extends  React.Component
     };
     
   }; 
- handleBrowse(x){
+  handleBrowse(x){
   var arrayFolders =  [{}];
   var data={};
   if(!x){
     data= {
     hvfldrid: getLoggedInUser().rtpthid
     } ;
-  
-
-   
-     getDetailsofFolders(data).then( (tableData) =>
+    getDetailsofFolders(data).then( (tableData) =>
       {
         arrayFolders=tableData[0];
         this.setState({ TData: arrayFolders} );
@@ -208,6 +235,7 @@ export default class MyMenu extends  React.Component
 
   render()
   {
+    
      const actions = [
       <FlatButton
         label="Cancel"
@@ -363,9 +391,9 @@ export default class MyMenu extends  React.Component
     }
     else 
     {
-
+     //return(<TreeNode node={tree}/>);
       
-            return(
+        return(
         <div >
           <List width={250} className="menu" style={{position: 'absolute', marginTop: 20, zIndex: -1}} >
 
@@ -401,7 +429,7 @@ export default class MyMenu extends  React.Component
 
       
         </div>
-      );
+         );
     }
   }
 }

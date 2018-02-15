@@ -35,7 +35,6 @@ export default  class AppBar extends React.Component
     //The function that sets the fileName state and triggers render
     toReRender(name)
     {
-        //alert("setting FileName in AppBar: "+name);
         this.setState({FileName: name});
        
     }
@@ -53,8 +52,8 @@ export default  class AppBar extends React.Component
                             backgroundColor : this.props.themee,}} 
                     zDepth={3}  >
                                     
-                <AppBarLeft update ={this.toReRender} id="left"/>
-                <AppBarCenter/>
+                <AppBarLeft update ={this.toReRender} />
+                <AppBarCenter update ={this.toReRender} />
                 <AppBarRight render={this.handleRenderList1} vanish={this.handleVanishList1}/>
                
                
