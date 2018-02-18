@@ -54,9 +54,10 @@ export default class MyDriveList extends React.Component{
       return
   }
  handleSelection(selectedRow){
-  const TData = this.state.TData;
-     var file_id="";
-     file_id=TData[selectedRow]["file_id"] ;
+    const TData = this.state.TData;
+    /*var file_id="";
+    file_id=TData[selectedRow]["file_id"] ;
+    console.log(file_id);
      if(!file_id)
      {
        var fldrid= TData[selectedRow]["path_id"] ;
@@ -68,7 +69,18 @@ export default class MyDriveList extends React.Component{
      var auth_token=getLoggedInUser().token;
      console.log("auth_token is "+auth_token);
      console.log("file_id is "+file_id)
-     downloadFile(file_id,file_name,auth_token);
+     downloadFile(file_id,file_name,auth_token);*/
+
+    if(TData[selectedRow]["path_id"])
+     {
+       this.loadTable(TData[selectedRow]["path_id"]);
+     }
+     else
+     {
+       downloadFile(TData[selectedRow]["file_id"],TData[selectedRow]["file_name"],getLoggedInUser().token );
+     }
+     
+
  }
  
  

@@ -199,12 +199,12 @@ export default class MyMenu extends  React.Component
     };
     
   }; 
-  handleBrowse(x){
+
+  handleBrowse(x)
+  {
   var arrayFolders =  [{}];
-  var data={};
-  if(!x){
-    data= {
-    hvfldrid: getLoggedInUser().rtpthid
+  var data= {
+    hvfldrid: x
     } ;
     getDetailsofFolders(data).then( (tableData) =>
       {
@@ -215,23 +215,7 @@ export default class MyMenu extends  React.Component
         
       } 
     )
-  }
-  else
-  {
-    data= {
-      hvfldrid: x
-      } ;
-    getDetailsofFolders(data).then( (tableData) =>
-      {
-        arrayFolders=tableData[0];
-        this.setState({ TData: arrayFolders} );
-        console.log(this.state.TData);
-
-        
-      } 
-    )
-  }
- }
+   }
 
   render()
   {
@@ -393,13 +377,13 @@ export default class MyMenu extends  React.Component
     {
      //return(<TreeNode node={tree}/>);
       
-        return(
+  return(
         <div >
           <List width={250} className="menu" style={{position: 'absolute', marginTop: 20, zIndex: -1}} >
 
           <ListItem primaryText="MyDrive" 
                     leftIcon={<UFileIcon/>} 
-                    onClick={() =>this.handleBrowse("")}
+                    onClick={() =>this.handleBrowse(getLoggedInUser().rtpthid)}
                     initiallyOpen={false}
                     primaryTogglesNestedList={true}
                     nestedItems={[
