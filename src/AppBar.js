@@ -39,7 +39,8 @@ export default  class AppBar extends React.Component
        
     }
     render()
-    { return(
+    { 
+        return(
            
             <div style={{diplay:'flex', overflowY:'hidden'}}>
             <Paper style={{
@@ -60,7 +61,11 @@ export default  class AppBar extends React.Component
             </Paper>
              
           
-          {this.state.RenderList1 ? <MyDriveList props={this.state.FileName} ZI={this.state.ZI}/> :null}
+          {this.state.RenderList1 ? 
+          <div>
+          <MyDriveList props={this.state.FileName} ZI={this.state.ZI}/> 
+          </div>
+          :null}
            </div>
         );
         

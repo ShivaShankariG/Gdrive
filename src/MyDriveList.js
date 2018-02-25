@@ -9,26 +9,60 @@ import {
 } from 'material-ui/Table';
 import FileIcon from './images/GDocs.png'; 
 import FolderIcon from './images/folder.png';
-import {getLoggedInUser,setLoggedInUser,downloadFile,getDetailsofFolders,getDetailsofFiles,getPromiseOfUploadFile,getPromiseOfFolderInfoUpdate} from './login';
+import {getLoggedInUser,getActivity, getQaccess,getQaccessed, setLoggedInUser,downloadFile,getDetailsofFolders,getDetailsofFiles,getPromiseOfUploadFile,getPromiseOfFolderInfoUpdate, getlogAct, } from './login';
 import Paper from 'material-ui/Paper';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-
-
+import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
+import history from './history';
+import Cards from './Cards';
 const styles= {
   position: 'absolute',
   height: 600,
-  marginTop: 150,
-  marginLeft: 200,
+  marginTop: 50,
+  marginLeft: 250,
   width: '70%',
   overflow: 'auto',
   zIndex: -1,
+ 
 }
+const styless= {
+  position: 'relative',
+  //height: 500,
+  marginTop: 150,
+  marginLeft: 400,
+ 
+ // overflow: 'auto',
+  zIndex: -1,
+  display: 'flex',
+  flexFlow: 'row wrap',
+  justifyContent: 'space-around',
 
-export default class MyDriveList extends React.Component{
+}
+// style={{display:'flex', flexFlow:'column'}}
+export class ListOfCard extends React.Component{
+  render()
+  {
+    //alert("why are you not getting rendered?");
+    var wow=this.props.data;
+    console.log(wow)
+    
+    return(
+      <div style={styless}>
+      {wow.map( (row, index) => (
+        <Cards name={row.obj_nm} desc={row.act_desc} type={row.obj_type}/>
+      
+    ))}
+
+    </div>
+    );
+  
+  }
+}
+ export default class MyDriveList1 extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
       TData: [{}],
+      QData: [{}],
      }
     this.componentDidMount = this.componentDidMount.bind(this);
     this.handleSelection=this.handleSelection.bind(this);
@@ -41,66 +75,122 @@ export default class MyDriveList extends React.Component{
       } 
       var arrayFiles =  [{}];
       var arrayMix = [{}];
-       getDetailsofFolders(data).then( (tableData) => {arrayFiles = tableData[0];
+       getDetailsofFolders(data).then( (tableData) => {
+         arrayFiles = tableData[0];
        getDetailsofFiles(data).then( (fileData) => {
         var file=fileData[0];
         arrayMix = arrayFiles.concat(file);
-     
         this.setState({ TData: arrayMix} ); 
         console.log("set state called");
-       
+        console.log(this.state.TData);
        })
       } )
       return
   }
  handleSelection(selectedRow){
     const TData = this.state.TData;
-    /*var file_id="";
-    file_id=TData[selectedRow]["file_id"] ;
-    console.log(file_id);
-     if(!file_id)
-     {
-       var fldrid= TData[selectedRow]["path_id"] ;
-       if(fldrid){
-        this.loadTable(fldrid);
-       }
+    var logactData ={
+      hvfileid: TData[selectedRow]["file_id"],
+      hvfname: TData[selectedRow]["file_name"],
+      //hvfldrid:getLoggedInUser().rtpthid,
+      hvfldrid:TData[selectedRow]["file_path_id"],
+      hvfilesize: TData[selectedRow]["file_size"],
+      hvobjtype: "File",
+      hvobjname: TData[selectedRow]["file_name"],
+      hvactname: "Download",
+      hvactdesc: "You Downloaded a File recently",
      }
-     var file_name=TData[selectedRow]["file_name"] ;
-     var auth_token=getLoggedInUser().token;
-     console.log("auth_token is "+auth_token);
-     console.log("file_id is "+file_id)
-     downloadFile(file_id,file_name,auth_token);*/
 
-    if(TData[selectedRow]["path_id"])
+    if(TData[selectedRow]["path_id"]) //it's a folder
      {
+       var obj=getLoggedInUser();
+       setLoggedInUser(obj.userName, obj.token, TData[selectedRow]["path_id"], obj.hasura_id)
        this.loadTable(TData[selectedRow]["path_id"]);
+       this.setActivityInfo();
+
      }
-     else
+     else // it's a file
      {
        downloadFile(TData[selectedRow]["file_id"],TData[selectedRow]["file_name"],getLoggedInUser().token );
+    //   var obj= logAct(logactData, getLoggedInUser().token)
+       getlogAct(logactData, getLoggedInUser().token).then(res=>{console.log(res)});
+      
      }
      
 
  }
+ setQuickAccess(){
+  var u=getLoggedInUser();
+  var data={
+    hvfldrid: u.rtpthid
+  }
+  var data1, i;
+  getQaccessed(data, getLoggedInUser().token).then((res) => {
+     data1=res[0];
+     console.log("The quick access : ");
+     this.setState({QData: data1});
+  })}
  
- 
+  setActivityInfo()
+  {
+    //alert("voila !");
+    var u=getLoggedInUser();
+    var data={
+      hvfldrid: u.rtpthid
+    }
+    getActivity(data, getLoggedInUser().token).then((res) => {
+      console.log(res[0]);
+      var i;
+      for(i=0;i<res[0].length;i++)
+      {
+     //  console.log(res[i]["act_desc"]+" "+res[i]["obj_nm"]);
+      }
+    }
+    )
+  }
  componentDidMount() {
    
   this.loadTable(getLoggedInUser().rtpthid);
-      
+  this.setQuickAccess();
   }
  
 componentWillReceiveProps(nextProps)
 {
+ // alert("came");
+
+ /* var u=getLoggedInUser();
+  var data={
+    hvfldrid: u.rtpthid
+  }
+  var res=getQaccess(data, getLoggedInUser().token);
+  console.log(res);*/
+  console.log("going to call the activity..");
+
+  var u=getLoggedInUser();
+  var data={
+    hvfldrid: u.rtpthid
+  }
+  getActivity(data, getLoggedInUser().token).then((res) => {
+  console.log(res[0]);
+  var i;
+  for(i=0;i<res[0].length;i++)
+  {
+ //     console.log(res[i]["act_desc"]+" "+res[i]["obj_nm"]);
+  }
+}
+)
  if(nextProps.props!==this.props.props)
  {
-  this.loadTable(getLoggedInUser().rtpthid);
+  
+console.log("going to call the table..");
+this.loadTable(getLoggedInUser().rtpthid);
+
 }
 }
 
   render(){
    
-
+   
    var TData=this.state.TData;
    console.log("length of Tdata: "+TData.length);
     var uName=getLoggedInUser().userName;
@@ -108,6 +198,8 @@ componentWillReceiveProps(nextProps)
     return (
      
     <div>
+      <ListOfCard data={this.state.QData}/>
+     <br/>
        <Paper style= {styles} >
         <Table selectable = {true} onRowSelection={this.handleSelection}>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
@@ -120,7 +212,7 @@ componentWillReceiveProps(nextProps)
             </TableRow>
           </TableHeader>
           <TableBody  displayRowCheckbox={false} deselectOnClickaway={false}>
-                  {this.state.TData.map( (row, index) => (
+                  {TData.map( (row, index) => (
                     <TableRow  key={index} >
                       <TableRowColumn>{row.path_nm ?<img src={FolderIcon} alt="folder" height='20' width='30'/>: <img src={FileIcon} alt="folder" height='20' width='30'/>}</TableRowColumn>
                       <TableRowColumn>{row.path_nm ?row.path_nm : row.file_name}</TableRowColumn>

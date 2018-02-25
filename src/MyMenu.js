@@ -18,7 +18,7 @@ import GSIcon from './images/GSites2016.png';
 import driveLogo from './images/Hasura_Drive_image.png';
 import FlatButton from 'material-ui/FlatButton';
 import {Dialog} from 'material-ui';
-import {getLoggedInUser,getDetailsofFolders,getPromiseOfUploadFile,getPromiseOfFolderInfoUpdate,getPromiseOfFolderCreation} from './login.js';
+import {getLoggedInUser,getDetailsofFolders,getPromiseOfUploadFile,getPromiseOfFolderInfoUpdate,getPromiseOfFolderCreation,getlogAct} from './login.js';
 import {List, ListItem} from 'material-ui/List';
 import MyDriveList, { handleFileUpload } from './MyDriveList';
 import TreeNode from './TreeNode';
@@ -106,22 +106,32 @@ export default class MyMenu extends  React.Component
         hvfileid: "",
         hvfilesize: ""
       }
-    
-    //this.showProgressIndicator(true)
+     var logactData ={
+      hvfileid: "",
+      hvfname: file.name,
+      hvfldrid: data.hvfldrid,
+      hvfilesize: "",
+      hvobjtype: "File",
+      hvobjname: file.name,
+      hvactname: "Upload",
+      hvactdesc: "You uploaded a File",
+     }
     getPromiseOfUploadFile(data, authToken).then(response => {
-      //this.showProgressIndicator(false)
-      console.log(response[0]);
+      console.log("respne[0] in getPromiseofUploadfile "+response[0]);
       if (response[0]["file_id"]) {
         alert("Upload of file named " + file.name + ". Status - " + response[0]["file_status"]);
         folderData.hvfileid = response[0]["file_id"];
         folderData.hvfilesize = response[0]["file_size"];
-        console.log(folderData);
+        logactData.hvfileid = response[0]["file_id"];
+        logactData.hvfilesize = response[0]["file_size"];
+
+        console.log("inside if : "+folderData);
         getPromiseOfFolderInfoUpdate(folderData, authToken).then(response => {
 
-          console.log(response);
-          //On successful file Upload, passes the FileName through props function to parent(AppBarLeft).
+          console.log("inside getPromiseofFOlderInfoUpdate"+response);
           this.props.update(file.name);
-       
+         // getlogAct(logactData, authToken).then(res=>{console.log(res)});
+         // console.log("logged : "+obj);
         }).catch(error => {
           console.log('File upload failed: ' + error);
         });
@@ -145,6 +155,7 @@ export default class MyMenu extends  React.Component
       return;
     }
     const folderId = getLoggedInUser().rtpthid;
+    console.log("rtpthid before folder creation: "+folderId);
     var data = {
       hvfldrname: folderName,
       hvfldrid: folderId
@@ -278,7 +289,7 @@ export default class MyMenu extends  React.Component
       return(
       <div >
        
-          <Paper style={{position: 'absolute', zIndex: 1}}  >
+          <Paper style={{position: 'absolute', zIndex: 2}}  >
           <Menu desktop={true} width={320} className="menu" style= {{display: this.props.appear}} onMouseLeave= {this.props.action} >
             <MenuItem primaryText="New Folder.."  leftIcon={<CFolderIcon/>} onClick={this.handleNewFolderOpen}/>
             <Divider /> 
