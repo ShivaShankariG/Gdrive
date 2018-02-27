@@ -213,6 +213,7 @@ export default class MyMenu extends  React.Component
 
   handleBrowse(x)
   {
+    if(x){
   var arrayFolders =  [{}];
   var data= {
     hvfldrid: x
@@ -226,6 +227,8 @@ export default class MyMenu extends  React.Component
         
       } 
     )
+  }
+  
    }
 
   render()
@@ -295,54 +298,54 @@ export default class MyMenu extends  React.Component
             <Divider /> 
             <MenuItem primaryText="Upload Files.." leftIcon={<UFileIcon/>} onClick={this.handleOpen} />
             
-            <MenuItem primaryText="Upload Folder" leftIcon={<FolderIcon/>}  />
+            <MenuItem style={{ opacity:0.6,  }}primaryText="Upload Folder" leftIcon={<FolderIcon/>}  />
             <Divider />
-            <MenuItem
+            <MenuItem style={{ opacity:0.6,  }}
               primaryText="Google Docs"
               leftIcon={<img src={GdocsIcon} alt="googleDocs" />}
               rightIcon={<ArrowDropRight />}
               menuItems={[
-                <MenuItem primaryText="Blank document"/>,
-                <MenuItem primaryText="Form a template"/>,
+                <MenuItem style={{ opacity:0.6,  }} primaryText="Blank document"/>,
+                <MenuItem style={{ opacity:0.6,  }}primaryText="Form a template"/>,
                 ]}
             />
-            <MenuItem
+            <MenuItem style={{ opacity:0.6,  }}
               primaryText="Google Sheets"
               leftIcon={<img src={GSheetsIcon} alt="gSheets" />}
               rightIcon={<ArrowDropRight />}
               menuItems={[
-                <MenuItem primaryText="Blank spread sheet"/>,
-                <MenuItem primaryText="Form a template"/>,
+                <MenuItem style={{ opacity:0.6,  }}  primaryText="Blank spread sheet"/>,
+                <MenuItem style={{ opacity:0.6,  }} primaryText="Form a template"/>,
               ]}
             />
-            <MenuItem
+            <MenuItem style={{ opacity:0.6,  }}
               primaryText="Google Slides"
               leftIcon={<img src={GSlidesIcon} alt="googleSheets" />}
               rightIcon={<ArrowDropRight />}
               menuItems={[
-                <MenuItem primaryText="Blank presentation"/>,
-                <MenuItem primaryText="Form a template"/>,
+                <MenuItem style={{ opacity:0.6,  }} primaryText="Blank presentation"/>,
+                <MenuItem style={{ opacity:0.6,  }} primaryText="Form a template"/>,
                   ]}
             />
-            <MenuItem
+            <MenuItem style={{ opacity:0.6,  }}
               primaryText="More"
               leftIcon={<p></p>}
               rightIcon={<ArrowDropRight />}
               menuItems={[
-                <MenuItem
+                <MenuItem style={{ opacity:0.6,  }}
                   primaryText="Google Forms"
                   leftIcon={<img src={GFIcon} alt="Forms" />}
                   rightIcon={<ArrowDropRight />}
                   menuItems={[
-                    <MenuItem primaryText="Blank form"/>,
-                    <MenuItem primaryText="Form a template"/>,
+                    <MenuItem style={{ opacity:0.6,  }}primaryText="Blank form"/>,
+                    <MenuItem style={{ opacity:0.6,  }} primaryText="Form a template"/>,
                     ]}
                   />,
-                  <MenuItem primaryText="Google Drawings"  leftIcon={<img src={GdrIcon} color= '#616161'  alt="Dra" />}/>,
-                  <MenuItem primaryText="Google My Maps"  leftIcon={<img src={GMIcon} color= '#616161'  alt="Maps" />}/>,
-                  <MenuItem primaryText="Google Sites"  leftIcon={<img src={GSIcon} color= '#616161'  alt="Sites" />}/>,
+                  <MenuItem style={{ opacity:0.6,  }} primaryText="Google Drawings"  leftIcon={<img src={GdrIcon} color= '#616161'  alt="Dra" />}/>,
+                  <MenuItem style={{ opacity:0.6,  }} primaryText="Google My Maps"  leftIcon={<img src={GMIcon} color= '#616161'  alt="Maps" />}/>,
+                  <MenuItem style={{ opacity:0.6,  }} primaryText="Google Sites"  leftIcon={<img src={GSIcon} color= '#616161'  alt="Sites" />}/>,
                   <Divider/>,
-                  <MenuItem primaryText="Connect More Apps"  leftIcon={<img src={PlusIcon} color= '#616161'  alt="pLus" />}/>
+                  <MenuItem style={{ opacity:0.6,  }} primaryText="Connect More Apps"  leftIcon={<img src={PlusIcon} color= '#616161'  alt="pLus" />}/>
                 ]}
                 />
           </Menu>
@@ -391,13 +394,15 @@ export default class MyMenu extends  React.Component
   return(
         <div >
           <List width={250} className="menu" style={{position: 'absolute', marginTop: 20, zIndex: -1}} >
-
+         
           <ListItem primaryText="MyDrive" 
                     leftIcon={<UFileIcon/>} 
                     onClick={() =>this.handleBrowse(getLoggedInUser().rtpthid)}
                     initiallyOpen={false}
                     primaryTogglesNestedList={true}
+
                     nestedItems={[
+                    
                       this.state.TData.map( (row, index) => (
                       
                           <ListItem key= {index} 
@@ -406,19 +411,20 @@ export default class MyMenu extends  React.Component
                                     />
                          
                         ))
-                ]} />,
+                ]} /> 
+
                 
                 
-          <MenuItem primaryText="Computers" leftIcon={<UFileIcon/>} onClick={this.handleOpen} />
-          <MenuItem primaryText="Shared with me" leftIcon={<FolderIcon/>} />
-           <MenuItem primaryText="Recent" leftIcon={<FolderIcon/>} />
-           <MenuItem primaryText="Google Photos" leftIcon={<FolderIcon/>} />
-           <MenuItem primaryText="Starred" leftIcon={<FolderIcon/>} />
-           <MenuItem primaryText="Trash" leftIcon={<FolderIcon/>} />
+          <MenuItem style={{ opacity:0.6,  }} primaryText="Computers" leftIcon={<UFileIcon/>} onClick={this.handleOpen} />
+          <MenuItem style={{ opacity:0.6,  }} primaryText="Shared with me" leftIcon={<FolderIcon/>} />
+           <MenuItem style={{ opacity:0.6,  }} primaryText="Recent" leftIcon={<FolderIcon/>} />
+           <MenuItem style={{ opacity:0.6,  }}primaryText="Google Photos" leftIcon={<FolderIcon/>} />
+           <MenuItem style={{ opacity:0.6,  }} style={{ opacity:0.6,  }} primaryText="Starred" leftIcon={<FolderIcon/>} />
+           <MenuItem style={{ opacity:0.6,  }} primaryText="Trash" leftIcon={<FolderIcon/>} />
            <Divider/>
-           <MenuItem primaryText="Backups" leftIcon={<FolderIcon/>} />
+           <MenuItem style={{ opacity:0.6,  }} primaryText="Backups" leftIcon={<FolderIcon/>} />
            <Divider/>
-           <MenuItem primaryText="Upgrade storage" leftIcon={<FolderIcon/>} />
+           <MenuItem style={{ opacity:0.6,  }} primaryText="Upgrade storage" leftIcon={<FolderIcon/>} />
 
          </List>
 

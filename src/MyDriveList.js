@@ -11,14 +11,14 @@ import FileIcon from './images/GDocs.png';
 import FolderIcon from './images/folder.png';
 import {getLoggedInUser,getActivity, getQaccess,getQaccessed, setLoggedInUser,downloadFile,getDetailsofFolders,getDetailsofFiles,getPromiseOfUploadFile,getPromiseOfFolderInfoUpdate, getlogAct, } from './login';
 import Paper from 'material-ui/Paper';
-import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Redirect, BrowserRouter } from "react-router-dom";
 import history from './history';
 import Cards from './Cards';
 const styles= {
   position: 'absolute',
   height: 600,
-  marginTop: 50,
-  marginLeft: 250,
+ // marginTop: 50,
+ // marginLeft: 250,
   width: '70%',
   overflow: 'auto',
   zIndex: -1,
@@ -28,13 +28,13 @@ const styless= {
   position: 'relative',
   //height: 500,
   marginTop: 150,
-  marginLeft: 400,
- 
+  // marginLeft: 400,
+  width: 100,
  // overflow: 'auto',
   zIndex: -1,
   display: 'flex',
-  flexFlow: 'row wrap',
-  justifyContent: 'space-around',
+  flexFlow: 'row ',
+  justifyContent: 'flex-end',
 
 }
 // style={{display:'flex', flexFlow:'column'}}
@@ -44,10 +44,20 @@ export class ListOfCard extends React.Component{
     //alert("why are you not getting rendered?");
     var wow=this.props.data;
     console.log(wow)
-    
+   /* if(wow.length===0)
+    {
+      return(
+        <div style={{ paddingLeft: '50%',}}>
+          <h2>Recent Activity</h2>
+          <h3> No activity yet</h3>
+          </div>
+      );
+    }*/
     return(
-      <div style={styless}>
-      {wow.map( (row, index) => (
+      
+      <div style={{position: 'absolute', width: '100%', display: 'flex',   flexFlow: 'row nowrap ', justifyContent: 'flex-start', zIndex:-1 }}>
+               
+{wow.map( (row, index) => (
         <Cards name={row.obj_nm} desc={row.act_desc} type={row.obj_type}/>
       
     ))}
@@ -57,7 +67,18 @@ export class ListOfCard extends React.Component{
   
   }
 }
- export default class MyDriveList1 extends React.Component{
+/*export default class MyDriveList extends React.Component{
+  render()
+  {
+    return(<div>
+      <BrowserRouter>
+      <Route exact path="/" component={MyDriveList1}/>
+
+      </BrowserRouter>
+    </div>);
+  }
+}*/
+export default class MyDriveList1 extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
@@ -116,8 +137,8 @@ export class ListOfCard extends React.Component{
        getlogAct(logactData, getLoggedInUser().token).then(res=>{console.log(res)});
       
      }
+     //history.push("/");
      
-
  }
  setQuickAccess(){
   var u=getLoggedInUser();
@@ -127,7 +148,7 @@ export class ListOfCard extends React.Component{
   var data1, i;
   getQaccessed(data, getLoggedInUser().token).then((res) => {
      data1=res[0];
-     console.log("The quick access : ");
+     console.log("The quick access : "+data1);
      this.setState({QData: data1});
   })}
  
@@ -139,7 +160,7 @@ export class ListOfCard extends React.Component{
       hvfldrid: u.rtpthid
     }
     getActivity(data, getLoggedInUser().token).then((res) => {
-      console.log(res[0]);
+      console.log(" activity for this folder"+res[0]);
       var i;
       for(i=0;i<res[0].length;i++)
       {
@@ -152,18 +173,11 @@ export class ListOfCard extends React.Component{
    
   this.loadTable(getLoggedInUser().rtpthid);
   this.setQuickAccess();
+  //this.setActivityInfo();
   }
  
 componentWillReceiveProps(nextProps)
 {
- // alert("came");
-
- /* var u=getLoggedInUser();
-  var data={
-    hvfldrid: u.rtpthid
-  }
-  var res=getQaccess(data, getLoggedInUser().token);
-  console.log(res);*/
   console.log("going to call the activity..");
 
   var u=getLoggedInUser();
@@ -194,13 +208,14 @@ this.loadTable(getLoggedInUser().rtpthid);
    var TData=this.state.TData;
    console.log("length of Tdata: "+TData.length);
     var uName=getLoggedInUser().userName;
-    if(TData){
+    if(TData.length>0){
     return (
      
-    <div>
+    <div style={{position : 'absolute ', display: 'flex',   flexFlow: 'column wrap',marginLeft: 250, marginTop: 150 }}>
       <ListOfCard data={this.state.QData}/>
      <br/>
-       <Paper style= {styles} >
+     <div>
+       <Paper style={{position : 'fixed', marginTop: 200, width: '85%',zIndex:-1}}>
         <Table selectable = {true} onRowSelection={this.handleSelection}>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow selectable={true} onCellClick={this.thefn}>
@@ -224,10 +239,13 @@ this.loadTable(getLoggedInUser().rtpthid);
             </TableBody>
         </Table>
         </Paper>
+        </div>
       </div>
   );
 }
-
+else
+return(    <div style={{position : 'absolute ', display: 'flex',   flexFlow: 'column wrap',marginLeft: 250, marginTop: 150 }}>
+<h3>Go ahead and Upload files/folders </h3></div>);
 
   }
 }

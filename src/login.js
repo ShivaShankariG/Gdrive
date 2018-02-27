@@ -384,7 +384,7 @@ export async function getFolderList(data) {
           'Authorization': 'Bearer ' + authToken
           }
       })).json();
-      console.log("quick access data fetched: "+responseObject.length);
+      console.log("activity got: "+responseObject.length);
       console.log(responseObject)
       return responseObject;
   }
