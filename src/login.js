@@ -141,7 +141,6 @@ export function downloadFile(file_id,file_name, authToken){
     })).json();
    
      if(responseObject){
-        var i = 0;
       /*  for (i=0; i < responseObject.length; i++ ){    
                 console.log('Item '+ i +' -> '+ responseObject[i]["file_name"] );
         }*/
@@ -173,7 +172,6 @@ export async function getFolderList(data) {
     })).json();
    
      if(responseObject){
-        var i = 0;
         /*for (i=0; i < responseObject.length; i++ ){    
                 console.log('Item '+ i +' -> '+ responseObject[i]["path_nm"] );
         }*/
@@ -316,7 +314,7 @@ export async function getFolderList(data) {
     if (userName)
     {
         
-        url = "https://t47d.anthology78.hasura-app.io/usract";
+        url =  projectConfig.url.useract;
     }
     else {
         return false;
@@ -342,7 +340,7 @@ export async function getFolderList(data) {
     if (userName)
     {
         
-        url = "https://t47d.anthology78.hasura-app.io/qaccess";
+        url = projectConfig.url.qaccess;
     }
     else {
         return false;
@@ -369,7 +367,7 @@ export async function getFolderList(data) {
     if (userName)
     {
         
-        url = "https://t47d.anthology78.hasura-app.io/actvty";
+        url = projectConfig.url.logact;
     }
     else {
         return false;
