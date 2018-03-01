@@ -11,31 +11,8 @@ import FileIcon from './images/GDocs.png';
 import FolderIcon from './images/folder.png';
 import {getLoggedInUser,getActivity, getQaccessed, setLoggedInUser,downloadFile,getDetailsofFolders,getDetailsofFiles, getlogAct, } from './login';
 import Paper from 'material-ui/Paper';
-import history from './history';
 import Cards from './Cards';
-const styles= {
-  position: 'absolute',
-  height: 600,
- // marginTop: 50,
- // marginLeft: 250,
-  width: '70%',
-  overflow: 'auto',
-  zIndex: -1,
- 
-}
-const styless= {
-  position: 'relative',
-  //height: 500,
-  marginTop: 150,
-  // marginLeft: 400,
-  width: 100,
- // overflow: 'auto',
-  zIndex: -1,
-  display: 'flex',
-  flexFlow: 'row ',
-  justifyContent: 'flex-end',
 
-}
 // style={{display:'flex', flexFlow:'column'}}
 export class ListOfCard extends React.Component{
   render()
@@ -144,7 +121,7 @@ export default class MyDriveList1 extends React.Component{
   var data={
     hvfldrid: u.rtpthid
   }
-  var data1, i;
+  var data1;
   getQaccessed(data, getLoggedInUser().token).then((res) => {
      data1=res[0];
      console.log("The quick access : "+data1);
@@ -210,11 +187,11 @@ this.loadTable(getLoggedInUser().rtpthid);
     if(TData.length>0){
     return (
      
-    <div style={{position : 'absolute ', display: 'flex',   flexFlow: 'column wrap',marginLeft: 250, marginTop: 150 }}>
+    <div style={{width: '80%' ,position : 'absolute ', display: 'flex',   flexFlow: 'column wrap',marginLeft: 250, marginTop: 150 }}>
       <ListOfCard data={this.state.QData}/>
      <br/>
      <div>
-       <Paper style={{position : 'fixed', marginTop: 200, width: '85%',zIndex:-1}}>
+       <Paper style={{height:350,overflowY: 'auto',marginTop:160, width: '83%',zIndex:-1}}>
         <Table selectable = {true} onRowSelection={this.handleSelection}>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow selectable={true} onCellClick={this.thefn}>
@@ -243,7 +220,7 @@ this.loadTable(getLoggedInUser().rtpthid);
   );
 }
 else
-return(    <div style={{position : 'absolute ', display: 'flex',   flexFlow: 'column wrap',marginLeft: 250, marginTop: 150 }}>
+return(    <div style={{position : 'absolute ', zIndex:-1, display: 'flex',   flexFlow: 'column wrap',marginLeft: 250, marginTop: 150 }}>
 <h3>Go ahead and Upload files/folders </h3></div>);
 
   }

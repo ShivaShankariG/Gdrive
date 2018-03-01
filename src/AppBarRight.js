@@ -7,9 +7,6 @@ import IconButton from 'material-ui/IconButton';
 import Drawer from 'material-ui/Drawer';
 import AppBar from 'material-ui/AppBar';
 import FolderIcon from 'material-ui/svg-icons/file/folder'; 
-import Menu from 'material-ui/Menu';
-import MenuItem from 'material-ui/MenuItem';
-import Paper from 'material-ui/Paper';
 import GridIcon from 'material-ui/svg-icons/image/grid-on'; 
 import NotificationIcon from 'material-ui/svg-icons/social/notifications';
 import Avatar from 'material-ui/Avatar';
@@ -325,7 +322,7 @@ export default class AppBarRight extends React.Component {
                         <SettingsIcon  color= '#212121'/>
                     </IconButton>
 
-                    <Drawer width={250} openSecondary={true} open={this.state.open} containerStyle={{ top: 144}} style={{display: 'flex'}}>
+                    <Drawer width={250} openSecondary={true} open={this.state.open} containerStyle={{ top: 144}} style={{display: 'flex', zIndex: 1}}>
                          <AppBar   title=" Activity" 
                                     
                                     iconElementLeft={<IconButton>

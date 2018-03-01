@@ -376,9 +376,10 @@ export default class MyMenu extends  React.Component
       
   return(
         <div >
-          <List width={250} className="menu" style={{position: 'absolute', marginTop: 20, zIndex: -1}} >
+          <List width={250} className="menu" style={{position: 'absolute',overflowY: 'auto',height: 500, marginTop: 20, zIndex: -1}} >
          
-          <ListItem primaryText="MyDrive" 
+          <ListItem
+          primaryText="MyDrive" 
                     leftIcon={<UFileIcon/>} 
                     onClick={() =>this.handleBrowse(getLoggedInUser().rtpthid)}
                     initiallyOpen={false}
@@ -388,7 +389,8 @@ export default class MyMenu extends  React.Component
                     
                       this.state.TData.map( (row, index) => (
                       
-                          <ListItem key= {index} 
+                          <ListItem  
+                           key= {index} 
                           leftIcon={<FolderIcon/>} 
                                     primaryText = {row.path_nm } 
                                     onClick={() =>this.handleBrowse(row.path_id)}

@@ -53,10 +53,10 @@ export default class MyDrawer extends React.Component {
    if(this.state.TData[0]["modified_at"]){ 
     return (
      
-      <div>
+      <div style={{height: 500, overflowY: 'auto'}}>
           
           {this.state.TData.map( (row, index) => (
-           <List>
+           <List >
           <ListItem key={index}
           
           style={{position: 'inherit'}}

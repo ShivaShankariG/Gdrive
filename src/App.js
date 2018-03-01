@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import AppBar from './AppBar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { BrowserRouter as Router, Route} from "react-router-dom";
 
 class App extends Component {
   constructor(props) {
@@ -23,17 +24,20 @@ class App extends Component {
   render() {
     return (
       <MuiThemeProvider>
-        <div>
-          <div className="App" style={{postion: 'absolute', zIndex: 0}}>
-          <AppBar themee= {this.state.themee}/>
+        <Router>
+        <Route exact path="/" component={Home} />
 
-          </div>
-
-       </div>
+        
+       </Router>
       </MuiThemeProvider>
     );
   }
 }
-
+const Home = () => (
+<div>
+          <div className="App" style={{postion: 'absolute', zIndex: 0}}>
+            <AppBar themee= '#FF5722'/>
+          </div>
+        </div>);
 export default App;
 
