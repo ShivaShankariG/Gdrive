@@ -191,7 +191,7 @@ this.loadTable(getLoggedInUser().rtpthid);
       <ListOfCard data={this.state.QData}/>
      <br/>
      <div>
-       <Paper style={{height:350,overflowY: 'auto',marginTop:160, width: '83%',zIndex:-1}}>
+       <Paper style={{height:350,position : 'absolute ',overflowY: 'auto',marginTop:160, width: '83%',zIndex:-1}}>
         <Table selectable = {true} onRowSelection={this.handleSelection}>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow selectable={true} onCellClick={this.thefn}>

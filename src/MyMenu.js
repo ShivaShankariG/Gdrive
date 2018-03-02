@@ -273,10 +273,11 @@ export default class MyMenu extends  React.Component
     if(this.props.id==="1"){
      
       return(
-      <div >
+      <div onMouseLeave= {this.props.action}  >
        
-          <Paper style={{position: 'absolute', zIndex: 2}}  >
-          <Menu desktop={true} width={320} className="menu" style= {{display: this.props.appear}} onMouseLeave= {this.props.action} >
+          <Paper style={{position: 'absolute',}}  >
+          
+          <Menu desktop={true} width={320} className="menu" style= {{display: this.props.appear}} >
             <MenuItem primaryText="New Folder.."  leftIcon={<CFolderIcon/>} onClick={this.handleNewFolderOpen}/>
             <Divider /> 
             <MenuItem primaryText="Upload Files.." leftIcon={<UFileIcon/>} onClick={this.handleOpen} />
@@ -332,6 +333,7 @@ export default class MyMenu extends  React.Component
                 ]}
                 />
           </Menu>
+          
           </Paper>
           <Dialog
               actions={actions}
