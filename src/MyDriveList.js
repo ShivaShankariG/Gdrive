@@ -169,6 +169,8 @@ componentWillReceiveProps(nextProps)
   }
 }
 )
+//inorder to ensure the rerender happens only bc of a new file/folder activity and not
+// bcoz any other changes
  if(nextProps.props!==this.props.props)
  {
   
